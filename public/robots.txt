@@ -1,0 +1,17 @@
+User-agent: *
+Allow: /
+
+# Important pages
+Allow: /games
+Allow: /features
+Allow: /how-to-play
+Allow: /faq
+
+# Game pages
+Allow: /games/*
+
+# Sitemap location
+Sitemap: https://www.houseofhazards.online/sitemap.xml
+
+# Crawl delay
+Crawl-delay: 10
