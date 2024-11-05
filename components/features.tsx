@@ -52,9 +52,9 @@ export function Features() {
       <div className="space-y-8">
         <div className="text-center space-y-2">
           <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#FFE5E5]">
-            <h2 className="text-2xl font-heading text-primary">
+            <h1 className="text-2xl font-heading text-primary">
               Discover House of Hazards Features
-            </h2>
+            </h1>
           </div>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
             Experience a unique blend of challenges, multiplayer fun, and exciting gameplay mechanics
@@ -76,9 +76,9 @@ export function Features() {
                   />
                 </div>
                 <div className="space-y-4">
-                  <h3 className="text-2xl font-heading text-text-primary text-center">
+                  <h2 className="text-2xl font-heading text-text-primary text-center">
                     {feature.title}
-                  </h3>
+                  </h2>
                   {feature.highlight && (
                     <div className="flex justify-center">
                       <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-heading rounded-full">
@@ -108,9 +108,9 @@ export function Features() {
               </div>
               <div className="flex-1 flex flex-col justify-between space-y-3">
                 <div className="space-y-2">
-                  <h3 className="text-lg font-heading text-text-primary text-center">
+                  <h2 className="text-lg font-heading text-text-primary text-center">
                     {feature.title}
-                  </h3>
+                  </h2>
                   {feature.highlight && (
                     <div className="flex justify-center">
                       <span className="inline-block px-2 py-0.5 bg-primary/10 text-primary text-xs font-heading rounded-full">

@@ -22,8 +22,8 @@ export default function FeaturesPage() {
 }
 
 export const metadata = {
-  title: "Features - House of Hazards",
-  description: "Discover House of Hazards' features and benefits. Learn about our game collection, instant play technology, and more.",
+  title: "Discover House of Hazards Features - House of Hazards",
+  description: "Discover House of Hazards' features and benefits. Learn about our game collection, instant play technology, and enjoy the best unblocked games online.",
   alternates: {
     canonical: "https://www.houseofhazards.online/features",
   },

@@ -92,9 +92,9 @@ export function HowToPlay() {
       <div className="space-y-8">
         <div className="text-center space-y-2">
           <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#FFE5E5]">
-            <h2 className="text-2xl font-heading text-primary">
+            <h1 className="text-2xl font-heading text-primary">
               How to Play House of Hazards?
-            </h2>
+            </h1>
           </div>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
             Master the art of dodging hazards and completing tasks in this exciting multiplayer game
@@ -109,9 +109,9 @@ export function HowToPlay() {
                   <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#FFE5E5] text-primary font-heading shadow-md">
                     {step.number}
                   </div>
-                  <h3 className="text-xl font-heading text-text-primary">
+                  <h2 className="text-xl font-heading text-text-primary">
                     {step.title}
-                  </h3>
+                  </h2>
                 </div>
 
                 <p className="text-text-secondary">
@@ -120,7 +120,7 @@ export function HowToPlay() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-3">
-                    <h4 className="font-heading text-text-primary">Tips</h4>
+                    <h3 className="font-heading text-text-primary">Tips</h3>
                     <ul className="space-y-2">
                       {step.tips.map((tip, index) => (
                         <li key={index} className="flex items-start gap-2">
@@ -133,7 +133,7 @@ export function HowToPlay() {
 
                   {step.area && (
                     <div className="space-y-3">
-                      <h4 className="font-heading text-text-primary">{step.area.name}</h4>
+                      <h3 className="font-heading text-text-primary">{step.area.name}</h3>
                       <ul className="space-y-2">
                         {step.area.hazards.map((hazard, index) => (
                           <li key={index} className="flex items-start gap-2">
