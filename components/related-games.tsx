@@ -40,7 +40,12 @@ export function RelatedGames({ currentGameId }: { currentGameId?: string }) {
                   {game.title}
                 </h3>
                 <div className="flex items-center gap-2 mb-2">
-                  <Rating initialRating={game.rating} isReadOnly size="sm" />
+                  <Rating 
+                    initialRating={game.rating} 
+                    isReadOnly 
+                    size="sm" 
+                    showReviewSystem={false}
+                  />
                 </div>
                 <p className="text-text-secondary text-sm line-clamp-2">
                   {game.description}

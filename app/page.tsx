@@ -127,14 +127,27 @@ export default function Home() {
           <HowToPlay />
           <Features />
           <FAQ />
-          <section className="max-w-3xl mx-auto space-y-4 bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
-            <h3 className="text-xl font-heading text-primary text-center">
-              Play House of Hazards Now
-            </h3>
-            <p className="leading-relaxed text-text-secondary text-center">
-              Start your adventure in House of Hazards today - no downloads required! Navigate through hazardous rooms, compete with friends in multiplayer mode, and enjoy unique punishment mechanics that add extra excitement. Whether you&apos;re playing solo or challenging others, House of Hazards offers non-stop action and entertainment right in your browser.
-            </p>
-            <Rating className="mt-6" />
+          <section className="max-w-4xl mx-auto space-y-4 bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
+            <div className="space-y-6">
+              <div className="text-center space-y-2">
+                <h3 className="text-2xl font-heading text-primary">
+                  Rate House of Hazards
+                </h3>
+                <p className="text-text-secondary">
+                  Share your experience and help other players
+                </p>
+              </div>
+              
+              <div className="flex justify-center">
+                <Rating 
+                  initialRating={HouseofhazardsGame.rating} 
+                  isReadOnly={false}
+                  size="md"
+                  showReviewSystem={true}
+                  className="w-full max-w-2xl" 
+                />
+              </div>
+            </div>
           </section>
         </div>
       </main>

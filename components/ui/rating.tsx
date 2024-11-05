@@ -10,6 +10,14 @@ export interface RatingProps {
   className?: string;
   size?: "sm" | "md" | "lg";
   isReadOnly?: boolean;
+  showReviewSystem?: boolean;
+}
+
+interface ReviewFormData {
+  name: string;
+  email: string;
+  comment: string;
+  rating: number;
 }
 
 export function Rating({ 
@@ -18,13 +26,21 @@ export function Rating({
   onRate, 
   className, 
   size = "md",
-  isReadOnly = false 
+  isReadOnly = false,
+  showReviewSystem = false
 }: RatingProps) {
   const [rating, setRating] = useState<number>(0)
   const [hoveredRating, setHoveredRating] = useState<number>(0)
   const [hasVoted, setHasVoted] = useState(false)
   const [currentRating, setCurrentRating] = useState(initialRating)
   const [currentVotes, setCurrentVotes] = useState(totalVotes)
+  const [reviewSubmitted, setReviewSubmitted] = useState(false)
+  const [formData, setFormData] = useState<ReviewFormData>({
+    name: '',
+    email: '',
+    comment: '',
+    rating: 0
+  })
 
   const handleRate = (value: number) => {
     if (!hasVoted && !isReadOnly) {
@@ -32,11 +48,9 @@ export function Rating({
       setHasVoted(true)
       onRate?.(value)
 
-      // 计算新的平均评分和总票数
       const newTotalVotes = currentVotes + 1
       const newRating = ((currentRating * currentVotes) + value) / newTotalVotes
       
-      // 更新状态
       setCurrentVotes(newTotalVotes)
       setCurrentRating(Number(newRating.toFixed(1)))
     }
@@ -81,9 +95,59 @@ export function Rating({
     )
   }
 
+  const handleSubmitReview = (e: React.FormEvent) => {
+    e.preventDefault()
+    console.log('Review submitted:', formData)
+    setReviewSubmitted(true)
+    setFormData({
+      name: '',
+      email: '',
+      comment: '',
+      rating: 0
+    })
+  }
+
+  const ratingDisplay = (
+    <div className="flex items-center gap-6">
+      <div className="flex gap-1">
+        {[1, 2, 3, 4, 5].map(renderStar)}
+      </div>
+      {!isReadOnly && (
+        <div className="flex items-center gap-2 text-sm">
+          <div className="flex items-center gap-1">
+            <span className="font-medium text-primary">{currentRating}</span>
+            <span className="text-[#FFE5E5]">/</span>
+            <span className="text-text-secondary">5</span>
+          </div>
+          <span className="text-[#FFE5E5]">•</span>
+          <div className="flex items-center gap-1">
+            <span className="text-text-secondary">{currentVotes.toLocaleString()}</span>
+            <span className="text-text-secondary">votes</span>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+
+  if (!showReviewSystem) {
+    return (
+      <div className={cn(
+        "flex items-center",
+        {
+          'text-sm': size === 'sm',
+          'text-base': size === 'md',
+          'text-lg': size === 'lg',
+        },
+        className
+      )}>
+        {ratingDisplay}
+      </div>
+    )
+  }
+
   return (
     <div className={cn(
-      "flex flex-col items-center gap-4",
+      "flex flex-col gap-8 w-full max-w-2xl",
       {
         'text-sm': size === 'sm',
         'text-base': size === 'md',
@@ -91,34 +155,57 @@ export function Rating({
       },
       className
     )}>
-      <div className="flex items-center gap-6">
-        <div className="flex gap-1">
-          {[1, 2, 3, 4, 5].map(renderStar)}
-        </div>
-        {!isReadOnly && (
-          <div className="flex items-center gap-2 text-sm">
-            <div className="flex items-center gap-1">
-              <span className="font-medium text-slate-700">{currentRating}</span>
-              <span className="text-slate-400">/</span>
-              <span className="text-slate-500">5</span>
+      {ratingDisplay}
+      
+      {!isReadOnly && (
+        <>
+          {reviewSubmitted ? (
+            <div className="text-sm text-primary text-center p-4 bg-[#FFF5E4] rounded-2xl border border-[#FFE5E5]">
+              Thank you for your review! It will be displayed after moderation.
             </div>
-            <span className="text-slate-400">•</span>
-            <div className="flex items-center gap-1">
-              <span className="text-slate-500">{currentVotes.toLocaleString()}</span>
-              <span className="text-slate-500">votes</span>
-            </div>
-          </div>
-        )}
-      </div>
-      {!isReadOnly && hasVoted && (
-        <div className="flex flex-col items-center gap-1">
-          <p className="text-sm text-green-600 font-medium">
-            Thanks for rating!
-          </p>
-          <p className="text-xs text-slate-500">
-            You rated {rating} stars
-          </p>
-        </div>
+          ) : (
+            <form onSubmit={handleSubmitReview} className="space-y-4">
+              <div>
+                <label className="block text-sm font-medium text-primary">Name</label>
+                <input
+                  type="text"
+                  required
+                  className="mt-1 block w-full rounded-2xl border-[#FFE5E5] shadow-sm focus:border-primary focus:ring-primary bg-white/80 backdrop-blur-sm"
+                  value={formData.name}
+                  onChange={(e) => setFormData({...formData, name: e.target.value})}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-primary">Email</label>
+                <input
+                  type="email"
+                  required
+                  className="mt-1 block w-full rounded-2xl border-[#FFE5E5] shadow-sm focus:border-primary focus:ring-primary bg-white/80 backdrop-blur-sm"
+                  value={formData.email}
+                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                />
+              </div>
+              <div>
+                <label className="block text-sm font-medium text-primary">Review</label>
+                <textarea
+                  required
+                  rows={4}
+                  className="mt-1 block w-full rounded-2xl border-[#FFE5E5] shadow-sm focus:border-primary focus:ring-primary bg-white/80 backdrop-blur-sm"
+                  value={formData.comment}
+                  onChange={(e) => setFormData({...formData, comment: e.target.value})}
+                />
+              </div>
+              <div className="flex justify-end">
+                <button
+                  type="submit"
+                  className="px-6 py-2 text-sm font-heading text-[#FFF5E4] bg-[#ff6b6bd8] hover:bg-[#ff5252fa] rounded-full transition-all duration-300 shadow-sm hover:shadow-md border border-[#FFE5E5]"
+                >
+                  Submit Review
+                </button>
+              </div>
+            </form>
+          )}
+        </>
       )}
     </div>
   )

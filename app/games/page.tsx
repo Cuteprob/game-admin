@@ -4,9 +4,9 @@ import { Breadcrumb } from "@/components/ui/breadcrumb"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Games - House of Hazards",
-  description: "Browse our collection of free online games. Find racing, action, sports, and more games to play instantly in your browser.",
-  keywords: ["online games", "free games", "browser games", "racing games"],
+  title: "Play Unblocked Games Online for Free - House of Hazards",
+  description: "Browse our collection of free unblocked online games. Find racing, action, sports, shooting and more games to play instantly in your browser.",
+  keywords: ["online games", "free games", "browser games", "racing games", "shooting games"],
   alternates: {
     canonical: "https://www.houseofhazards.online/games",
   },

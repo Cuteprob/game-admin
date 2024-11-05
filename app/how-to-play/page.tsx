@@ -22,8 +22,8 @@ export default function HowToPlayPage() {
 }
 
 export const metadata = {
-  title: "How to Play - House of Hazards",
-  description: "Learn how to play games on House of Hazards. Get started with our easy-to-follow guide and gaming tips.",
+  title: "How to Play Unblocked Games Online - House of Hazards",
+  description: "Learn how to play unblocked games on House of Hazards. Get started with our easy-to-follow guide. Discover controls, strategies for all our browser games.",
   alternates: {
     canonical: "https://www.houseofhazards.online/how-to-play",
   },

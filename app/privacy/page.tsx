@@ -1,5 +1,14 @@
 import { Breadcrumb } from "@/components/ui/breadcrumb"
 
+// 在文件顶部添加 metadata
+export const metadata = {
+  title: 'Privacy Policy - House of Hazards',
+  description: 'Privacy policy and data collection practices for House of Hazards online game. Learn how we protect your information and maintain your privacy.',
+  alternates: {
+    canonical: 'https://www.houseofhazards.online/privacy'
+  }
+}
+
 export default function PrivacyPolicy() {
   return (
     <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">

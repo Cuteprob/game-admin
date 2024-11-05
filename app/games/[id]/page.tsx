@@ -181,14 +181,25 @@ export default function GamePage({ params }: GamePageProps) {
 
           {/* 评分模块 */}
           <section className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
-            <div className="text-center space-y-4">
-              <h3 className="text-xl font-heading text-primary">
-                Rate Your {game.title} Experience
-              </h3>
-              <p className="text-text-secondary">
-                Share your {game.title} experience with other players and help the community grow
-              </p>
-              <Rating className="justify-center" />
+            <div className="space-y-6">
+              <div className="text-center space-y-2">
+                <h3 className="text-2xl font-heading text-primary">
+                  Rate {game.title}
+                </h3>
+                <p className="text-text-secondary">
+                  Share your experience and help other players
+                </p>
+              </div>
+              
+              <div className="flex justify-center">
+                <Rating 
+                  initialRating={game.rating}
+                  isReadOnly={false}
+                  size="md"
+                  showReviewSystem={true}
+                  className="w-full max-w-2xl" 
+                />
+              </div>
             </div>
           </section>
         </div>

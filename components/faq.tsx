@@ -42,18 +42,18 @@ export function FAQ() {
     <section className="max-w-4xl mx-auto space-y-6">
       <div className="text-center space-y-4">
         <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#FFE5E5]">
-          <h2 className="text-2xl font-heading text-primary">
+          <h1 className="text-2xl font-heading text-primary">
             Frequently Asked Questions
-          </h2>
+          </h1>
         </div>
       </div>
       
       <div className="space-y-4">
         {faqs.map((faq, index) => (
           <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl border border-[#FFE5E5] p-6">
-            <h3 className="text-lg font-heading text-text-primary mb-2">
+            <h2 className="text-lg font-heading text-text-primary mb-2">
               {faq.question}
-            </h3>
+            </h2>
             <p className="text-text-secondary leading-relaxed">
               {faq.answer}
             </p>

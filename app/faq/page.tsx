@@ -19,8 +19,9 @@ export default function FAQPage() {
 }
 
 export const metadata = {
-  title: "FAQ - House of Hazards",
-  description: "Find answers to frequently asked questions about House of Hazards. Get help with games, features, and more.",
+  title: "Frequently Asked Questions - House of Hazards",
+  description: "Find answers to frequently asked questions. Get help with games, features, tips,and more. Discover controls, strategies, and gameplay mechanics.",
+  keywords: ["FAQ", "House of Hazards", "House of Hazards FAQ", "House of Hazards Help", "House of Hazards Support"],
   alternates: {
     canonical: "https://www.houseofhazards.online/faq",
   },

@@ -1,5 +1,13 @@
 import { Breadcrumb } from "@/components/ui/breadcrumb"
 
+export const metadata = {
+  title: 'Terms of Service - House of Hazards',
+  description: 'Terms of service and user guidelines for House of Hazards online game. Read about our policies, user conduct, and service terms.',
+  alternates: {
+    canonical: 'https://www.houseofhazards.online/terms'
+  }
+}
+
 export default function TermsOfService() {
   return (
     <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
