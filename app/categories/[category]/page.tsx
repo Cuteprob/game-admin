@@ -97,7 +97,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
 
         {/* 所有游戏 */}
         <section className="space-y-6">
-          <h2 className="text-2xl font-heading text-primary">All Games</h2>
+          <h2 className="text-2xl font-heading text-primary">More Games</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {games.map((game) => (
               <Link
