@@ -8,7 +8,7 @@ export default function HowToPlayPage() {
       <main className="flex-1 container mx-auto px-4 py-10 space-y-4 max-w-7xl">
         <Breadcrumb 
           items={[
-            { label: "Play House of Hazards", href: "/" },
+            { label: "Play Shady Bears", href: "/" },
             { label: "How to Play", href: "/how-to-play" }
           ]} 
         />
@@ -22,9 +22,9 @@ export default function HowToPlayPage() {
 }
 
 export const metadata = {
-  title: "How to Play Unblocked Games Online - House of Hazards",
-  description: "Learn how to play unblocked games on House of Hazards. Get started with our easy-to-follow guide. Discover controls, strategies for all our browser games.",
+  title: "How to Play Unblocked Games Online - Shady Bears",
+  description: "Learn how to play unblocked games on Shady Bears. Get started with our easy-to-follow guide. Discover controls, strategies for all our browser games.",
   alternates: {
-    canonical: "https://www.houseofhazards.online/how-to-play",
+    canonical: "https://www.shadybears.org/how-to-play",
   },
 }

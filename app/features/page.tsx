@@ -8,7 +8,7 @@ export default function FeaturesPage() {
       <main className="flex-1 container mx-auto px-4 py-12 max-w-7xl">
         <Breadcrumb 
           items={[
-            { label: "Play House of Hazards", href: "/" },
+            { label: "Play Shady Bears", href: "/" },
             { label: "Features", href: "/features" }
           ]} 
         />
@@ -22,9 +22,9 @@ export default function FeaturesPage() {
 }
 
 export const metadata = {
-  title: "Discover House of Hazards Features - House of Hazards",
-  description: "Discover House of Hazards' features and benefits. Learn about our game collection, instant play technology, and enjoy the best unblocked games online.",
+  title: "Discover Shady Bears Features - Shady Bears",
+  description: "Discover Shady Bears' features and benefits. Learn about our game collection, instant play technology, and enjoy the best unblocked games online.",
   alternates: {
-    canonical: "https://www.houseofhazards.online/features",
+    canonical: "https://www.shadybears.org/features",
   },
 }

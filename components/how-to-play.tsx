@@ -15,72 +15,74 @@ interface Step {
 const steps: Step[] = [
   {
     number: 1,
-    title: "Choose Your Game Mode",
-    description: "House of Hazards offers multiple play modes to suit your style. Play solo against computer players, team up in 2-player mode with unique punishment mechanics, or enjoy 3-player mode for maximum chaos!",
+    title: "Begin Your Shady Bears Journey",
+    description: "Welcome to Shady Bears, where your shadow is your greatest challenge! Choose between single-player mode to master the basics or team up with a friend in 2-player mode for double the excitement.",
     tips: [
-      "1-Player mode: Compete against computer players",
-      "2-Player mode: Features unique punishment spin wheel",
-      "3-Player mode: Maximum multiplayer fun",
-      "Tutorial available for new players"
+      "Single-player mode: Perfect for learning",
+      "2-Player mode: Cooperative shadow-dodging",
+      "Practice shadow-dodging techniques",
+      "Learn acorn collection strategies"
     ]
   },
   {
     number: 2,
-    title: "Master the Controls",
-    description: "House of Hazards features simple and intuitive controls. Use WASD or arrow keys for movement, and learn special actions to navigate through hazards effectively.",
+    title: "Master Shady Bears Controls",
+    description: "Shady Bears features simple, intuitive controls that are easy to learn but challenging to master, especially when dodging your shadow!",
     tips: [
-      "Player 1: WASD or Arrow keys",
-      "Player 2: IJKL keys",
-      "Jump to avoid obstacles",
-      "Crouch to dodge hazards"
+      "Move smoothly to outmaneuver shadows",
+      "Time your jumps carefully",
+      "Coordinate with your teammate",
+      "Watch your shadow's movements"
     ],
     area: {
       name: "Basic Controls",
       hazards: [
-        "A/Left Arrow - Turn left",
-        "D/Right Arrow - Turn right",
-        "W/Up Arrow - Jump",
-        "S/Down Arrow - Crouch"
+        "Player 1: A/Left Arrow - Move Left",
+        "Player 1: D/Right Arrow - Move Right",
+        "Player 1: W/Up Arrow - Jump",
+        "Player 2: J - Move Left",
+        "Player 2: L - Move Right",
+        "Player 2: I - Jump"
       ]
     }
   },
   {
     number: 3,
-    title: "Complete Daily Tasks",
-    description: "Navigate through House of Hazards while completing various tasks. From drinking morning coffee to collecting mail, each task brings its own challenges and obstacles.",
+    title: "Shady Bears Power-ups & Strategies",
+    description: "In Shady Bears, your shadow mimics your movements, making it both predictable and challenging. Learn to use this to your advantage while collecting acorns.",
     tips: [
-      "Drink coffee in the kitchen",
-      "Brush teeth in the bathroom",
-      "Water the garden carrots",
-      "Collect mail from the garage"
+      "Watch your shadow's patterns",
+      "Collect acorns strategically",
+      "Use honey for bonus points",
+      "Look for helpful fireflies"
     ],
     area: {
-      name: "Task Locations",
+      name: "Power-ups and Items",
       hazards: [
-        "Kitchen: Watch for flying toast and automatic faucets",
-        "Garden: Avoid jumping teddy bears and swinging obstacles",
-        "Garage: Dodge pitching machines and skateboards",
-        "House: Beware of falling ceiling fans"
+        "Acorns: Main collectibles for points",
+        "Honey: Bonus points but attracts bees",
+        "Fireflies: Help deal with shadows",
+        "Strategic item placement throughout levels"
       ]
     }
   },
   {
     number: 4,
-    title: "Face the Consequences",
-    description: "In House of Hazards' 2-player mode, losing players face unique punishments determined by the spin wheel. Each punishment adds an exciting twist to the next round!",
+    title: "Master Shady Bears Like a Pro",
+    description: "Master advanced techniques in Shady Bears to maximize your score and effectively avoid shadows. Coordinate with your teammate in 2-player mode for the best results!",
     tips: [
-      "Higher scores get bigger wedges on the spin wheel",
-      "Six different types of punishments",
-      "Punishments affect next round gameplay",
-      "Strategy becomes key with handicaps"
+      "Plan your movement patterns",
+      "Coordinate with your teammate",
+      "Balance risk and reward",
+      "Master timing for power-ups"
     ],
     area: {
-      name: "Possible Punishments",
+      name: "Pro Tips",
       hazards: [
-        "Heavy Weight: Reduced movement speed",
-        "Friendly Friend: Leave flowers instead of picking up",
-        "Nonstop Dab: Increased hazard frequency",
-        "Inverted Controls: Reversed movement controls"
+        "Use platforms to your advantage",
+        "Time power-up collections carefully",
+        "Communicate in multiplayer mode",
+        "Learn shadow prediction patterns"
       ]
     }
   }
@@ -92,12 +94,12 @@ export function HowToPlay() {
       <div className="space-y-8">
         <div className="text-center space-y-2">
           <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#FFE5E5]">
-            <h1 className="text-2xl font-heading text-primary">
-              How to Play House of Hazards?
-            </h1>
+            <h2 className="text-2xl font-heading text-primary">
+              Shady Bears: Your Shadow-Chasing Adventure Guide
+            </h2>
           </div>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-            Master the art of dodging hazards and completing tasks in this exciting multiplayer game
+            Master Shady Bears&apos; unique shadow-dodging mechanics and discover the art of acorn collection in this exciting multiplayer adventure
           </p>
         </div>
 

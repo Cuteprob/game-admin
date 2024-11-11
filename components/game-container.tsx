@@ -1,13 +1,12 @@
 "use client"
 
 import { Button } from "@/components/ui/button"
-import { Progress } from "@/components/ui/progress"
 import {
   DropdownMenu,
   DropdownMenuContent,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
-import { useRef, useState, useEffect } from "react"
+import { useRef, useState } from "react"
 import { Icons } from "@/config/icons"
 import { Game } from "@/config/games"
 
@@ -16,26 +15,9 @@ interface GameContainerProps {
 }
 
 export function GameContainer({ game }: GameContainerProps) {
-  const [isLoading, setIsLoading] = useState(true);
-  const [progress, setProgress] = useState(0);
+  const [isPlaying, setIsPlaying] = useState(false);
   const [error, setError] = useState(false);
   const iframeRef = useRef<HTMLIFrameElement>(null);
-
-  useEffect(() => {
-    if (isLoading) {
-      const timer = setInterval(() => {
-        setProgress(prev => {
-          const next = prev + 10;
-          if (next === 100) {
-            clearInterval(timer);
-            setIsLoading(false);
-          }
-          return next;
-        });
-      }, 500);
-      return () => clearInterval(timer);
-    }
-  }, [isLoading]);
 
   const enterFullscreen = () => {
     if (iframeRef.current) {
@@ -47,15 +29,41 @@ export function GameContainer({ game }: GameContainerProps) {
 
   const handleIframeError = () => {
     setError(true);
-    setIsLoading(false);
   };
 
   return (
-    <div className="aspect-video w-full relative rounded-2xl bg-white/80 backdrop-blur-sm border border-[#FFE5E5] p-4">
-      {isLoading ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl z-10">
-          <Progress value={progress} className="w-[60%] mb-4" />
-          <p className="text-sm text-text-secondary">Loading game...</p>
+    <div className="aspect-video w-full relative rounded-2xl bg-white/90 backdrop-blur-sm border border-[#FFE5E5] p-4">
+      {!isPlaying ? (
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded-2xl z-10">
+          {/* 图片容器 */}
+          <div className="relative group">
+            {/* 背景光效 */}
+            <div className="absolute inset-0">
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 to-primary/20 blur-lg animate-pulse" />
+            </div>
+            
+            {/* 游戏图片 */}
+            <img
+              src={game.image}
+              alt={game.title}
+              className="relative w-48 h-48 rounded-xl mb-4 shadow-slate-400 shadow-2xl hover:scale-110 
+              transition-transform duration-300 z-10 
+              " // 悬停时添加弹跳效果
+            />
+          </div>
+          <h2 className="text-2xl font-heading text-primary mb-6">
+            {game.title}
+          </h2>
+          <button
+            onClick={() => setIsPlaying(true)}
+            className="relative px-8 py-3 text-base font-heading 
+            text-[#FFF5E4] bg-[#ff6b6bd8] hover:bg-[#ff5252fa] 
+            rounded-full transition-all duration-300 shadow-sm 
+            hover:shadow-2xl hover:scale-125 border border-[#FFE5E5] 
+            animate-pulse delay-500 hover:animate-none" // 默认弹跳，悬停时停止
+          >
+            Play Now
+          </button>
         </div>
       ) : null}
 

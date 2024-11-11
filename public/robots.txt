@@ -11,7 +11,7 @@ Allow: /faq
 Allow: /games/*
 
 # Sitemap location
-Sitemap: https://www.houseofhazards.online/sitemap.xml
+Sitemap: https://www.shadybears.org/sitemap.xml
 
 # Crawl delay
 Crawl-delay: 10

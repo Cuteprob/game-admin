@@ -1,11 +1,48 @@
-export type GameType = 
-  | "Racing"      // 赛车
-  | "Action"      // 动作
-  | "Shooter"     // 射击
-  | "Puzzle"      // 解谜
-  | "Strategy"    // 策略
-  | "Sports"      // 体育
-  | "Adventure";  // 冒险
+/**
+ * 每个游戏都按照以下标准进行分类：
+ * 至少一个主分类,主分类可以 1 个或者多个（RACING/ACTION等）
+ * 至少一个玩法分类（SINGLE_PLAYER/TWO_PLAYER/MULTIPLAYER）
+ * 相关的主题分类（如适用）
+ * 至少一个目标人群分类（BOYS/GIRLS/KIDS）
+ * 至少一个功能性分类（FEATURED/NEW/POPULAR/TRENDING）
+ */
+export enum GameCategory {
+  // 游戏类型分类 (主分类)
+  RACING = "Racing Games",      // 赛车
+  ACTION = "Action Games",      // 动作
+  SHOOTER = "Shooter Games",    // 射击
+  PUZZLE = "Puzzle Games",      // 解谜
+  STRATEGY = "Strategy Games",  // 策略
+  SPORTS = "Sports Games",      // 体育
+  ADVENTURE = "Adventure Games", // 冒险
+  
+  // 游戏玩法分类
+  MULTIPLAYER = "Multiplayer Games",    // 多人游戏
+  TWO_PLAYER = "2 Player Games",        // 双人游戏
+  SINGLE_PLAYER = "Single Player Games", // 单人游戏
+
+  
+  // 主题分类
+  CAR = "Car Games",           // 汽车游戏
+  FIGHTING = "Fighting Games", // 格斗游戏
+  STICKMAN = "Stickman Games", // 火柴人游戏
+  RUNNING = "Running Games",   // 跑酷游戏
+  BOXING = "Boxing Games",     // 拳击游戏
+  ANIMAL = "Animal Games",     // 动物游戏（新增）
+  
+  // 目标人群分类
+  BOYS = "Games for Boys",     // 男孩游戏
+  GIRLS = "Games for Girls",   // 女孩游戏
+  KIDS = "Kids Games",         // 儿童游戏
+  
+  // 功能性分类
+  FEATURED = "Featured Games",  // 特色游戏
+  NEW = "New Games",           // 新游戏
+  POPULAR = "Popular Games",   // 热门游戏
+  TRENDING = "Trending Games", // 趋势游戏
+  IO_GAMES = "IO Games",        // IO 游戏
+  FPS = "FPS Games",            // 第一人称射击
+}
 
 export interface Game {
   id: string;
@@ -14,7 +51,7 @@ export interface Game {
   iframeUrl: string;
   image: string;
   rating: number;
-  type: GameType;
+  categories: GameCategory[];  // 使用合并后的分类系统
   metadata: {
     title: string;
     description: string;
@@ -44,9 +81,15 @@ export const games: Game[] = [
     iframeUrl: "https://html5.gamemonetize.games/a6oif7iluz0nwpj3s67g9z6i4przm1ga/",
     image: "/games/Formula-Rush.jpg",
     rating: 5,
-    type: "Racing",
+    categories: [
+      GameCategory.RACING,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.CAR,          // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.FEATURED      // 功能分类
+    ],
     metadata: {
-      title: "Formula Rush - High Speed Racing Game | House of Hazards",
+      title: "Formula Rush - High Speed Racing Game | Shady Bears",
       description: "Experience intense Formula racing with realistic physics and challenging tracks. Master your driving skills and compete for the fastest lap times.",
       keywords: [
         "formula rush",
@@ -127,9 +170,16 @@ export const games: Game[] = [
     iframeUrl: "https://html5.gamemonetize.games/efaz2lsw2m6obg8771kq3dkopxex8wym/",
     image: "/games/Insane-Track-Supercars.jpg",
     rating: 5,
-    type: "Racing",
+    categories: [
+      GameCategory.RACING,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.CAR,          // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.POPULAR,      // 功能分类
+      GameCategory.TRENDING      // 功能分类
+    ],
     metadata: {
-      title: "Insane Track Supercars - Extreme Racing Game | House of Hazards",
+      title: "Insane Track Supercars - Extreme Racing Game | Shady Bears",
       description: "Race through extreme tracks with high-performance supercars. Master challenging layouts, compete in time trials, and unlock powerful vehicles in this intense racing game.",
       keywords: [
         "insane track supercars",
@@ -209,9 +259,16 @@ export const games: Game[] = [
     iframeUrl: "https://www.twoplayergames.org/embed/city-car-stunt-4",
     image: "/games/city-car-stune4.jpg",
     rating: 4.8, // 初始评分
-    type: "Racing" as GameType,
+    categories: [
+      GameCategory.RACING,        // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.CAR,          // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.POPULAR       // 功能分类
+    ],
     metadata: {
-      title: "City Car Stunt 4 - Urban Racing Challenge | House of Hazards",
+      title: "City Car Stunt 4 - Urban Racing Challenge | Shady Bears",
       description: "Race through urban tracks, perform epic stunts, and collect diamonds in City Car Stunt 4. Master challenging routes and compete in both single and multiplayer modes.",
       keywords: [
         "city car stunt 4",
@@ -292,9 +349,15 @@ export const games: Game[] = [
     iframeUrl: "https://www.twoplayergames.org/embed/rise-of-speed",
     image: "/games/Rise_of_Speed.jpg",
     rating: 4.9,
-    type: "Racing",
+    categories: [
+      GameCategory.RACING,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.CAR,          // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.NEW           // 功能分类
+    ],
     metadata: {
-      title: "Rise of Speed - Space Racing Adventure | House of Hazards",
+      title: "Rise of Speed - Space Racing Adventure | Shady Bears",
       description: "Experience high-speed racing across unique tracks including a special space map. Upgrade your cars, compete in tournaments, and master challenging courses.",
       keywords: [
         "rise of speed",
@@ -376,9 +439,16 @@ export const games: Game[] = [
     iframeUrl: "https://www.twoplayergames.org/embed/basket-random",
     image: "/games/Basket_Random.jpg",
     rating: 4.7,
-    type: "Sports",
+    categories: [
+      GameCategory.SPORTS,        // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.POPULAR       // 功能分类
+    ],
     metadata: {
-      title: "Basket Random - Fun Basketball Game | House of Hazards",
+      title: "Basket Random - Fun Basketball Game | Shady Bears",
       description: "Play Basket Random online! Experience unique one-key basketball gameplay with random variations. Challenge CPU or play with friends in 2-player mode. Free to play in your browser!",
       keywords: [
         "basket random",
@@ -467,9 +537,16 @@ export const games: Game[] = [
     iframeUrl: "https://www.twoplayergames.org/embed/getaway-shootout",
     image: "/games/Getaway_Shootout.jpg",
     rating: 4.8,
-    type: "Shooter",
+    categories: [
+      GameCategory.SHOOTER,       // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.FEATURED,     // 功能分类
+      GameCategory.NEW           // 功能分类
+    ],
     metadata: {
-      title: "Getaway Shootout - Strategic Battle Game | House of Hazards",
+      title: "Getaway Shootout - Strategic Battle Game | Shady Bears",
       description: "Play Getaway Shootout online! Master Getaway Shootout's unique mechanics, collect weapons, and compete in thrilling battles. Experience intense multiplayer action!",
       keywords: [
         "getaway shootout",
@@ -566,9 +643,16 @@ export const games: Game[] = [
     iframeUrl: "https://www.twoplayergames.org/embed/g-switch-3",
     image: "/games/G_Switch_3.jpg",
     rating: 4.8,
-    type: "Sports",
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.RUNNING,      // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.POPULAR       // 功能分类
+    ],
     metadata: {
-      title: "G Switch 3 - Multiplayer Running Game | House of Hazards",
+      title: "G Switch 3 - Multiplayer Running Game | Shady Bears",
       description: "Play G Switch 3 online! Master gravity-defying runs, compete with up to 8 players, and challenge yourself with new mechanics. Features multiple characters, boosters, and intense multiplayer action.",
       keywords: [
         "g switch 3",
@@ -663,9 +747,17 @@ export const games: Game[] = [
     iframeUrl: "https://ubg77.github.io/updatefaqs/subway-surfers-winter-holiday/",
     image: "/games/Subway-surfers.jpg",
     rating: 4.9,
-    type: "Action",
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.RUNNING,      // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.FEATURED      // 功能分类
+    ],
     metadata: {
-      title: "Subway Surfers - Winter Holiday Edition | House of Hazards",
+      title: "Subway Surfers - Winter Holiday Edition | Shady Bears",
       description: "Play Subway Surfers online! Run through snowy tracks, dodge trains and collect coins in this winter-themed endless runner.",
       keywords: [
         "subway surfers",
@@ -755,9 +847,15 @@ export const games: Game[] = [
     iframeUrl: "https://webglmath.github.io/moto-x3m-5-pool-party/",
     image: "/games/Moto-X3M-Pool-Party.jpg",
     rating: 4.8,
-    type: "Racing",
+    categories: [
+      GameCategory.RACING,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.FEATURED,     // 功能分类
+      GameCategory.NEW           // 功能分类
+    ],
     metadata: {
-      title: "Moto X3M Pool Party - Ultimate Stunt Racing Game | House of Hazards",
+      title: "Moto X3M Pool Party - Ultimate Stunt Racing Game | Shady Bears",
       description: "Play Moto X3M Pool Party online! Race through underwater tubes in Moto X3M Pool Party, perform stunts, and master challenging obstacles. Experience the ultimate Moto X3M Pool Party summer racing action!",
       keywords: [
         "moto x3m pool party",
@@ -854,9 +952,16 @@ export const games: Game[] = [
     iframeUrl: "https://webglmath.github.io/basketball-legends/",
     image: "/games/basketball-legends.jpg",
     rating: 4.8,
-    type: "Sports",
+    categories: [
+      GameCategory.SPORTS,        // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.FEATURED      // 功能分类
+    ],
     metadata: {
-      title: "Basketball Legends - Multiplayer Sports Game | House of Hazards",
+      title: "Basketball Legends - Multiplayer Sports Game | Shady Bears",
       description: "Choose from legendary basketball players and compete in intense matches. Master special moves, unlock characters, and dominate the court in multiple game modes.",
       keywords: [
         "basketball legends",
@@ -939,9 +1044,16 @@ export const games: Game[] = [
     iframeUrl: "https://webglmath.github.io/football-legends/",
     image: "/games/football-legends.jpg",
     rating: 4.8,
-    type: "Sports",
+    categories: [
+      GameCategory.SPORTS,        // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.FEATURED      // 功能分类
+    ],
     metadata: {
-      title: "Football Legends - Epic Soccer Action Game | House of Hazards",
+      title: "Football Legends - Epic Soccer Action Game | Shady Bears",
       description: "Play Football Legends online! Master Football Legends' special abilities, compete in tournaments, and score amazing goals. Experience the ultimate football action with legendary players!",
       keywords: [
         "football legends",
@@ -1041,9 +1153,15 @@ export const games: Game[] = [
     iframeUrl: "https://webglmath.github.io/rooftop-snipers/",
     image: "/games/Rooftop-Snipers.jpg",
     rating: 4.8,
-    type: "Shooter",
+    categories: [
+      GameCategory.SHOOTER,       // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.FPS,          // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.FEATURED      // 功能分类
+    ],
     metadata: {
-      title: "Rooftop Snipers - Physics Combat Game | House of Hazards",
+      title: "Rooftop Snipers - Physics Combat Game | Shady Bears",
       description: "Challenge friends in intense rooftop duels with unique physics-based combat. Master strategic positioning and precise shooting to knock opponents off the edge.",
       keywords: [
         "rooftop snipers",
@@ -1127,9 +1245,16 @@ export const games: Game[] = [
     iframeUrl: "https://webglmath.github.io/stickman-fighter-epic-battle/",
     image: "/games/stickman-fighter-epic-battle.jpg",
     rating: 4.8,
-    type: "Action",
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.FIGHTING,     // 主题分类
+      GameCategory.STICKMAN,     // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.FEATURED      // 功分类
+    ],
     metadata: {
-      title: "Stickman Fighter Epic Battle - Ultimate Combat Game | House of Hazards",
+      title: "Stickman Fighter Epic Battle - Ultimate Combat Game | Shady Bears",
       description: "Play Stickman Fighter Epic Battle online! Master timing-based combat in Stickman Fighter, battle endless enemies, and utilize various weapons in this epic fighting game.",
       keywords: [
         "stickman fighter",
@@ -1223,9 +1348,15 @@ export const games: Game[] = [
     iframeUrl: "https://webglmath.github.io/the-spear-stickman/",
     image: "/games/the-spear-stickman.jpg",
     rating: 4.8,
-    type: "Action",
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.STICKMAN,     // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.NEW           // 功能分类
+    ],
     metadata: {
-      title: "The Spear Stickman - Strategic Combat Game | House of Hazards",
+      title: "The Spear Stickman - Strategic Combat Game | Shady Bears",
       description: "Play The Spear Stickman online! Master precise aiming in The Spear Stickman, earn upgrades, and survive against waves of enemies in this tactical combat game.",
       keywords: [
         "spear stickman",
@@ -1319,9 +1450,15 @@ export const games: Game[] = [
     iframeUrl: "https://webglmath.github.io/stickmerge/",
     image: "/games/stick-merge.jpg",
     rating: 4.8,
-    type: "Shooter",
+    categories: [
+      GameCategory.SHOOTER,       // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.STICKMAN,     // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.NEW           // 功能分类
+    ],
     metadata: {
-      title: "Stick Merge - Weapon Merging Game | House of Hazards",
+      title: "Stick Merge - Weapon Merging Game | Shady Bears",
       description: "Play Stick Merge online! Experience Stick Merge's unique weapon combining system, create powerful guns, and test your arsenal. Master the art of merging in this innovative game!",
       keywords: [
         "stick merge",
@@ -1338,7 +1475,6 @@ export const games: Game[] = [
         "merge strategy",
         "action game",
         "casual game",
-        "weapon collector"
       ]
     },
     controls: {
@@ -1415,9 +1551,15 @@ export const games: Game[] = [
     iframeUrl: "https://webglmath.github.io/getaway-shootout/",
     image: "/games/getaway-shootout.jpg",
     rating: 4.8,
-    type: "Shooter",
+    categories: [
+      GameCategory.SHOOTER,       // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.NEW           // 功能分类
+    ],
     metadata: {
-      title: "Getaway Shootout 2 - Strategic Jump & Shoot Game | House of Hazards",
+      title: "Getaway Shootout 2 - Strategic Jump & Shoot Game | Shady Bears",
       description: "Play Getaway Shootout 2 online! Race to the extraction point using unique jumping mechanics, collect weapons, and outmaneuver your opponents. Features both single and multiplayer modes.",
       keywords: [
         "getaway shootout 2",
@@ -1495,16 +1637,963 @@ export const games: Game[] = [
         category: "gameplay"
       }
     ]
+  },
+  {
+    id: "big-shot-boxing",
+    title: "Big Shot Boxing",
+    description: "Big Shot Boxing is a boxing game where you have to fight your way up the rankings to end your career in the boxing Hall of Fame! Start out by choosing a fighter, hire a coach, and learn some moves. Win either by scoring the most points, or by a knockout!",
+    iframeUrl: "https://htmlxm.github.io/h2/big-shot-boxing/",
+    image: "/games/big-shot-boxing.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.SPORTS,        // 主分类 - 体育游戏
+      GameCategory.SINGLE_PLAYER, // 玩法分类 - 单人游戏
+      GameCategory.BOXING,       // 主题分类 - 拳击游戏
+      GameCategory.BOYS,         // 目标人群 - 男孩游戏
+      GameCategory.NEW,          // 功能分类 - 新游戏
+      GameCategory.FEATURED,      // 功能分类 - 特色游戏
+      GameCategory.FIGHTING      // 功能分类 - 格斗游戏
+    ],
+    metadata: {
+      title: "Big Shot Boxing - Career Boxing Game | Shady Bears",
+      description: "Fight your way to the boxing Hall of Fame! Train your fighter, learn new moves, and compete in intense boxing matches. Experience the thrill of professional boxing in this career-focused sports game.",
+      keywords: [
+        "big shot boxing",
+        "boxing game",
+        "sports game",
+        "career mode",
+        "fighting game",
+        "boxing career",
+        "boxing simulation",
+        "combat sports"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Big Shot Boxing, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Right Arrow - Throw a jab",
+          "Left Arrow - Throw a cross",
+          "X - Throw an uppercut",
+          "Z - Block attacks"
+        ],
+        actions: [
+          "Combine moves for combos",
+          "Time your blocks carefully",
+          "ESC - Pause Game"
+        ],
+        special: [
+          "Train between fights to improve stats",
+          "Manage your stamina wisely",
+          "Watch for opponent patterns"
+        ]
+      }
+    },
+    features: [
+      "Deep career mode progression",
+      "Multiple fighting styles",
+      "Character customization",
+      "Skill training system",
+      "Various opponents with unique styles",
+      "Title fights and championships",
+      "Equipment upgrades",
+      "Achievement system",
+      "Hall of Fame goals"
+    ],
+    faqs: [
+      {
+        question: "How do I improve my fighter's stats?",
+        answer: "Between fights, you can train your fighter to improve various attributes like health, power, chin, and recovery. Use your earnings wisely to focus on the stats that match your fighting style.",
+        category: "gameplay"
+      },
+      {
+        question: "What's the best way to win fights?",
+        answer: "Success comes from combining different punches into effective combinations while maintaining your defense. Watch your opponent's patterns, block their attacks, and counter when they're vulnerable.",
+        category: "gameplay"
+      },
+      {
+        question: "How does the career progression work?",
+        answer: "Start at the bottom of the rankings and work your way up by winning fights. As you progress, you'll face tougher opponents, compete for titles, and aim for the Hall of Fame.",
+        category: "features"
+      },
+      {
+        question: "What customization options are available?",
+        answer: "You can customize your boxer's appearance with different gloves, shorts, and boots. These can be purchased with earnings from your fights.",
+        category: "features"
+      },
+      {
+        question: "How do I perform effective combinations?",
+        answer: "Mix up your jabs, crosses, and uppercuts to create unpredictable combinations. Different combinations work better against different opponents, so experiment to find effective patterns.",
+        category: "gameplay"
+      },
+      {
+        question: "What achievements can I unlock?",
+        answer: "Achievements can be earned by winning matches, gaining titles, successfully defending your titles, and reaching various career milestones on your way to the Hall of Fame.",
+        category: "features"
+      },
+      {
+        question: "How important is blocking in the game?",
+        answer: "Blocking is crucial for success. It helps you avoid damage, conserve health, and create opportunities for counter-attacks. Time your blocks carefully to maximize their effectiveness.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "idle-digging-tycoon",
+    title: "Idle Digging Tycoon",
+    description: "Idle Digging Tycoon is a casual idle game where you travel to a distant world inhabited by cavemen, and hire them to dig the ground for you in search of gold and valuables. Build new buildings, upgrade tools, and expand your lucrative business!",
+    iframeUrl: "https://htmlxm.github.io/h5/idle-digging-tycoon/",
+    image: "/games/idle-digging-tycoon.webp",
+    rating: 4.7,
+    categories: [
+      GameCategory.STRATEGY,      // 主分类 - 策略游戏
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.FEATURED      // 功能分类
+    ],
+    metadata: {
+      title: "Idle Digging Tycoon - Business Management Game | Shady Bears",
+      description: "Build and manage your own mining empire in Idle Digging Tycoon! Hire workers, upgrade tools, and discover valuable treasures in this engaging idle game.",
+      keywords: ["idle game", "tycoon game", "management game", "mining game", "casual game"]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Idle Digging Tycoon, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Left mouse button - Click to dig",
+          "Tap screen - Dig (mobile)"
+        ],
+        actions: [
+          "Click on buildings to upgrade",
+          "Hire workers to automate digging"
+        ]
+      }
+    },
+    features: [
+      "Engaging idle gameplay mechanics",
+      "Multiple upgrade options",
+      "Worker management system",
+      "Building construction",
+      "Automated mining features",
+      "Regular rewards and bonuses",
+      "Progressive difficulty system"
+    ],
+    faqs: [
+      {
+        question: "How do I progress faster in the game?",
+        answer: "Focus on upgrading your workers and tools efficiently. Balance between manual clicking and automated mining for optimal progress.",
+        category: "gameplay"
+      },
+      {
+        question: "What's the best way to spend resources?",
+        answer: "Prioritize upgrades that increase your mining speed and worker efficiency. Don't forget to invest in new buildings when available.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "stick-defenders",
+    title: "Stick Defenders",
+    description: "Stick Defenders is an action and merging game where you combine stickman units into stronger ones to protect your base. Merge identical gunmen, enhance offensive abilities, and defend against waves of enemies in this strategic defense game.",
+    iframeUrl: "https://htmlxm.github.io/h6/stick-defenders/",
+    image: "/games/stick-defenders.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.STRATEGY,      // 主分类 - 策略游戏
+      GameCategory.ACTION,        // 主分类 - 动作游戏
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.STICKMAN,     // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.FEATURED      // 功能分类
+    ],
+    metadata: {
+      title: "Stick Defenders - Strategic Defense Game | Shady Bears",
+      description: "Defend your base by merging stickman units and upgrading defenses in this exciting strategy game. Combine units, use special abilities, and survive waves of enemies!",
+      keywords: ["stick defenders", "merge game", "defense game", "strategy game", "stickman game"]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Stick Defenders, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Left mouse button - Select and drag units",
+          "Drag and drop - Merge identical units"
+        ],
+        actions: [
+          "Click special abilities when ready",
+          "Upgrade units and defenses"
+        ]
+      }
+    },
+    features: [
+      "Strategic merging mechanics",
+      "Multiple unit types",
+      "Special abilities system",
+      "Base defense gameplay",
+      "Progressive difficulty",
+      "Upgrade system",
+      "Bonus wheel rewards"
+    ],
+    faqs: [
+      {
+        question: "What's the best strategy for merging units?",
+        answer: "Focus on creating balanced combinations of units. Don't merge too quickly - sometimes it's better to have multiple lower-level units than one higher-level unit.",
+        category: "gameplay"
+      },
+      {
+        question: "How do I use special abilities effectively?",
+        answer: "Time your special abilities for when enemies are grouped together or when your defenses are overwhelmed. Don't save them too long - use them regularly but strategically.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "moto-x3m-winter",
+    title: "Moto X3M Winter",
+    description: "Speed with your motorbike across icy mountains in Moto X3M Winter! Race through snowy tracks with festive obstacles like candy canes and Christmas trees. Master the winter challenges, perform stunts, and unlock Santa's Sled in this seasonal edition of the popular motorcycle game.",
+    iframeUrl: "https://htmlxm.github.io/h/moto-x3m-winter/",
+    image: "/games/moto-x3m-winter.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.RACING,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.FEATURED,      // 功能分类
+      GameCategory.ADVENTURE      // 功能分类
+    ],
+    metadata: {
+      title: "Moto X3M Winter - Festive Motorcycle Game | Shady Bears",
+      description: "Race through snowy tracks in this winter-themed motorcycle game. Master stunts, collect stars, and unlock special winter vehicles including Santa's Sled!",
+      keywords: ["moto x3m winter", "motorcycle game", "winter racing", "bike stunts", "christmas game"]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Moto X3M Winter, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "W/Up Arrow - Accelerate",
+          "S/Down Arrow - Brake",
+          "A/D or Left/Right Arrows - Balance bike"
+        ],
+        actions: [
+          "Use arrow keys for front/back flips",
+          "ESC - Pause Game"
+        ]
+      }
+    },
+    features: [
+      "Winter-themed tracks and obstacles",
+      "Special festive vehicles",
+      "Star collection system",
+      "Stunt mechanics",
+      "Progressive difficulty",
+      "Time-based challenges",
+      "Holiday-themed content"
+    ],
+    faqs: [
+      {
+        question: "How do I earn three stars on levels?",
+        answer: "Complete levels quickly and perform multiple flips to reduce your time. Perfect landings are crucial for maintaining speed.",
+        category: "gameplay"
+      },
+      {
+        question: "How do I unlock Santa's Sled?",
+        answer: "Collect stars in levels and complete challenges to unlock special vehicles including Santa's Sled.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "moto-x3m",
+    title: "Moto X3M",
+    description: "The original Moto X3M that started it all! Master challenging tracks, perform incredible stunts, and race against time in this classic motorcycle game. Perfect your flips and tricks while navigating through increasingly difficult obstacles.",
+    iframeUrl: "https://htmlxm.github.io/h8/moto-x3m",
+    image: "/games/moto-x3m.webp",
+    rating: 4.9,
+    categories: [
+      GameCategory.RACING,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.POPULAR,      // 功能分类
+      GameCategory.FEATURED,      // 功能分类
+      GameCategory.ADVENTURE      // 功能分类
+    ],
+    metadata: {
+      title: "Moto X3M - Classic Motorcycle Stunt Game | Shady Bears",
+      description: "Experience the original Moto X3M motorcycle game. Master stunts, beat time challenges, and conquer increasingly difficult tracks in this classic racing game.",
+      keywords: ["moto x3m", "motorcycle game", "stunt game", "racing game", "bike game"]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Moto X3M, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "W/Up Arrow - Accelerate",
+          "S/Down Arrow - Brake",
+          "A/D or Left/Right Arrows - Balance bike"
+        ],
+        actions: [
+          "Use arrow keys for front/back flips",
+          "ESC - Pause Game"
+        ]
+      }
+    },
+    features: [
+      "Classic Moto X3M gameplay",
+      "Multiple challenging tracks",
+      "Advanced stunt system",
+      "Star rating system",
+      "Time-based scoring",
+      "Progressive difficulty",
+      "Achievement system"
+    ],
+    faqs: [
+      {
+        question: "How do I perform better stunts?",
+        answer: "Practice timing your flips and ensure clean landings. Multiple flips give better time bonuses but increase risk.",
+        category: "gameplay"
+      },
+      {
+        question: "What's the best way to improve times?",
+        answer: "Maintain momentum through obstacles, perform multiple flips for time bonuses, and find the optimal path through each level.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "moto-x3m-spooky-land",
+    title: "Moto X3M Spooky Land",
+    description: "Moto X3M Spooky Land brings Halloween thrills to the popular motorcycle series. Race through haunted tracks, dodge spooky obstacles, and master challenging stunts in this themed edition. Complete levels while avoiding ghostly hazards in this exciting motorcycle adventure.",
+    iframeUrl: "https://htmlxm.github.io/h/moto-x3m-spooky-land",
+    image: "/games/moto-x3m-spooky-land.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.RACING,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.BOYS,         // 目标人
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.TRENDING,      // 功能分类
+      GameCategory.ADVENTURE      // 功能分类
+    ],
+    metadata: {
+      title: "Moto X3M Spooky Land - Halloween Motorcycle Game | Shady Bears",
+      description: "Race through haunted tracks in this Halloween-themed motorcycle game. Master spooky obstacles, perform stunts, and survive ghostly challenges!",
+      keywords: ["moto x3m spooky land", "halloween game", "motorcycle game", "stunt game", "racing game"]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Moto X3M Spooky Land, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "W/Up Arrow - Accelerate",
+          "S/Down Arrow - Brake",
+          "A/D or Left/Right Arrows - Balance bike"
+        ],
+        actions: [
+          "Use arrow keys for front/back flips",
+          "ESC - Pause Game"
+        ]
+      }
+    },
+    features: [
+      "Halloween-themed tracks",
+      "Spooky obstacles and hazards",
+      "Classic stunt mechanics",
+      "Star collection system",
+      "Time-based challenges",
+      "Themed vehicles",
+      "Progressive difficulty"
+    ],
+    faqs: [
+      {
+        question: "What's new in Spooky Land?",
+        answer: "This version features Halloween-themed tracks, new spooky obstacles, and themed vehicles while maintaining the classic Moto X3M gameplay mechanics.",
+        category: "features"
+      },
+      {
+        question: "How do I unlock all levels?",
+        answer: "Complete each level to unlock the next. Earning more stars helps unlock special content and achievements.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "monkey-mart",
+    title: "Monkey Mart",
+    description: "Welcome to Monkey Mart, a charming idle/management game where you control a cute monkey running a supermarket! Plant fruits, harvest produce, and manage your market with style. Fill stands with various food items, collect money from customers, and expand your business with new aisles and products.",
+    iframeUrl: "https://ubggo.github.io/ub-games/monkeymart/",
+    image: "/games/monkey-mart.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.STRATEGY,      // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.ANIMAL,       // 主题分类
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.POPULAR       // 功能分类
+    ],
+    metadata: {
+      title: "Monkey Mart - Supermarket Management Game | Play Free Online",
+      description: "Run your own supermarket with a cute monkey manager! Plant, harvest, and sell various products while expanding your business in this engaging management game.",
+      keywords: [
+        "monkey mart",
+        "management game",
+        "supermarket game",
+        "idle game",
+        "animal game",
+        "business simulation"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Monkey Mart, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "WASD - Move around",
+          "Arrow Keys - Move around"
+        ],
+        actions: [
+          "Stand next to items to interact",
+          "Automatic actions when in position"
+        ]
+      }
+    },
+    features: [
+      "Engaging supermarket management",
+      "Cute monkey character",
+      "Multiple products to sell",
+      "Staff hiring system",
+      "Business expansion options",
+      "Various food items",
+      "Automatic actions",
+      "Regular updates"
+    ],
+    faqs: [
+      {
+        question: "How do I start my supermarket?",
+        answer: "Begin by planting fruits and harvesting produce. Stand next to aisles to stock them with items, and serve customers at the cash register to earn money.",
+        category: "gameplay"
+      },
+      {
+        question: "Can I hire staff to help?",
+        answer: "Yes! As you progress, you can hire assistants to help maintain aisles and serve customers, making your market more efficient.",
+        category: "gameplay"
+      },
+      {
+        question: "What can I sell in my market?",
+        answer: "You can sell various items including bananas, corn, eggs, peanuts, coffee beans, chocolate, and more. Some items require special processing equipment.",
+        category: "features"
+      }
+    ]
+  },
+  {
+    id: "stick-hook",
+    title: "Stick Hook",
+    description: "Become a swinging man in this exciting skill game! Defy gravity with acrobatic flair as you navigate through challenging levels. Master the art of timing and precision to swing from hook to hook, making this simple yet addictive game perfect for players of all ages.",
+    iframeUrl: "https://1games.io/game/stick-hook/",
+    image: "/games/stick-hook.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.STICKMAN,     // 主题分类
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.POPULAR       // 功能分类
+    ],
+    metadata: {
+      title: "Stick Hook - Gravity Defying Adventure | Play Free Online",
+      description: "Master the art of swinging in Stick Hook! Navigate through challenging levels with precise timing and acrobatic moves in this addictive physics-based game.",
+      keywords: [
+        "stick hook",
+        "swinging game",
+        "physics game",
+        "skill game",
+        "arcade game",
+        "stickman game"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Stick Hook, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Left mouse button - Hold to swing",
+          "Release to let go"
+        ],
+        actions: [
+          "Time your swings carefully",
+          "Watch for usable hooks"
+        ]
+      }
+    },
+    features: [
+      "Physics-based gameplay",
+      "Multiple challenging levels",
+      "Simple one-button controls",
+      "Progressive difficulty",
+      "Precise timing mechanics",
+      "Addictive gameplay loop",
+      "Regular content updates",
+      "No downloads required"
+    ],
+    faqs: [
+      {
+        question: "How do I play Stick Hook?",
+        answer: "Simply hold the left mouse button to throw a rope to a hook point, and release to let go. Time your swings carefully to maintain momentum and reach the next hook.",
+        category: "gameplay"
+      },
+      {
+        question: "What's the best strategy for completing levels?",
+        answer: "Focus on timing your releases at the highest point of your swing for maximum distance. Watch for hooks with borders around them as these are the ones you can use.",
+        category: "gameplay"
+      },
+      {
+        question: "How do I improve my skills?",
+        answer: "Practice timing your swings and releases. Understanding the physics of momentum and learning to chain swings together smoothly is key to mastering the game.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "poor-bunny",
+    title: "Poor Bunny",
+    description: "Poor Bunny is a skill game where you control a cute bunny character and eat all the delicious carrots in a dangerous obstacle course. Hop on and off platforms while avoiding rapidly increasing deadly traps that appear out of nowhere. Don't miss the golden carrot when it spawns as it's worth 5 normal carrots!",
+    iframeUrl: "https://ext.minijuegosgratis.com/poor-bunny/index.html?key=y8&value=default",
+    image: "/games/poor-bunny.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.ANIMAL,       // 主题分类
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.POPULAR,      // 功能分类
+      GameCategory.TRENDING      // 功能分类
+    ],
+    metadata: {
+      title: "Poor Bunny - Carrot Collecting Adventure | Play Free Online",
+      description: "Guide your cute bunny through dangerous obstacles while collecting carrots in Poor Bunny! Play solo or with friends in this exciting multiplayer platformer.",
+      keywords: [
+        "poor bunny",
+        "bunny game",
+        "carrot collecting",
+        "multiplayer game",
+        "obstacle course",
+        "animal game",
+        "platform game"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Poor Bunny, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Player 1: WASD to move",
+          "Player 2: Arrow keys to move"
+        ],
+        actions: [
+          "Collect regular and golden carrots",
+          "Avoid deadly traps",
+          "ESC - Pause Game"
+        ]
+      }
+    },
+    features: [
+      "Single and multiplayer modes",
+      "Over 100 unlockable bunnies",
+      "Golden carrot bonuses",
+      "Increasing difficulty",
+      "Local co-op gameplay",
+      "Versus mode available",
+      "High score system",
+      "Regular updates"
+    ],
+    faqs: [
+      {
+        question: "How do I unlock new bunnies?",
+        answer: "Collect carrots during gameplay to unlock new bunny characters. Each bunny has its own unique appearance!",
+        category: "gameplay"
+      },
+      {
+        question: "What's special about golden carrots?",
+        answer: "Golden carrots are worth 5 regular carrots, making them valuable for quickly unlocking new characters and achieving high scores.",
+        category: "gameplay"
+      },
+      {
+        question: "Can I play with friends?",
+        answer: "Yes! Poor Bunny supports local co-op and versus modes for multiplayer fun. Team up or compete with your friends!",
+        category: "features"
+      }
+    ]
+  },
+  {
+    id: "bearsus",
+    title: "Bearsus",
+    description: "Bearsus is an action game where you play as a brawler bear going against other bears in various fighting arenas. Fight with ease thanks to the classic, unbearably simple two-button control scheme! Choose from 8 playable wrestling bears with mix-and-matching moves.",
+    iframeUrl: "https://gswitch3.github.io/g2/bearsus/",
+    image: "/games/bearsus.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.ANIMAL,       // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.POPULAR       // 功能分类
+    ],
+    metadata: {
+      title: "Bearsus - Bear Wrestling Action Game | Play Free Online",
+      description: "Choose your bear fighter and battle in various arenas! Master unique moves, unlock new fighters, and compete with friends in this exciting wrestling game.",
+      keywords: [
+        "bearsus",
+        "bear fighting game",
+        "wrestling game",
+        "animal game",
+        "multiplayer fighting",
+        "arcade game"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Bearsus, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "A/D or Left/Right - Move & Jump",
+          "Double Jump 1 - A, D or Left, Right",
+          "Double Jump 2 - D, A or Right, Left"
+        ],
+        actions: [
+          "Attack 1 - A, A or Left, Left",
+          "Attack 2 - D, D or Right, Right",
+          "Attack 3 - (While double-jumping) A or Left",
+          "Attack 3 - (While double-jumping) D or Right"
+        ]
+      }
+    },
+    features: [
+      "8 unique playable bears",
+      "Mix-and-match move sets",
+      "Arcade Mode with 5 opponents",
+      "2-Player competitive mode",
+      "Unlockable fighters",
+      "Color customization",
+      "Simple controls",
+      "Strategic gameplay"
+    ],
+    faqs: [
+      {
+        question: "How do I unlock new bears?",
+        answer: "Play through Arcade Mode and defeat opponents to unlock new fighters. Each victory brings you closer to unlocking new bears and color options.",
+        category: "gameplay"
+      },
+      {
+        question: "What's the best way to win fights?",
+        answer: "Master the double jump mechanics and timing of your attacks. Different combinations of moves work better in different situations.",
+        category: "gameplay"
+      },
+      {
+        question: "Can I play with friends?",
+        answer: "Yes! Bearsus features a 2-Player mode where you can compete against a friend locally.",
+        category: "features"
+      }
+    ]
+  },
+  {
+    id: "iron-snout",
+    title: "Iron Snout",
+    description: "Iron Snout is a fighting game where you play as a pig defending against waves of wolves. Punch, kick, and flip your way through endless wolf attacks, using their own weapons against them in this fast-paced action game.",
+    iframeUrl: "https://buckshotroulettee.github.io/game/iron-snout-2/",
+    image: "/games/iron-snout.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.ANIMAL,       // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.POPULAR       // 功能分类
+    ],
+    metadata: {
+      title: "Iron Snout - Pig vs Wolves Fighting Game | Play Free Online",
+      description: "Fight endless waves of wolves as a skilled pig warrior! Master combos, dodge attacks, and use enemy weapons in this action-packed fighting game.",
+      keywords: [
+        "iron snout",
+        "pig fighting game",
+        "wolf fighting",
+        "animal combat",
+        "arcade fighting",
+        "action game"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Iron Snout, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Arrow keys for jumping and hitting wolves"
+        ],
+        actions: [
+          "Up - Jump/Aerial attacks",
+          "Left/Right - Dodge and attack",
+          "Down - Duck and counter"
+        ]
+      }
+    },
+    features: [
+      "Fast-paced combat system",
+      "Multiple game modes",
+      "Weapon stealing mechanics",
+      "Endless wolf waves",
+      "Combo system",
+      "2-player Wolfieball mode",
+      "Classic and Sudden Death modes",
+      "Regular updates"
+    ],
+    faqs: [
+      {
+        question: "What are the different game modes?",
+        answer: "Iron Snout features Classic mode, Sudden Death mode, and 2-player Wolfieball mode. Each offers a unique fighting experience.",
+        category: "features"
+      },
+      {
+        question: "How do I improve my combat skills?",
+        answer: "Practice timing your attacks and dodges, learn to use enemy weapons, and master the combo system. Each enemy type has specific patterns to learn.",
+        category: "gameplay"
+      },
+      {
+        question: "Can I play with friends?",
+        answer: "Yes! The Wolfieball mode supports 2-player local multiplayer for competitive fun.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "chicken-merge",
+    title: "Chicken Merge",
+    description: "Chicken Merge is a merge game with tower defense elements. Deploy and combine chickens to create stronger units, defend your base from waves of enemies, and unlock powerful upgrades in this strategic defense game.",
+    iframeUrl: "https://gswitch3.github.io/g4/chicken-merge",
+    image: "/games/chicken-merge.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.ANIMAL,       // 主题分类
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.POPULAR       // 功能分类
+    ],
+    metadata: {
+      title: "Chicken Merge - Strategic Defense Game | Play Free Online",
+      description: "Merge chickens to create powerful defenders! Protect your base from enemies in this unique combination of merge and tower defense gameplay.",
+      keywords: [
+        "chicken merge",
+        "merge game",
+        "tower defense",
+        "strategy game",
+        "chicken game",
+        "defense game"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Chicken Merge, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Drag and drop chickens to merge"
+        ],
+        actions: [
+          "Click and drag to move units",
+          "Drop identical units to merge",
+          "Place units on defense lines"
+        ]
+      }
+    },
+    features: [
+      "Unique merging mechanics",
+      "Strategic unit placement",
+      "Multiple chicken types",
+      "Progressive difficulty",
+      "Upgrade system",
+      "Special abilities",
+      "Regular content updates",
+      "Achievement system"
+    ],
+    faqs: [
+      {
+        question: "How do I create stronger chickens?",
+        answer: "Drag and drop identical chickens onto each other to merge them into a stronger unit. Keep merging to create even more powerful defenders.",
+        category: "gameplay"
+      },
+      {
+        question: "What's the best defense strategy?",
+        answer: "Balance between different chicken types, position them strategically, and keep merging to maintain strong defense lines.",
+        category: "gameplay"
+      },
+      {
+        question: "How do I unlock new features?",
+        answer: "Progress through waves of enemies and complete achievements to unlock new chicken types and upgrades.",
+        category: "features"
+      }
+    ]
+  },
+  {
+    id: "flappy-bird",
+    title: "Flappy Bird",
+    description: "The classic Flappy Bird game that took the world by storm! Navigate your bird through pipes by timing your clicks perfectly. Simple to learn but challenging to master, this addictive game tests your reflexes and patience.",
+    iframeUrl: "https://gswitch3.github.io/g2/flappy-bird",
+    image: "/games/flappy-bird.webp",
+    rating: 4.7,
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.ANIMAL,       // 主题分类
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.FEATURED,     // 功能分类
+      GameCategory.POPULAR       // 功能分类
+    ],
+    metadata: {
+      title: "Flappy Bird - Classic Arcade Game | Play Free Online",
+      description: "Play the legendary Flappy Bird game! Test your skills and reflexes as you guide your bird through challenging obstacles in this addictive arcade classic.",
+      keywords: [
+        "flappy bird",
+        "arcade game",
+        "classic game",
+        "bird game",
+        "skill game",
+        "timing game"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Flappy Bird, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Click or Spacebar to flap"
+        ],
+        actions: [
+          "Time your clicks carefully",
+          "Maintain steady rhythm",
+          "Watch obstacle patterns"
+        ]
+      }
+    },
+    features: [
+      "Classic gameplay mechanics",
+      "Simple one-button control",
+      "Progressive difficulty",
+      "Score tracking system",
+      "Addictive challenge",
+      "Instant restart",
+      "Browser-based gaming",
+      "No downloads required"
+    ],
+    faqs: [
+      {
+        question: "How do I get a high score?",
+        answer: "Focus on maintaining a steady rhythm with your clicks and anticipate the gaps between pipes. Practice timing is key to success.",
+        category: "gameplay"
+      },
+      {
+        question: "Why is the game so challenging?",
+        answer: "Flappy Bird's difficulty comes from its precise timing requirements and unforgiving collision detection. Each successful pass requires perfect coordination.",
+        category: "gameplay"
+      },
+      {
+        question: "How does scoring work?",
+        answer: "You earn one point for each set of pipes you successfully pass through. The game keeps track of your current score and best score.",
+        category: "features"
+      }
+    ]
   }
 ];
 
 // 辅助函数
-export const getGamesByType = (type: GameType) => {
-  return games.filter(game => game.type === type);
+// 1. 获取单个分类的游戏
+export const getGamesByCategory = (category: GameCategory) => {
+  return games.filter(game => game.categories.includes(category));
 };
 
-export const getSimilarGames = (currentGame: Game, limit: number = 4) => {
-  return games
-    .filter(game => game.type === currentGame.type && game.id !== currentGame.id)
-    .slice(0, limit);
+// 2. 获取多个分类的游戏（满足任意一个分类即可）
+export const getGamesByCategories = (categories: GameCategory[]) => {
+  return games.filter(game => 
+    categories.some(category => game.categories.includes(category))
+  );
+};
+
+// 3. 获取同时满足多个分类的游戏
+export const getGamesByAllCategories = (categories: GameCategory[]) => {
+  return games.filter(game => 
+    categories.every(category => game.categories.includes(category))
+  );
+};
+
+// 4. 按分类类型获取游戏
+export const getGamesByCategoryType = (type: 'main' | 'gameplay' | 'theme' | 'target' | 'functional') => {
+  const categoryGroups = {
+    main: [
+      GameCategory.RACING,
+      GameCategory.ACTION,
+      GameCategory.SHOOTER,
+      GameCategory.PUZZLE,
+      GameCategory.STRATEGY,
+      GameCategory.SPORTS,
+      GameCategory.ADVENTURE
+    ],
+    gameplay: [
+      GameCategory.MULTIPLAYER,
+      GameCategory.TWO_PLAYER,
+      GameCategory.SINGLE_PLAYER,
+      GameCategory.IO_GAMES,
+      GameCategory.FPS
+    ],
+    theme: [
+      GameCategory.CAR,
+      GameCategory.FIGHTING,
+      GameCategory.STICKMAN,
+      GameCategory.RUNNING,
+      GameCategory.BOXING
+    ],
+    target: [
+      GameCategory.BOYS,
+      GameCategory.GIRLS,
+      GameCategory.KIDS
+    ],
+    functional: [
+      GameCategory.FEATURED,
+      GameCategory.NEW,
+      GameCategory.POPULAR,
+      GameCategory.TRENDING
+    ]
+  };
+
+  return games.filter(game => 
+    game.categories.some(category => categoryGroups[type].includes(category))
+  );
+};
+
+// 获取主分类游戏
+export const getGamesByMainCategory = (category: GameCategory) => {
+  const mainCategories = [
+    GameCategory.RACING,
+    GameCategory.ACTION,
+    GameCategory.SHOOTER,
+    GameCategory.PUZZLE,
+    GameCategory.STRATEGY,
+    GameCategory.SPORTS,
+    GameCategory.ADVENTURE
+  ];
+  
+  if (!mainCategories.includes(category)) {
+    return [];
+  }
+  
+  return games.filter(game => game.categories.includes(category));
 }; 

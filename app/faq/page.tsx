@@ -6,7 +6,7 @@ export default function FAQPage() {
     <div className="container mx-auto px-4 py-8 space-y-4 max-w-7xl">
       <Breadcrumb 
           items={[
-            { label: "Play House of Hazards", href: "/" },
+            { label: "Play Shady Bears", href: "/" },
             { label: "FAQ", href: "/faq" }
           ]} 
       />  
@@ -19,10 +19,10 @@ export default function FAQPage() {
 }
 
 export const metadata = {
-  title: "Frequently Asked Questions - House of Hazards",
+  title: "Frequently Asked Questions - Shady Bears",
   description: "Find answers to frequently asked questions. Get help with games, features, tips,and more. Discover controls, strategies, and gameplay mechanics.",
-  keywords: ["FAQ", "House of Hazards", "House of Hazards FAQ", "House of Hazards Help", "House of Hazards Support"],
+  keywords: ["FAQ", "Shady Bears", "Shady Bears FAQ", "Shady Bears Help", "Shady Bears Support"],
   alternates: {
-    canonical: "https://www.houseofhazards.online/faq",
+    canonical: "https://www.shadybears.org/faq",
   },
 }

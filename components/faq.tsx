@@ -1,10 +1,3 @@
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-
 interface FAQItem {
   question: string;
   answer: string;
@@ -12,28 +5,36 @@ interface FAQItem {
 
 const faqs: FAQItem[] = [
   {
-    question: "What makes House of Hazards different from other games?",
-    answer: "House of Hazards is a unique multiplayer platformer that combines thrilling challenges with unexpected obstacles. Players navigate through a hazard-filled house, completing various tasks while avoiding dynamic obstacles. What truly sets House of Hazards apart is its multiple play modes (1-3 players), unique punishment mechanics, and endless entertainment right in your browser."
+    question: "What is Shady Bears?",
+    answer: "Shady Bears is a unique multiplayer platformer where your own shadow becomes your greatest challenge. In this innovative game, you control a cute bear collecting acorns while avoiding your shadow clone that mimics your every move, creating an exciting mix of strategy and quick reflexes."
   },
   {
-    question: "How do I play House of Hazards?",
-    answer: "House of Hazards features simple and intuitive controls. Use WASD or arrow keys for Player 1 movement (A/Left to turn left, D/Right to turn right, W/Up to jump, S/Down to crouch). For Player 2, use IJKL keys (J to turn left, L to turn right, I to jump, K to crouch). Complete tasks like drinking coffee or collecting mail while avoiding various hazards in the house."
+    question: "How do I play Shady Bears?",
+    answer: "Playing Shady Bears is simple! Use WASD or arrow keys for Player 1 (A/Left to move left, D/Right to move right, W/Up to jump). For Player 2, use IJKL keys (J to move left, L to move right, I to jump). Your goal is to collect acorns while avoiding your shadow, which follows and copies your movements."
   },
   {
-    question: "What are the different game modes in House of Hazards?",
-    answer: "House of Hazards offers multiple play modes: 1 Player mode (compete against computer players), 2 Player mode (with unique punishment spin options), and 3 Player mode. Each mode provides different challenges and competitive gameplay experiences."
+    question: "What makes Shady Bears unique?",
+    answer: "The core feature of Shady Bears is its innovative shadow-chasing mechanic. Your own shadow becomes your opponent, mimicking your movements and trying to catch you. This creates a unique challenge where you must think strategically about every move, making Shady Bears different from traditional platformers."
   },
   {
-    question: "What kind of hazards will I encounter in House of Hazards?",
-    answer: "House of Hazards features various obstacles throughout different areas. In the house, watch out for falling ceiling fans, automatic faucets, and flying toast. In the garden, avoid jumping teddy bears and swinging obstacles. The garage contains pitching machines and moving skateboards - each area presents unique challenges!"
+    question: "What power-ups are available in Shady Bears?",
+    answer: "In Shady Bears, you can collect various power-ups to help your journey. Honey gives you bonus points but attracts bees, adding an extra challenge. Fireflies can help you deal with shadows, and acorns are your main collectibles for scoring points."
   },
   {
-    question: "Is House of Hazards available for mobile devices?",
-    answer: "Currently, House of Hazards is only available as a browser-based game. You can play it directly in your web browser without any downloads. Mobile versions for Android and iOS are planned for future releases."
+    question: "Can I play Shady Bears with friends?",
+    answer: "Yes! Shady Bears supports 2-player mode where you can team up with a friend. Each player controls their own bear and must avoid their respective shadows, creating exciting cooperative gameplay moments."
   },
   {
-    question: "What makes House of Hazards fun to play?",
-    answer: "House of Hazards combines several engaging elements: high-quality graphics and HD sounds, easy-to-learn controls, unexpected obstacles, and exciting multiplayer gameplay. The unique punishment system in 2-player mode adds extra excitement, making each game session different and entertaining."
+    question: "Is Shady Bears free to play?",
+    answer: "Yes! Shady Bears is completely free to play right in your browser. No downloads or installations required - just visit our website and start your shadow-dodging adventure in Shady Bears immediately!"
+  },
+  {
+    question: "Is Shady Bears unblocked?",
+    answer: "Yes! Shady Bears is unblocked and free to play right in your browser. No downloads or installations required - just visit our website and start your shadow-dodging adventure in Shady Bears immediately!"
+  },
+  {
+    question: "Can I play Shady Bears on mobile devices and desktop?",
+    answer: "Yes! Shady Bears is available on both mobile devices and desktop computers. You can play it right in your browser, no downloads or installations required! "
   }
 ];
 
@@ -42,18 +43,18 @@ export function FAQ() {
     <section className="max-w-4xl mx-auto space-y-6">
       <div className="text-center space-y-4">
         <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#FFE5E5]">
-          <h1 className="text-2xl font-heading text-primary">
-            Frequently Asked Questions
-          </h1>
+          <h2 className="text-2xl font-heading text-primary">
+            Shady Bears FAQ - Your Questions Answered
+          </h2>
         </div>
       </div>
       
       <div className="space-y-4">
         {faqs.map((faq, index) => (
           <div key={index} className="bg-white/80 backdrop-blur-sm rounded-2xl border border-[#FFE5E5] p-6">
-            <h2 className="text-lg font-heading text-text-primary mb-2">
+            <h3 className="text-lg font-heading text-text-primary mb-2">
               {faq.question}
-            </h2>
+            </h3>
             <p className="text-text-secondary leading-relaxed">
               {faq.answer}
             </p>

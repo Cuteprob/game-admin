@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { games } from "@/config/games"
+import { GameCategory, games } from "@/config/games"
 import { GameContainer } from "@/components/game-container"
 import { GamesSidebar } from "@/components/games-sidebar"
 import { RelatedGames } from "@/components/related-games"
@@ -12,6 +12,7 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion"
+import Link from "next/link"
 
 
 interface GamePageProps {
@@ -49,7 +50,7 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
       images: [game.image],
     },
     alternates: {
-      canonical: `https://www.houseofhazards.online/games/${params.id}`,
+      canonical: `https://www.shadybears.org/games/${params.id}`,
     },
   }
 }
@@ -68,8 +69,7 @@ export default function GamePage({ params }: GamePageProps) {
         <div className="mb-6">
           <Breadcrumb 
             items={[
-              { label: "Play House of Hazards", href: "/" },
-              { label: "Games", href: "/games" },
+              { label: "Play Shady Bears", href: "/" },
               { label: `Play ${game.title}`, href: `/games/${game.id}` }
             ]} 
           />
@@ -93,11 +93,8 @@ export default function GamePage({ params }: GamePageProps) {
             <div className="flex-1">
               <GameContainer game={game} />
             </div>
-            <GamesSidebar currentGameId={game.id} gameType={game.type} />
+            <GamesSidebar currentGameId={game.id} gameCategories={game.categories} />
           </div>
-
-          {/* 相关游戏推荐 */}
-          <RelatedGames currentGameId={game.id} />
 
           {/* 游戏介绍 */}
           <section className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
@@ -110,9 +107,25 @@ export default function GamePage({ params }: GamePageProps) {
                 <p className="text-lg leading-relaxed text-text-secondary">
                   Master {game.title}&apos;s unique gameplay mechanics and challenge yourself to new achievements.
                 </p>
+                
+                {/* 添加分类标签 */}
+                <div className="flex flex-wrap gap-2 pt-4">
+                  {game.categories.map((category: GameCategory) => (
+                    <Link
+                      key={category}
+                      href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                      className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-white/80 text-text-secondary hover:bg-[#ff6b6bd8] hover:text-white transition-all duration-300 border border-[#FFE5E5] hover:shadow-md hover:scale-105"
+                    >
+                      {category}
+                    </Link>
+                  ))}
+                </div>
               </div>
             </div>
           </section>
+
+          {/* 相关游戏推荐 */}
+          <RelatedGames currentGameId={game.id} />
 
           {/* 游戏操作指南 */}
           <section className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">

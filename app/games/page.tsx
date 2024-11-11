@@ -1,20 +1,20 @@
 import { Metadata } from "next"
-import { games, GameType } from "@/config/games"
+import { games, GameCategory } from "@/config/games"
 import { Breadcrumb } from "@/components/ui/breadcrumb"
 import Link from "next/link"
 
 export const metadata: Metadata = {
-  title: "Play Unblocked Games Online for Free - House of Hazards",
+  title: "Play Unblocked Games Online for Free - Shady Bears",
   description: "Browse our collection of free unblocked online games. Find racing, action, sports, shooting and more games to play instantly in your browser.",
   keywords: ["online games", "free games", "browser games", "racing games", "shooting games"],
   alternates: {
-    canonical: "https://www.houseofhazards.online/games",
+    canonical: "https://www.shadybears.org/games",
   },
 }
 
 export default function GamesPage() {
   // 获取所有游戏类型
-  const gameTypes = Array.from(new Set(games.map(game => game.type)));
+  const gameCategories = Array.from(new Set(games.map(game => game.categories)));
 
   return (
     <div className="min-h-screen flex flex-col">
@@ -22,7 +22,7 @@ export default function GamesPage() {
         <div className="mb-6">
           <Breadcrumb 
             items={[
-              { label: "Play House of Hazards", href: "/" },
+              { label: "Play Shady Bears", href: "/" },
               { label: "Games", href: "/games" }
             ]} 
           />
@@ -59,7 +59,7 @@ export default function GamesPage() {
                       {game.title}
                     </h2>
                     <div className="flex items-center justify-between">
-                      <span className="text-xs text-slate-500">{game.type}</span>
+                      <span className="text-xs text-slate-500">{game.categories.join(', ')}</span>
                       <div className="flex items-center gap-1">
                         <span className="text-yellow-400 text-xs">★</span>
                         <span className="text-xs text-slate-600">{game.rating}</span>
@@ -69,54 +69,7 @@ export default function GamesPage() {
                 </Link>
               ))}
             </div>
-          </section>
-
-          {/* Game Categories */}
-          {gameTypes.map((type) => {
-            const typeGames = games.filter(game => game.type === type);
-            if (typeGames.length === 0) return null;
-
-            return (
-              <section key={type}>
-                <div className="flex justify-between items-center mb-6">
-                  <h2 className="text-2xl font-heading text-text-primary">{type} Games</h2>
-                  <Link href={`/games?type=${type}`} className="text-sm text-primary hover:text-[#ff5252fa] transition-colors">
-                    View All »
-                  </Link>
-                </div>
-
-                <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 xl:grid-cols-5 gap-4">
-                  {typeGames.map((game) => (
-                    <Link
-                      key={game.id}
-                      href={`/games/${game.id}`}
-                      className="group bg-white rounded-xl shadow-sm border border-slate-200 overflow-hidden hover:shadow-2xl transition-shadow"
-                    >
-                      <div className="relative aspect-[4/3] overflow-hidden bg-slate-50">
-                        <img
-                          src={game.image}
-                          alt={`${game.title} screenshot`}
-                          className="absolute inset-0 w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                        />
-                      </div>
-                      <div className="p-3">
-                        <h2 className="font-semibold text-slate-800 transition-colors line-clamp-1 mb-1">
-                          {game.title}
-                        </h2>
-                        <div className="flex items-center justify-between">
-                          <span className="text-xs text-text-secondary">{game.type}</span>
-                          <div className="flex items-center gap-1">
-                            <span className="text-yellow-400 text-xs">★</span>
-                            <span className="text-xs text-text-secondary">{game.rating}</span>
-                          </div>
-                        </div>
-                      </div>
-                    </Link>
-                  ))}
-                </div>
-              </section>
-            );
-          })}
+          </section>    
         </div>
       </main>
     </div>

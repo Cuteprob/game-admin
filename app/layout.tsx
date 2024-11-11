@@ -11,9 +11,9 @@ const outfit = Outfit({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.houseofhazards.online'),
+  metadataBase: new URL('https://www.shadybears.org'),
   openGraph: {
-    siteName: 'House of Hazards',
+    siteName: 'Shady Bears',
     locale: 'en_US',
     type: 'website',
   },

@@ -1,12 +1,26 @@
 import Link from "next/link"
-import { Game, games } from "@/config/games"
+import { Game, games, GameCategory } from "@/config/games"
 import { Rating } from "@/components/ui/rating"
 
-export function RelatedGames({ currentGameId }: { currentGameId?: string }) {
-  // 获取推荐游戏，排除当前游戏
-  const relatedGames = games
-    .filter(game => game.id !== currentGameId)
-    .slice(0, 10);
+interface RelatedGamesProps {
+  currentGameId?: string;
+}
+
+export function RelatedGames({ currentGameId }: RelatedGamesProps) {
+  // 获取新游戏和热门游戏
+  const newGames = games.filter(game => 
+    game.categories.includes(GameCategory.NEW) && 
+    game.id !== currentGameId
+  );
+
+  const popularGames = games.filter(game => 
+    game.categories.includes(GameCategory.POPULAR) && 
+    game.id !== currentGameId &&
+    !game.categories.includes(GameCategory.NEW) // 排除已经在新游戏中的游戏
+  );
+
+  // 合并游戏列表，优先显示新游戏，然后是热门游戏
+  const relatedGames = [...newGames, ...popularGames].slice(0, 10);
 
   return (
     <section className="space-y-8">
@@ -19,7 +33,7 @@ export function RelatedGames({ currentGameId }: { currentGameId?: string }) {
         </div>
       </div>
 
-      {/* 游戏网格 - 更新响应式布局 */}
+      {/* 游戏网格 */}
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6">
         {relatedGames.map((game) => (
           <Link
@@ -34,6 +48,17 @@ export function RelatedGames({ currentGameId }: { currentGameId?: string }) {
                   alt={game.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
+                {/* 添加标签显示是新游戏还是热门游戏 */}
+                {game.categories.includes(GameCategory.NEW) && (
+                  <div className="absolute top-2 right-2 px-2 py-1 text-xs font-medium bg-[#ff6b6bd8] text-white rounded-full">
+                    New
+                  </div>
+                )}
+                {game.categories.includes(GameCategory.POPULAR) && !game.categories.includes(GameCategory.NEW) && (
+                  <div className="absolute top-2 right-2 px-2 py-1 text-xs font-medium bg-[#ff5252fa] text-white rounded-full">
+                    Popular
+                  </div>
+                )}
               </div>
               <div className="p-4">
                 <h3 className="font-heading text-primary text-lg mb-2 line-clamp-1">
@@ -43,7 +68,7 @@ export function RelatedGames({ currentGameId }: { currentGameId?: string }) {
                   <Rating 
                     initialRating={game.rating} 
                     isReadOnly 
-                    size="sm" 
+                    size="sm"
                     showReviewSystem={false}
                   />
                 </div>
@@ -54,16 +79,6 @@ export function RelatedGames({ currentGameId }: { currentGameId?: string }) {
             </div>
           </Link>
         ))}
-      </div>
-
-      {/* 查看更多按钮 */}
-      <div className="text-center mt-8">
-        <Link
-          href="/games"
-          className="inline-flex items-center justify-center px-8 py-3 text-base font-heading text-[#FFF5E4] bg-[#ff6b6bd8] hover:bg-[#ff5252fa] rounded-full transition-all duration-300 shadow-sm hover:shadow-md border border-[#FFE5E5]"
-        >
-          Explore More Games
-        </Link>
       </div>
     </section>
   )
