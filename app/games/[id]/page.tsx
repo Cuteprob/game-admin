@@ -13,6 +13,7 @@ import {
   AccordionTrigger,
 } from "@/components/ui/accordion"
 import Link from "next/link"
+import { GameVideo } from "@/components/game-video"
 
 
 interface GamePageProps {
@@ -89,12 +90,15 @@ export default function GamePage({ params }: GamePageProps) {
 
         <div className="space-y-12">
           {/* 游戏区域 + 侧边栏 */}
-          <div className="flex gap-8">
-            <div className="flex-1">
+           {/* Game Section with Sidebar */}
+           <div className="flex flex-col px-2 md:flex-row gap-4 items-start">
+              <div className="flex-1">
               <GameContainer game={game} />
+              </div>
+              <div className="flex justify-center md:block w-full md:w-auto md:-mt-10">
+              <GamesSidebar currentGameId={game.id} gameCategories={game.categories} />
+              </div>
             </div>
-            <GamesSidebar currentGameId={game.id} gameCategories={game.categories} />
-          </div>
 
           {/* 游戏介绍 */}
           <section className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
@@ -107,6 +111,17 @@ export default function GamePage({ params }: GamePageProps) {
                 <p className="text-lg leading-relaxed text-text-secondary">
                   Master {game.title}&apos;s unique gameplay mechanics and challenge yourself to new achievements.
                 </p>
+
+                 {/* 添加视频组件 */}
+              {game.video && (
+               <GameVideo 
+                  youtubeId={game.video.youtubeId}
+                  title={game.video.title}
+                  clipId={game.video.clipId}
+                  clipTime={game.video.clipTime}
+                  thumbnail={game.video.thumbnail}
+                />
+              )}
                 
                 {/* 添加分类标签 */}
                 <div className="flex flex-wrap gap-2 pt-4">

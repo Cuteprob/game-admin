@@ -52,6 +52,7 @@ export interface Game {
   image: string;
   rating: number;
   categories: GameCategory[];  // 使用合并后的分类系统
+  createdAt: string;
   metadata: {
     title: string;
     description: string;
@@ -71,12 +72,20 @@ export interface Game {
     answer: string;
     category: 'gameplay' | 'technical' | 'features' | 'general';
   }[];
+  video?: {
+    youtubeId: string;    // YouTube 视频 ID
+    clipId?: string;    // 可选的片段ID
+    clipTime?: string;  // 可选的片段时间
+    title: string;        // 视频标题
+    thumbnail: string;   // 添加封面图字段
+  };
 }
 
 export const games: Game[] = [
   {
     id: "formula-rush",
     title: "Formula Rush Online",
+    createdAt: "2024-11-10",
     description: "Experience intense Formula racing with realistic physics and challenging tracks!",
     iframeUrl: "https://html5.gamemonetize.games/a6oif7iluz0nwpj3s67g9z6i4przm1ga/",
     image: "/games/Formula-Rush.jpg",
@@ -161,11 +170,12 @@ export const games: Game[] = [
         answer: "Your best lap times are automatically submitted to the global leaderboards. You can view rankings, compare times with other players, and see what times you need to beat to climb the rankings.",
         category: "features"
       }
-    ]
+    ],
   },
   {
     id: "insane-track-supercars",
     title: "Insane Track Supercars",
+    createdAt: "2024-11-11",
     description: "Master extreme tracks with high-performance supercars in intense racing challenges!",
     iframeUrl: "https://html5.gamemonetize.games/efaz2lsw2m6obg8771kq3dkopxex8wym/",
     image: "/games/Insane-Track-Supercars.jpg",
@@ -255,6 +265,7 @@ export const games: Game[] = [
   {
     id: "city-car-stunt-4",
     title: "City Car Stunt 4",
+    createdAt: "2024-11-10",
     description: "Perform epic stunts and race through City Car Stunt 4!",
     iframeUrl: "https://www.twoplayergames.org/embed/city-car-stunt-4",
     image: "/games/city-car-stune4.jpg",
@@ -345,6 +356,7 @@ export const games: Game[] = [
   {
     id: "rise-of-speed",
     title: "Rise of Speed",
+    createdAt: "2024-11-11",
     description: "Race through unique tracks including a special space map!",
     iframeUrl: "https://www.twoplayergames.org/embed/rise-of-speed",
     image: "/games/Rise_of_Speed.jpg",
@@ -435,6 +447,7 @@ export const games: Game[] = [
   {
     id: "basket-random",
     title: "Basket Random",
+    createdAt: "2024-11-10",
     description: "Master one-key basketball controls in this unpredictable sports game!",
     iframeUrl: "https://www.twoplayergames.org/embed/basket-random",
     image: "/games/Basket_Random.jpg",
@@ -533,6 +546,7 @@ export const games: Game[] = [
   {
     id: "getaway-shootout",
     title: "Getaway Shootout",
+    createdAt: "2024-11-11",
     description: "Race to the helicopter while battling opponents with unique mechanics!",
     iframeUrl: "https://www.twoplayergames.org/embed/getaway-shootout",
     image: "/games/Getaway_Shootout.jpg",
@@ -639,6 +653,7 @@ export const games: Game[] = [
   {
     id: "g-switch-3",
     title: "G Switch 3",
+    createdAt: "2024-11-10",
     description: "Control multiple runners in gravity-defying multiplayer challenges!",
     iframeUrl: "https://www.twoplayergames.org/embed/g-switch-3",
     image: "/games/G_Switch_3.jpg",
@@ -743,6 +758,7 @@ export const games: Game[] = [
   {
     id: "subway-surfers",
     title: "Subway Surfers",
+    createdAt: "2024-11-11",
     description: "Run, dodge trains and collect coins in Subway Surfers Winter Holiday edition!",
     iframeUrl: "https://ubg77.github.io/updatefaqs/subway-surfers-winter-holiday/",
     image: "/games/Subway-surfers.jpg",
@@ -843,6 +859,7 @@ export const games: Game[] = [
   {
     id: "moto-x3m-pool-party",
     title: "Moto X3M Pool Party",
+    createdAt: "2024-11-10",
     description: "Master pool-themed stunt tracks in this exciting motorcycle adventure!",
     iframeUrl: "https://webglmath.github.io/moto-x3m-5-pool-party/",
     image: "/games/Moto-X3M-Pool-Party.jpg",
@@ -948,6 +965,7 @@ export const games: Game[] = [
   {
     id: "basketball-legends",
     title: "Basketball Legends",
+    createdAt: "2024-11-11",
     description: "Play basketball with legendary players in thrilling tournament matches!",
     iframeUrl: "https://webglmath.github.io/basketball-legends/",
     image: "/games/basketball-legends.jpg",
@@ -1040,6 +1058,7 @@ export const games: Game[] = [
   {
     id: "football-legends",
     title: "Football Legends",
+    createdAt: "2024-11-10",
     description: "Experience football with special abilities and intense multiplayer action!",
     iframeUrl: "https://webglmath.github.io/football-legends/",
     image: "/games/football-legends.jpg",
@@ -1149,6 +1168,7 @@ export const games: Game[] = [
   {
     id: "rooftop-snipers",
     title: "Rooftop Snipers",
+    createdAt: "2024-11-11",
     description: "Challenge friends in intense rooftop duels with physics-based combat!",
     iframeUrl: "https://webglmath.github.io/rooftop-snipers/",
     image: "/games/Rooftop-Snipers.jpg",
@@ -1156,9 +1176,11 @@ export const games: Game[] = [
     categories: [
       GameCategory.SHOOTER,       // 主分类
       GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
       GameCategory.FPS,          // 玩法分类
       GameCategory.BOYS,         // 目标人群
-      GameCategory.FEATURED      // 功能分类
+      GameCategory.FEATURED,      // 功能分类
+      GameCategory.TRENDING      // 功能分类
     ],
     metadata: {
       title: "Rooftop Snipers - Physics Combat Game | Shady Bears",
@@ -1241,6 +1263,7 @@ export const games: Game[] = [
   {
     id: "stickman-fighter-epic-battle",
     title: "Stickman Fighter Epic Battle",
+    createdAt: "2024-11-10",
     description: "Battle endless waves of enemies in this intense fighting game!",
     iframeUrl: "https://webglmath.github.io/stickman-fighter-epic-battle/",
     image: "/games/stickman-fighter-epic-battle.jpg",
@@ -1344,6 +1367,7 @@ export const games: Game[] = [
   {
     id: "the-spear-stickman",
     title: "The Spear Stickman",
+    createdAt: "2024-11-11",
     description: "Master precision combat with unique projectile mechanics and upgrades!",
     iframeUrl: "https://webglmath.github.io/the-spear-stickman/",
     image: "/games/the-spear-stickman.jpg",
@@ -1446,6 +1470,7 @@ export const games: Game[] = [
   {
     id: "stick-merge",
     title: "Stick Merge",
+    createdAt: "2024-11-10",
     description: "Combine weapons strategically to create powerful combinations and dominate!",
     iframeUrl: "https://webglmath.github.io/stickmerge/",
     image: "/games/stick-merge.jpg",
@@ -1547,6 +1572,7 @@ export const games: Game[] = [
   {
     id: "getaway-shootout-2",
     title: "Getaway Shootout 2",
+    createdAt: "2024-11-11",
     description: "Race against three opponents in this unique jumping battle! Master the art of strategic jumping, collect weapons and power-ups, and be the first to reach the extraction point. With its distinctive movement mechanics and competitive gameplay, this game offers both single-player challenges against AI and exciting two-player local multiplayer action.",
     iframeUrl: "https://webglmath.github.io/getaway-shootout/",
     image: "/games/getaway-shootout.jpg",
@@ -1641,6 +1667,7 @@ export const games: Game[] = [
   {
     id: "big-shot-boxing",
     title: "Big Shot Boxing",
+    createdAt: "2024-11-10",
     description: "Big Shot Boxing is a boxing game where you have to fight your way up the rankings to end your career in the boxing Hall of Fame! Start out by choosing a fighter, hire a coach, and learn some moves. Win either by scoring the most points, or by a knockout!",
     iframeUrl: "https://htmlxm.github.io/h2/big-shot-boxing/",
     image: "/games/big-shot-boxing.webp",
@@ -1741,6 +1768,7 @@ export const games: Game[] = [
   {
     id: "idle-digging-tycoon",
     title: "Idle Digging Tycoon",
+    createdAt: "2024-11-11",
     description: "Idle Digging Tycoon is a casual idle game where you travel to a distant world inhabited by cavemen, and hire them to dig the ground for you in search of gold and valuables. Build new buildings, upgrade tools, and expand your lucrative business!",
     iframeUrl: "https://htmlxm.github.io/h5/idle-digging-tycoon/",
     image: "/games/idle-digging-tycoon.webp",
@@ -1797,6 +1825,7 @@ export const games: Game[] = [
   {
     id: "stick-defenders",
     title: "Stick Defenders",
+    createdAt: "2024-11-10",
     description: "Stick Defenders is an action and merging game where you combine stickman units into stronger ones to protect your base. Merge identical gunmen, enhance offensive abilities, and defend against waves of enemies in this strategic defense game.",
     iframeUrl: "https://htmlxm.github.io/h6/stick-defenders/",
     image: "/games/stick-defenders.webp",
@@ -1805,9 +1834,12 @@ export const games: Game[] = [
       GameCategory.STRATEGY,      // 主分类 - 策略游戏
       GameCategory.ACTION,        // 主分类 - 动作游戏
       GameCategory.SINGLE_PLAYER, // 玩法分类
-      GameCategory.STICKMAN,     // 主题分类
+      GameCategory.STICKMAN,     // 主题类
       GameCategory.BOYS,         // 目标人群
-      GameCategory.FEATURED      // 功能分类
+      GameCategory.FEATURED,      // 功能分类
+      GameCategory.NEW,          // 功能分类
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.ADVENTURE      // 功能分类
     ],
     metadata: {
       title: "Stick Defenders - Strategic Defense Game | Shady Bears",
@@ -1852,6 +1884,7 @@ export const games: Game[] = [
   {
     id: "moto-x3m-winter",
     title: "Moto X3M Winter",
+    createdAt: "2024-11-10",
     description: "Speed with your motorbike across icy mountains in Moto X3M Winter! Race through snowy tracks with festive obstacles like candy canes and Christmas trees. Master the winter challenges, perform stunts, and unlock Santa's Sled in this seasonal edition of the popular motorcycle game.",
     iframeUrl: "https://htmlxm.github.io/h/moto-x3m-winter/",
     image: "/games/moto-x3m-winter.webp",
@@ -1908,6 +1941,7 @@ export const games: Game[] = [
   {
     id: "moto-x3m",
     title: "Moto X3M",
+    createdAt: "2024-11-11",
     description: "The original Moto X3M that started it all! Master challenging tracks, perform incredible stunts, and race against time in this classic motorcycle game. Perfect your flips and tricks while navigating through increasingly difficult obstacles.",
     iframeUrl: "https://htmlxm.github.io/h8/moto-x3m",
     image: "/games/moto-x3m.webp",
@@ -1919,7 +1953,7 @@ export const games: Game[] = [
       GameCategory.KIDS,         // 目标人群
       GameCategory.POPULAR,      // 功能分类
       GameCategory.FEATURED,      // 功能分类
-      GameCategory.ADVENTURE      // 功能分类
+      GameCategory.ADVENTURE      // 能分类
     ],
     metadata: {
       title: "Moto X3M - Classic Motorcycle Stunt Game | Shady Bears",
@@ -1965,6 +1999,7 @@ export const games: Game[] = [
   {
     id: "moto-x3m-spooky-land",
     title: "Moto X3M Spooky Land",
+    createdAt: "2024-11-10",
     description: "Moto X3M Spooky Land brings Halloween thrills to the popular motorcycle series. Race through haunted tracks, dodge spooky obstacles, and master challenging stunts in this themed edition. Complete levels while avoiding ghostly hazards in this exciting motorcycle adventure.",
     iframeUrl: "https://htmlxm.github.io/h/moto-x3m-spooky-land",
     image: "/games/moto-x3m-spooky-land.webp",
@@ -1972,7 +2007,7 @@ export const games: Game[] = [
     categories: [
       GameCategory.RACING,        // 主分类
       GameCategory.SINGLE_PLAYER, // 玩法分类
-      GameCategory.BOYS,         // 目标人
+      GameCategory.BOYS,         // 标人
       GameCategory.KIDS,         // 目标人群
       GameCategory.NEW,          // 功能分类
       GameCategory.TRENDING,      // 功能分类
@@ -2022,6 +2057,7 @@ export const games: Game[] = [
   {
     id: "monkey-mart",
     title: "Monkey Mart",
+    createdAt: "2024-11-12",
     description: "Welcome to Monkey Mart, a charming idle/management game where you control a cute monkey running a supermarket! Plant fruits, harvest produce, and manage your market with style. Fill stands with various food items, collect money from customers, and expand your business with new aisles and products.",
     iframeUrl: "https://ubggo.github.io/ub-games/monkeymart/",
     image: "/games/monkey-mart.webp",
@@ -2091,6 +2127,7 @@ export const games: Game[] = [
   {
     id: "stick-hook",
     title: "Stick Hook",
+    createdAt: "2024-11-11",
     description: "Become a swinging man in this exciting skill game! Defy gravity with acrobatic flair as you navigate through challenging levels. Master the art of timing and precision to swing from hook to hook, making this simple yet addictive game perfect for players of all ages.",
     iframeUrl: "https://1games.io/game/stick-hook/",
     image: "/games/stick-hook.webp",
@@ -2161,6 +2198,7 @@ export const games: Game[] = [
   {
     id: "poor-bunny",
     title: "Poor Bunny",
+    createdAt: "2024-11-12",
     description: "Poor Bunny is a skill game where you control a cute bunny character and eat all the delicious carrots in a dangerous obstacle course. Hop on and off platforms while avoiding rapidly increasing deadly traps that appear out of nowhere. Don't miss the golden carrot when it spawns as it's worth 5 normal carrots!",
     iframeUrl: "https://ext.minijuegosgratis.com/poor-bunny/index.html?key=y8&value=default",
     image: "/games/poor-bunny.webp",
@@ -2234,6 +2272,7 @@ export const games: Game[] = [
   {
     id: "bearsus",
     title: "Bearsus",
+    createdAt: "2024-11-12",
     description: "Bearsus is an action game where you play as a brawler bear going against other bears in various fighting arenas. Fight with ease thanks to the classic, unbearably simple two-button control scheme! Choose from 8 playable wrestling bears with mix-and-matching moves.",
     iframeUrl: "https://gswitch3.github.io/g2/bearsus/",
     image: "/games/bearsus.webp",
@@ -2308,13 +2347,14 @@ export const games: Game[] = [
   {
     id: "iron-snout",
     title: "Iron Snout",
+    createdAt: "2024-11-12",
     description: "Iron Snout is a fighting game where you play as a pig defending against waves of wolves. Punch, kick, and flip your way through endless wolf attacks, using their own weapons against them in this fast-paced action game.",
     iframeUrl: "https://buckshotroulettee.github.io/game/iron-snout-2/",
     image: "/games/iron-snout.webp",
     rating: 4.8,
     categories: [
       GameCategory.ACTION,        // 主分类
-      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.TWO_PLAYER,    // 玩分类
       GameCategory.MULTIPLAYER,   // 玩法分类
       GameCategory.ANIMAL,       // 主题分类
       GameCategory.BOYS,         // 目标人群
@@ -2378,6 +2418,7 @@ export const games: Game[] = [
   {
     id: "chicken-merge",
     title: "Chicken Merge",
+    createdAt: "2024-11-12",
     description: "Chicken Merge is a merge game with tower defense elements. Deploy and combine chickens to create stronger units, defend your base from waves of enemies, and unlock powerful upgrades in this strategic defense game.",
     iframeUrl: "https://gswitch3.github.io/g4/chicken-merge",
     image: "/games/chicken-merge.webp",
@@ -2447,6 +2488,7 @@ export const games: Game[] = [
   {
     id: "flappy-bird",
     title: "Flappy Bird",
+    createdAt: "2024-11-12",
     description: "The classic Flappy Bird game that took the world by storm! Navigate your bird through pipes by timing your clicks perfectly. Simple to learn but challenging to master, this addictive game tests your reflexes and patience.",
     iframeUrl: "https://gswitch3.github.io/g2/flappy-bird",
     image: "/games/flappy-bird.webp",
@@ -2512,6 +2554,399 @@ export const games: Game[] = [
         category: "features"
       }
     ]
+  },
+  {
+    id: "ovo",
+    title: "OVO Unblocked",
+    createdAt: "2024-11-12",
+    description: "Master precise platforming through 61 challenging levels across 9 unique sections in OVO! Perfect your diving, smashing, and sliding skills while navigating through increasingly difficult obstacles. Experience the ultimate parkour challenge that tests both your timing and precision.",
+    iframeUrl: "https://ovo-game.github.io/o/ovo/",
+    image: "/games/ovo.webp",
+    rating: 4.9,
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.ADVENTURE,     // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.STICKMAN,     // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.POPULAR       // 功能分类
+    ],
+    metadata: {
+      title: "OVO Unblocked - Ultimate Parkour Platform Game | Play Now",  // 45字符
+      description: "Master OVO's precise controls across 61 challenging levels in 9 unique sections. Experience the ultimate parkour platformer with diving, smashing, and sliding mechanics!", // 145字符
+      keywords: [
+        "ovo",
+        "ovo unblocked",
+        "parkour game",
+        "platform game",
+        "precision platformer",
+        "stickman game",
+        "skill game",
+        "arcade platformer"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand OVO, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Arrow Keys - Move",
+          "Spacebar - Jump",
+          "Down Arrow - Slide/Dive"
+        ],
+        actions: [
+          "R - Restart level",
+          "ESC - Pause Game"
+        ],
+        special: [
+          "Down while jumping - Dive",
+          "Down after jump - Smash",
+          "Down while running - Slide"
+        ]
+      }
+    },
+    features: [
+      "61 challenging levels",
+      "9 unique game sections",
+      "Advanced movement mechanics",
+      "Progressive difficulty system",
+      "Training mode available",
+      "Multiple game modes",
+      "Achievement system",
+      "Regular content updates"
+    ],
+    faqs: [
+      {
+        question: "How do I master OVO's movement mechanics?",
+        answer: "Start with basic moves like jumping and sliding. Practice each technique individually before combining them. Use the training levels to perfect your timing and precision.",
+        category: "gameplay"
+      },
+      {
+        question: "What are the different game sections?",
+        answer: "OVO features 9 sections including Basic, Mechanics, Getting Serious, Higher Order, Space Program, Portal Journey, Community Levels, Gauntlet, and Training.",
+        category: "features"
+      },
+      {
+        question: "How do I unlock new content?",
+        answer: "Progress through levels sequentially to unlock new sections. Complete challenges and achieve better times to unlock additional features and achievements.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "blocky-blast-puzzle",
+    title: "Blocky Blast Puzzle",
+    createdAt: "2024-11-12",
+    description: "Experience a unique twist on block puzzles where you control block placement and unleash powerful Block Blasts! Master strategic positioning and chain reactions to clear challenging levels in this innovative puzzle game.",
+    iframeUrl: "https://reunbozdo.github.io/",
+    image: "/games/blocky-blast-puzzle.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.PUZZLE,        // 主分类
+      GameCategory.STRATEGY,      // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.POPULAR,      // 功能分类
+      GameCategory.TRENDING      // 功能分类
+    ],
+    metadata: {
+      title: "Blocky Blast Puzzle - Strategic Block Game | Play Now", // 47字符
+      description: "Master strategic block placement and unleash powerful Block Blasts in this innovative puzzle game. Clear challenging levels with chain reactions and tactical thinking!", // 143字符
+      keywords: [
+        "blocky blast puzzle",
+        "blocky blast",
+        "block puzzle game",
+        "strategic puzzle",
+        "chain reaction game",
+        "brain teaser",
+        "match puzzle",
+        "casual puzzle game"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Blocky Blast Puzzle, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Click and drag blocks to move",
+          "Release to place blocks"
+        ],
+        actions: [
+          "Match blocks to create blasts",
+          "Clear blocks strategically"
+        ],
+        special: [
+          "Create chain reactions",
+          "Use power-ups wisely",
+          "Plan block placement"
+        ]
+      }
+    },
+    features: [
+      "Innovative block placement system",
+      "Strategic blast mechanics",
+      "Multiple game modes",
+      "Progressive difficulty",
+      "Power-up system",
+      "Chain reaction bonuses",
+      "Achievement system",
+      "Regular content updates"
+    ],
+    faqs: [
+      {
+        question: "How do Block Blasts work?",
+        answer: "Block Blasts occur when you match blocks of the same color. The more blocks you match, the more powerful the blast. Chain reactions can clear large sections of the board.",
+        category: "gameplay"
+      },
+      {
+        question: "What's the best strategy for high scores?",
+        answer: "Focus on creating large block clusters and chain reactions. Plan your block placement carefully to maximize blast potential and use power-ups at strategic moments.",
+        category: "gameplay"
+      },
+      {
+        question: "How do I unlock new features?",
+        answer: "Progress through levels and achieve high scores to unlock new power-ups, game modes, and special blocks. Each milestone brings new strategic possibilities.",
+        category: "features"
+      }
+    ]
+  },
+  {
+    id: "drive-mad",
+    title: "Drive Mad",
+    createdAt: "2024-11-12",
+    description: "Master thrilling stunts and creative obstacles in Drive Mad! Balance your speed and control as you navigate through increasingly challenging tracks. Perfect your driving skills while attempting to reach the finish line in one piece.",
+    iframeUrl: "https://htmlxm.github.io/h77/drive-mad/",
+    image: "/games/drive-mad.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.RACING,        // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.CAR,          // 主题分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.POPULAR,      // 功能分类
+      GameCategory.TRENDING      // 功能分类
+    ],
+    metadata: {
+      title: "Drive Mad - Ultimate Stunt Racing Challenge | Play Now", // 48字符
+      description: "Master thrilling stunts and creative obstacles in this intense driving challenge. Balance speed and control to conquer increasingly difficult tracks!", // 142字符
+      keywords: [
+        "drive mad",
+        "drive mad unblocked",
+        "car stunts",
+        "racing game",
+        "stunt driving",
+        "obstacle course",
+        "physics racing",
+        "driving challenge"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Drive Mad, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "W/D/X/Up/Right - Drive Forward",
+          "S/A/Z/Down/Left - Drive Backward"
+        ],
+        actions: [
+          "Mouse click - Alternative acceleration",
+          "Balance your car to prevent flipping",
+          "ESC - Pause Game"
+        ],
+        special: [
+          "Master speed control",
+          "Balance through stunts",
+          "Time your jumps carefully"
+        ]
+      }
+    },
+    features: [
+      "Physics-based driving mechanics",
+      "Creative stunt tracks",
+      "Progressive difficulty system",
+      "Multiple control schemes",
+      "Challenging obstacles",
+      "Precision driving requirements",
+      "Instant restart option",
+      "Regular track updates"
+    ],
+    faqs: [
+      {
+        question: "How do I maintain balance in Drive Mad?",
+        answer: "Control your speed carefully and keep your car level during jumps and stunts. Too much speed can cause your car to flip, while too little might prevent you from clearing obstacles.",
+        category: "gameplay"
+      },
+      {
+        question: "What's the best way to handle difficult tracks?",
+        answer: "Take your time to learn each track's layout and obstacles. Practice controlling your speed and finding the right approach angle for jumps and stunts.",
+        category: "gameplay"
+      },
+      {
+        question: "How do I improve my performance?",
+        answer: "Focus on smooth controls and maintaining momentum. Use the instant restart feature to practice challenging sections until you perfect them.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "rooftop-snipers-2",
+    title: "Rooftop Snipers 2",
+    createdAt: "2024-11-12",
+    description: "Challenge friends in intense pixel-style rooftop duels! Face off against iconic characters like the Joker, Mr. T, and John Wayne in this thrilling sequel. Master the art of dodging bullets, throwing tomahawks, and using beach balls while trying to knock your opponents off the roof.",
+    iframeUrl: "https://htmlxm.github.io/h6/rooftop-snipers-2",
+    image: "/games/rooftop-snipers-2.webp",
+    rating: 4.9,
+    categories: [
+      GameCategory.SHOOTER,       // 主分类
+      GameCategory.TWO_PLAYER,    // 玩法分类
+      GameCategory.MULTIPLAYER,   // 玩法分类
+      GameCategory.FPS,          // 玩法分类
+      GameCategory.BOYS,         // 目标人群
+      GameCategory.POPULAR,      // 功能分类
+      GameCategory.TRENDING      // 功能分类
+    ],
+    metadata: {
+      title: "Rooftop Snipers 2 - Epic Pixel Shooter | Play Now", // 45字符
+      description: "Battle iconic characters in intense rooftop duels! Master shooting, dodging, and special weapons in this thrilling pixel-style combat game.", // 144字符
+      keywords: [
+        "rooftop snipers 2",
+        "rooftop snipers 2 unblocked",
+        "pixel shooter",
+        "multiplayer shooting",
+        "rooftop battle",
+        "character combat",
+        "physics shooter",
+        "2 player shooting"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Rooftop Snipers 2, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "W - Jump (Player 1)",
+          "Hold E - Aim (Player 1)",
+          "Release E - Shoot (Player 1)"
+        ],
+        actions: [
+          "Mouse - Menu Navigation",
+          "R - Quick Restart",
+          "ESC - Pause Game"
+        ],
+        special: [
+          "Time your jumps to dodge",
+          "Aim carefully for knockbacks",
+          "Use special weapons strategically"
+        ]
+      }
+    },
+    features: [
+      "Iconic character roster",
+      "Physics-based combat",
+      "Special weapon variety",
+      "Local multiplayer battles",
+      "Single-player challenges",
+      "Pixel art graphics",
+      "Quick-match format",
+      "Regular content updates"
+    ],
+    faqs: [
+      {
+        question: "What's new in Rooftop Snipers 2?",
+        answer: "The sequel introduces iconic characters like the Joker and Mr. T, adds new weapons including tomahawks and beach balls, and features improved physics-based combat mechanics.",
+        category: "features"
+      },
+      {
+        question: "How do I win matches?",
+        answer: "Victory requires knocking your opponent off the roof. Use a combination of well-timed shots, strategic jumping, and special weapons while avoiding falling off yourself.",
+        category: "gameplay"
+      },
+      {
+        question: "Can I play against the computer?",
+        answer: "Yes! You can play single-player mode against AI opponents or challenge a friend in local multiplayer mode for intense rooftop battles.",
+        category: "gameplay"
+      }
+    ]
+  },
+  {
+    id: "sausage-flip",
+    title: "Sausage Flip",
+    createdAt: "2024-11-12",
+    description: "Master the unique challenge of flinging a googly-eyed sausage through obstacle-filled levels! Time your shots perfectly, navigate through rocket cars and spinning contraptions, and unlock cool costumes in this quirky physics-based adventure.",
+    iframeUrl: "https://htmlxm.github.io/h6/sausage-flip",
+    image: "/games/sausage-flip.webp",
+    rating: 4.8,
+    categories: [
+      GameCategory.ACTION,        // 主分类
+      GameCategory.ADVENTURE,     // 主分类
+      GameCategory.SINGLE_PLAYER, // 玩法分类
+      GameCategory.KIDS,         // 目标人群
+      GameCategory.GIRLS,        // 目标人群
+      GameCategory.NEW,          // 功能分类
+      GameCategory.FEATURED,     // 功能分类
+      GameCategory.TRENDING      // 功能分类
+    ],
+    metadata: {
+      title: "Sausage Flip - Physics Adventure Game | Play Now", // 44字符
+      description: "Master the art of sausage flipping in this quirky physics game! Navigate through challenging obstacles and unlock cool costumes in this unique adventure.", // 142字符
+      keywords: [
+        "sausage flip",
+        "sausage flip unblocked",
+        "physics game",
+        "arcade game",
+        "obstacle course",
+        "skill game",
+        "casual game",
+        "funny game"
+      ]
+    },
+    controls: {
+      fullscreenTip: "Click the fullscreen button to expand Sausage Flip, press ESC to exit fullscreen",
+      guide: {
+        movement: [
+          "Drag backward to aim",
+          "Release to launch sausage"
+        ],
+        actions: [
+          "Time your launches carefully",
+          "Control launch power with drag distance"
+        ],
+        special: [
+          "Use momentum to clear obstacles",
+          "Land safely to progress",
+          "Collect power-ups when available"
+        ]
+      }
+    },
+    features: [
+      "Unique physics-based gameplay",
+      "Multiple challenging levels",
+      "Unlockable character skins",
+      "Various obstacles and hazards",
+      "Progressive difficulty",
+      "Quirky visual style",
+      "Regular content updates",
+      "Achievement system"
+    ],
+    faqs: [
+      {
+        question: "How do I control the sausage?",
+        answer: "Drag backward to aim and set power, then release to launch. The further you drag, the more power your launch will have. Timing and angle are crucial for success.",
+        category: "gameplay"
+      },
+      {
+        question: "How do I unlock new skins?",
+        answer: "Progress through levels and complete challenges to unlock new costumes and skins for your sausage character. Each skin has its own unique look!",
+        category: "features"
+      },
+      {
+        question: "What's the best strategy for difficult levels?",
+        answer: "Study the obstacle layout before launching, use the right amount of power, and time your launches carefully. Sometimes a gentle approach works better than full power.",
+        category: "gameplay"
+      }
+    ]
   }
 ];
 
@@ -2559,7 +2994,8 @@ export const getGamesByCategoryType = (type: 'main' | 'gameplay' | 'theme' | 'ta
       GameCategory.FIGHTING,
       GameCategory.STICKMAN,
       GameCategory.RUNNING,
-      GameCategory.BOXING
+      GameCategory.BOXING,
+      GameCategory.ANIMAL
     ],
     target: [
       GameCategory.BOYS,

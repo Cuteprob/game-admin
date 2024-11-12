@@ -8,6 +8,7 @@ import Link from "next/link"
 import { RelatedGames } from "@/components/related-games"
 import { GamesSidebar } from "@/components/games-sidebar"
 import { Game, GameCategory } from "@/config/games"
+import { GameVideo } from "@/components/game-video"
 
 export const runtime = "edge";
 
@@ -15,11 +16,22 @@ export const runtime = "edge";
 const ShadybearsGame: Game = {
   id: "shadybears",
   title: "Shady Bears: Shadow Adventure",
+  createdAt: "2024-11-12",
   description: "Welcome to Shady Bears, where shadows become your greatest challenge! Master the art of shadow-dodging as you guide your cute bear through exciting levels, collecting acorns while avoiding your mischievous shadow clone. Shady Bears offers a unique multiplayer experience where two players can team up, making every session an thrilling adventure of strategy and quick reflexes. Grab some honey for bonus points, but watch out for those pesky bees!",
   iframeUrl: "https://freetoplayz.github.io/shady-bears/",
   image: "/logo.jpeg",
   rating: 5,
-  categories: [GameCategory.ACTION, GameCategory.MULTIPLAYER, GameCategory.FEATURED, GameCategory.ANIMAL],
+  categories: [
+    GameCategory.ACTION,
+    GameCategory.STRATEGY,
+    GameCategory.ADVENTURE,
+    GameCategory.TWO_PLAYER,
+    GameCategory.GIRLS,
+    GameCategory.KIDS,
+    GameCategory.ANIMAL,
+    GameCategory.FEATURED,
+    GameCategory.TRENDING
+  ],
   metadata: {
     title: "Shady Bears - Shadow Adventure Game Online",
     description: "Play Shady Bears online and experience the thrill of shadow-dodging gameplay! Join the Shady Bears community in this unique multiplayer adventure where shadows are your greatest challenge.",
@@ -52,21 +64,32 @@ const ShadybearsGame: Game = {
     "HD Graphics with Immersive Sound Effects",
     "Easy-to-Learn Controls for All Ages"
   ],
-  faqs: []
+  faqs: [],
+  video: {
+    youtubeId: "Appq3wstpH8",
+    title: "Shady Bears - Shadow Adventure Game",
+    clipId: "UgkxhXvQVUG6ZMPIjfOx1mKoxuEvI0EGVHdY",
+    clipTime: "EO_GAhjOmwY",
+    thumbnail: "/features/shadow-mechanics.webp"
+  }
 };
+// https://youtu.be/Appq3wstpH8?si=K2IO80xCXhbncVK8
+// clipId?: string;
+// clipStart?: string;
+// clipEnd?: string;
 export default function Home() {
   return (
     <div className="min-h-screen flex flex-col">
       {/* Main Content */}
       <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
         {/* Header Section */}
-        <div className="flex justify-between items-center mb-4">
+        <div className="flex flex-col gap-4 mb-6">
           <h1 className="flex flex-col gap-2">
-            <div className="flex items-center gap-2">
-              <span className="text-3xl font-heading text-primary tracking-tight">
+            <div className="flex flex-col md:flex-row md:items-center gap-2">
+              <span className="text-2xl md:text-3xl font-heading text-primary tracking-tight">
                 SHADY BEARS ADVENTURE
               </span>
-              <span className="text-lg font-heading text-text-secondary border-l border-[#FFE5E5] pl-2 tracking-wide">
+              <span className="text-base md:text-lg font-heading text-text-secondary md:border-l md:border-[#FFE5E5] md:pl-2 tracking-wide">
                 Shadow-Chasing Multiplayer Game
               </span>
             </div>
@@ -74,22 +97,24 @@ export default function Home() {
               Where Your Shadow Becomes Your Greatest Challenge!
             </span>
           </h1>
-        </div>
 
-        {/* Game Container */}
-        <div className="space-y-4 mb-6">
-          {/* Game Section with Sidebar */}
-          <div className="flex gap-4">
-            <div className="flex-1">
-              <GameContainer game={ShadybearsGame} />
+          {/* Game Container */}
+          <div className="space-y-4 mb-6">
+            {/* Game Section with Sidebar */}
+            <div className="flex flex-col px-2 md:flex-row gap-4 items-start">
+              <div className="flex-1">
+                <GameContainer game={ShadybearsGame} />
+              </div>
+              <div className="flex justify-center md:block w-full md:w-auto md:-mt-10">
+                <GamesSidebar currentGameId={ShadybearsGame.id} gameCategories={ShadybearsGame.categories} />
+              </div>
             </div>
-            <GamesSidebar currentGameId={ShadybearsGame.id} gameCategories={ShadybearsGame.categories} />
           </div>
         </div>
 
         {/* Game Description Section */}
         <div className="space-y-12">
-          <section className="flex items-start gap-8 max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
+          <section className="flex flex-col md:flex-row items-start gap-8 max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
             <div className="w-[120px] h-[120px] flex-shrink-0 rounded-2xl overflow-hidden bg-primary p-0 shadow-lg">
               <img
                 src="/logo.jpeg"
@@ -105,46 +130,49 @@ export default function Home() {
                 {ShadybearsGame.description}
               </p>
               
+              {/* 添加视频组件 */}
+              {ShadybearsGame.video && (
+                <GameVideo 
+                  youtubeId={ShadybearsGame.video.youtubeId}
+                  title={ShadybearsGame.video.title}
+                  clipId={ShadybearsGame.video.clipId}
+                  clipTime={ShadybearsGame.video.clipTime}
+                  thumbnail={ShadybearsGame.video.thumbnail}
+                />
+              )}
+              
               {/* 添加游戏亮点 */}
-              <div className="grid grid-cols-2 gap-4 mt-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 md:gap-4 mt-6">
                 <div className="flex items-center gap-2 bg-white/50 p-3 rounded-lg">
-                  <span className="text-2xl">🎮</span>
-                  <span className="text-text-primary">2-Player Shady Bears Action</span>
+                  <span className="text-xl md:text-2xl">🎮</span>
+                  <span className="text-sm md:text-base text-text-primary">2-Player Shady Bears Action</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/50 p-3 rounded-lg">
-                  <span className="text-2xl">🌟</span>
-                  <span className="text-text-primary">Unique Shadow Mechanics</span>
+                  <span className="text-xl md:text-2xl">🌟</span>
+                  <span className="text-sm md:text-base text-text-primary">Unique Shadow Mechanics</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/50 p-3 rounded-lg">
-                  <span className="text-2xl">🌰</span>
-                  <span className="text-text-primary">Strategic Acorn Collection</span>
+                  <span className="text-xl md:text-2xl">🌰</span>
+                  <span className="text-sm md:text-base text-text-primary">Strategic Acorn Collection</span>
                 </div>
                 <div className="flex items-center gap-2 bg-white/50 p-3 rounded-lg">
-                  <span className="text-2xl">🎯</span>
-                  <span className="text-text-primary">Instant Browser Gaming</span>
+                  <span className="text-xl md:text-2xl">🎯</span>
+                  <span className="text-sm md:text-base text-text-primary">Instant Browser Gaming</span>
                 </div>
               </div>
               
               {/* 分类标签部分 */}
               <div className="space-y-2">
-                <h3 className="text-lg font-heading text-primary">Explore More Shady Bears Categories</h3>
-                <div className="flex flex-wrap gap-2">
-                  {/* 显示固定的分类标签 */}
-                  {[
-                    GameCategory.ACTION,
-                    GameCategory.STRATEGY,
-                    GameCategory.ADVENTURE,
-                    GameCategory.TWO_PLAYER,
-                    GameCategory.GIRLS,
-                    GameCategory.KIDS,
-                    GameCategory.ANIMAL,
-                    GameCategory.FEATURED,
-                    GameCategory.TRENDING
-                  ].map((category: GameCategory) => (
+                <h3 className="text-base md:text-lg font-heading text-primary text-center md:text-left">
+                  Explore More Shady Bears Categories
+                </h3>
+                <div className="flex flex-wrap justify-center md:justify-start gap-2">
+                  {/* 显示游戏所属的分类标签 */}
+                  {ShadybearsGame.categories.map((category: GameCategory) => (
                     <Link
                       key={category}
                       href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-white/80 text-text-secondary hover:bg-[#ff6b6bd8] hover:text-white transition-all duration-300 border border-[#FFE5E5] hover:shadow-md hover:scale-105"
+                      className="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-medium bg-white/80 text-text-secondary hover:bg-[#ff6b6bd8] hover:text-white transition-all duration-300 border border-[#FFE5E5] hover:shadow-md hover:scale-105"
                     >
                       {category}
                     </Link>
@@ -152,21 +180,21 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="flex gap-4 text-sm">
+              <div className="flex flex-wrap justify-center md:justify-start gap-3 md:gap-4 text-xs md:text-sm">
                 <Link
                   href="/how-to-play"
                   className="font-heading text-primary hover:text-[#ff5252fa] transition-colors"
                 >
                   How to play
                 </Link>
-                <span className="text-[#FFE5E5]">|</span>
+                <span className="text-[#FFE5E5] hidden md:inline">|</span>
                 <Link
                   href="/faq"
                   className="font-heading text-primary hover:text-[#ff5252fa] transition-colors"
                 >
                   FAQ
                 </Link>
-                <span className="text-[#FFE5E5]">|</span>
+                <span className="text-[#FFE5E5] hidden md:inline">|</span>
                 <Link
                   href="/features"
                   className="font-heading text-primary hover:text-[#ff5252fa] transition-colors"

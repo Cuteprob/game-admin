@@ -1,10 +1,11 @@
 import { Metadata } from "next"
-import { GameCategory, games, getGamesByCategory } from "@/config/games"
+import { Game, GameCategory, games, getGamesByCategory } from "@/config/games"
 import { Breadcrumb } from "@/components/ui/breadcrumb"
 import Link from "next/link"
 import { notFound } from "next/navigation"
 
 export const runtime = 'edge';
+
 interface CategoryPageProps {
   params: {
     category: string
@@ -18,6 +19,13 @@ function getCategoryDisplayName(categorySlug: string): string {
   );
   return category || 'Unknown Category';
 }
+
+// 添加日期排序函数
+const sortGamesByDate = (games: Game[]) => {
+  return [...games].sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+};
 
 // 生成页面元数据
 export async function generateMetadata({ params }: CategoryPageProps): Promise<Metadata> {
@@ -35,13 +43,15 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
 export default function CategoryPage({ params }: CategoryPageProps) {
   const categoryName = getCategoryDisplayName(params.category);
   
-  // 如果分类不存在，返回404
   if (!categoryName) {
     notFound();
   }
 
-  // 获取该分类的游戏
-  const categoryGames = getGamesByCategory(categoryName as GameCategory);
+  // 获取该分类的游戏并按日期排序
+  const categoryGames = sortGamesByDate(getGamesByCategory(categoryName as GameCategory));
+  
+  // 获取所有游戏并按日期排序
+  const allGames = sortGamesByDate(games);
   
   return (
     <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
@@ -64,7 +74,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           </p>
         </div>
 
-        {/* 该分类的游戏 */}
+        {/* 该分类的游戏 - 按日期排序 */}
         <section className="space-y-6">
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
             {categoryGames.map((game) => (
@@ -95,11 +105,11 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           </div>
         </section>
 
-        {/* 所有游戏 */}
+        {/* 所有游戏 - 按日期排序 */}
         <section className="space-y-6">
           <h2 className="text-2xl font-heading text-primary">More Games</h2>
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {games.map((game) => (
+            {allGames.map((game) => (
               <Link
                 key={game.id}
                 href={`/games/${game.id}`}

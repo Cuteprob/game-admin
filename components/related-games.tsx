@@ -6,21 +6,32 @@ interface RelatedGamesProps {
   currentGameId?: string;
 }
 
+// 添加日期排序函数
+const sortGamesByDate = (games: Game[]) => {
+  return [...games].sort((a, b) => {
+    return new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime();
+  });
+};
+
 export function RelatedGames({ currentGameId }: RelatedGamesProps) {
-  // 获取新游戏和热门游戏
-  const newGames = games.filter(game => 
-    game.categories.includes(GameCategory.NEW) && 
-    game.id !== currentGameId
+  // 获取新游戏并按日期排序
+  const newGames = sortGamesByDate(
+    games.filter(game => 
+      game.categories.includes(GameCategory.NEW) && 
+      game.id !== currentGameId
+    )
   );
 
+  // 获取热门游戏（排除已经在新游戏中的游戏）
   const popularGames = games.filter(game => 
     game.categories.includes(GameCategory.POPULAR) && 
     game.id !== currentGameId &&
-    !game.categories.includes(GameCategory.NEW) // 排除已经在新游戏中的游戏
+    !game.categories.includes(GameCategory.NEW) && // 排除新游戏
+    !newGames.some(newGame => newGame.id === game.id) // 确保不重复
   );
 
   // 合并游戏列表，优先显示新游戏，然后是热门游戏
-  const relatedGames = [...newGames, ...popularGames].slice(0, 10);
+  const relatedGames = [...newGames, ...popularGames].slice(0, 15);
 
   return (
     <section className="space-y-8">

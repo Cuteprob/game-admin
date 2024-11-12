@@ -8,7 +8,7 @@ interface GamesSidebarProps {
   limit?: number;
 }
 
-export function GamesSidebar({ currentGameId, gameCategories, limit = 4 }: GamesSidebarProps) {
+export function GamesSidebar({ currentGameId, gameCategories, limit = 15 }: GamesSidebarProps) {
   // 定义分类组
   const mainCategories = [
     GameCategory.RACING,
@@ -82,40 +82,35 @@ export function GamesSidebar({ currentGameId, gameCategories, limit = 4 }: Games
     .slice(0, limit);
 
   return (
-    <div className="w-full max-w-xs space-y-4">
-      <div className="flex justify-between items-center">
-        <h2 className="text-xl font-heading text-primary">Similar Games</h2>
-        <Link 
-          href="/games"
-          className="text-text-secondary hover:text-[#ff5252fa] transition-colors"
-        >
-          More »
-        </Link>
-      </div>
-      
+    <div className="w-full md:max-w-xs space-y-4">
       <div className="space-y-4">
-        {similarGames.map((game) => (
-          <Link
-            key={game.id}
-            href={`/games/${game.id}`}
-            className="flex gap-3 p-2 rounded-xl bg-white/80 backdrop-blur-sm border border-[#FFE5E5] hover:shadow-md transition-all"
-          >
-            <img
-              src={game.image}
-              alt={game.title}
-              className="w-20 h-20 object-cover rounded-lg"
-            />
-            <div className="flex-1 min-w-0">
-              <h3 className="font-heading text-text-primary truncate">{game.title}</h3>
-              <div className="flex items-center gap-1 mt-1">
-                <Rating initialRating={game.rating} isReadOnly size="sm" />
+        <h2 className="text-2xl font-heading text-text-primary mb-4">
+          Similar Games
+        </h2>
+        <div className="grid grid-cols-4 gap-3 md:grid-cols-2 lg:grid-cols-3 md:px-0">
+          {similarGames.map((game) => (
+            <Link
+              key={game.id}
+              href={`/games/${game.id}`}
+              className="relative group overflow-hidden rounded-2xl bg-white/80 backdrop-blur-sm border border-[#FFE5E5] hover:shadow-md transition-all aspect-square"
+            >
+              {/* 图片容器 */}
+              <div className="relative w-full h-full rounded-2xl overflow-hidden">
+                <img
+                  src={game.image}
+                  alt={game.title}
+                  className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
+                />
+                {/* 悬停时显示的标题 */}
+                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-2">
+                  <h3 className="font-heading text-white text-center text-xs md:text-sm line-clamp-2">
+                    {game.title}
+                  </h3>
+                </div>
               </div>
-              <p className="text-text-secondary text-sm truncate mt-1">
-                {game.description}
-              </p>
-            </div>
-          </Link>
-        ))}
+            </Link>
+          ))}
+        </div>
       </div>
     </div>
   );
