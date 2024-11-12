@@ -42,25 +42,30 @@ export function GameContainer({ game }: GameContainerProps) {
               <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 to-primary/20 blur-lg animate-pulse" />
             </div>
             
-            {/* 游戏图片 */}
+            {/* 游戏图片 - 移动端优化 */}
             <img
               src={game.image}
               alt={game.title}
-              className="relative w-48 h-48 rounded-xl mb-4 shadow-slate-400 shadow-2xl hover:scale-110 
-              transition-transform duration-300 z-10 
-              " // 悬停时添加弹跳效果
+              className="relative w-36 h-36 md:w-48 md:h-48 rounded-xl mb-4 shadow-slate-400 shadow-2xl 
+              hover:scale-110 transition-transform duration-300 z-10 
+              sm:mb-6" // 移动端调整大小和间距
             />
           </div>
-          <h2 className="text-2xl font-heading text-primary mb-6">
+
+          {/* 游戏标题 - 移动端优化 */}
+          <h2 className="text-xl md:text-2xl font-heading text-primary mb-4 md:mb-6 text-center px-4">
             {game.title}
           </h2>
+
+          {/* 游戏按钮 - 移动端优化 */}
           <button
             onClick={() => setIsPlaying(true)}
-            className="relative px-8 py-3 text-base font-heading 
+            className="relative px-6 md:px-8 py-2 md:py-3 text-sm md:text-base font-heading 
             text-[#FFF5E4] bg-[#ff6b6bd8] hover:bg-[#ff5252fa] 
             rounded-full transition-all duration-300 shadow-sm 
-            hover:shadow-2xl hover:scale-125 border border-[#FFE5E5] 
-            animate-pulse delay-500 hover:animate-none" // 默认弹跳，悬停时停止
+            hover:shadow-2xl hover:scale-110 md:hover:scale-125 border border-[#FFE5E5] 
+            animate-pulse delay-500 hover:animate-none
+            active:scale-95" // 添加点击反馈
           >
             Play Now
           </button>
