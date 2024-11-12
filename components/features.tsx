@@ -10,7 +10,7 @@ interface Feature {
 
 const features: Feature[] = [
   {
-    title: "Shadow-Chasing Adventure",
+    title: "Shady Bears Adventure",
     description: "Experience Shady Bears' unique shadow mechanics where your own shadow becomes your greatest challenge. Master the art of shadow-dodging while collecting acorns in this innovative platformer. Every movement counts as your shadow mimics and chases you, creating an exciting blend of strategy and quick reflexes.",
     icon: "/features/shadow-mechanics.webp",
     highlight: "Unique Gameplay",

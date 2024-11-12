@@ -7,9 +7,9 @@ export function Footer() {
       <div className="container mx-auto px-4 py-12 max-w-7xl space-y-12">
         {/* 分类导航区 - 移到最上面 */}
         <div className="space-y-6">
-          <h3 className="font-heading text-text-primary text-xl text-center mb-8">
+          <h2 className="font-heading text-text-primary text-xl text-center mb-8">
             Game Categories
-          </h3>
+          </h2>
           <div className="grid gap-4">
             {/* 主要游戏类型 - 大尺寸 */}
             <div className="flex flex-wrap justify-center gap-3">
@@ -97,7 +97,7 @@ export function Footer() {
 
           {/* Quick Links */}
           <div className="space-y-4">
-            <h3 className="font-heading text-text-primary">Quick Links</h3>
+            <h2 className="font-heading text-text-primary">Quick Links</h2>
             <ul className="grid grid-cols-2 gap-2">
               <li>
                 <Link href="/how-to-play" className="text-text-secondary hover:text-[#ff5252fa] transition-colors">
@@ -124,7 +124,7 @@ export function Footer() {
 
           {/* Contact Info */}
           <div className="space-y-4">
-            <h3 className="font-heading text-text-primary">Contact</h3>
+            <h2 className="font-heading text-text-primary">Contact</h2>
             <div className="space-y-2">
               <p className="text-text-secondary">support@shadybears.org</p>
               <div className="flex gap-4">

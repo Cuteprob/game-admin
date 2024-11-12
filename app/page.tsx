@@ -84,19 +84,19 @@ export default function Home() {
       <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
         {/* Header Section */}
         <div className="flex flex-col gap-4 mb-6">
-          <h1 className="flex flex-col gap-2">
+          <div className="flex flex-col gap-2">
             <div className="flex flex-col md:flex-row md:items-center gap-2">
-              <span className="text-2xl md:text-3xl font-heading text-primary tracking-tight">
+              <h1 className="text-2xl md:text-3xl font-heading text-[#ff6b6bd8] tracking-tight">
                 SHADY BEARS ADVENTURE
-              </span>
-              <span className="text-base md:text-lg font-heading text-text-secondary md:border-l md:border-[#FFE5E5] md:pl-2 tracking-wide">
+              </h1>
+              <h2 className="text-base md:text-lg font-heading text-text-secondary md:border-l md:border-[#FFE5E5] md:pl-2 tracking-wide">
                 Shadow-Chasing Multiplayer Game
-              </span>
+              </h2>
             </div>
             <span className="text-sm text-text-secondary italic">
               Where Your Shadow Becomes Your Greatest Challenge!
             </span>
-          </h1>
+          </div>
 
           {/* Game Container */}
           <div className="space-y-4 mb-6">
@@ -131,6 +131,9 @@ export default function Home() {
               </p>
               
               {/* 添加视频组件 */}
+              <h3 className="text-xl font-heading text-text-primary mb-4">
+                Shady Bears Gameplay Video
+              </h3>
               {ShadybearsGame.video && (
                 <GameVideo 
                   youtubeId={ShadybearsGame.video.youtubeId}
@@ -212,9 +215,9 @@ export default function Home() {
           <section className="max-w-4xl mx-auto space-y-4 bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
             <div className="space-y-6">
               <div className="text-center space-y-2">
-                <h3 className="text-2xl font-heading text-primary">
+                <h2 className="text-2xl font-heading text-primary">
                   Rate Your Shady Bears Adventure
-                </h3>
+                </h2>
                 <p className="text-text-secondary max-w-2xl mx-auto">
                   Love dodging shadows in Shady Bears? Rate your experience and help other players discover this unique shadow-chasing adventure! Your feedback helps us improve the game.
                 </p>

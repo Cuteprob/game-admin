@@ -84,8 +84,8 @@ export function GamesSidebar({ currentGameId, gameCategories, limit = 15 }: Game
   return (
     <div className="w-full md:max-w-xs space-y-4">
       <div className="space-y-4">
-        <h2 className="text-2xl font-heading text-text-primary mb-4">
-          Similar Games
+        <h2 className="text-xl font-heading text-text-primary mb-4">
+          Similar Games like shady bears
         </h2>
         <div className="grid grid-cols-4 gap-3 md:grid-cols-2 lg:grid-cols-3 md:px-0">
           {similarGames.map((game) => (
