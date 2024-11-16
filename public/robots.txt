@@ -6,9 +6,20 @@ Allow: /games
 Allow: /features
 Allow: /how-to-play
 Allow: /faq
+Allow: /categories
+Allow: /categories/*
+Allow: /privacy
+Allow: /terms
 
 # Game pages
 Allow: /games/*
+
+# Block admin and system pages
+Disallow: /admin
+Disallow: /system
+Disallow: /api
+Disallow: /_next
+Disallow: /cdn-cgi
 
 # Sitemap location
 Sitemap: https://www.sprunkiphase.xyz/sitemap.xml
