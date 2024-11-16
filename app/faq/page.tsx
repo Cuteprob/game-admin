@@ -6,7 +6,7 @@ export default function FAQPage() {
     <div className="container mx-auto px-4 py-8 space-y-4 max-w-7xl">
       <Breadcrumb 
           items={[
-            { label: "Play Shady Bears", href: "/" },
+            { label: "Play Sprunki phase", href: "/" },
             { label: "FAQ", href: "/faq" }
           ]} 
       />  
@@ -19,10 +19,10 @@ export default function FAQPage() {
 }
 
 export const metadata = {
-  title: "Frequently Asked Questions - Shady Bears",
+  title: "Frequently Asked Questions - Sprunki phase",
   description: "Find answers to frequently asked questions. Get help with games, features, tips,and more. Discover controls, strategies, and gameplay mechanics.",
-  keywords: ["FAQ", "Shady Bears", "Shady Bears FAQ", "Shady Bears Help", "Shady Bears Support"],
+  keywords: ["FAQ", "Sprunki phase", "Sprunki phase FAQ", "Sprunki phase Help", "Sprunki phase Support"],
   alternates: {
-    canonical: "https://www.shadybears.org/faq",
+    canonical: "https://www.sprunkiphase.xyz/faq",
   },
 }

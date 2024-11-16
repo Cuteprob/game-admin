@@ -1,4 +1,4 @@
-import { Game, games, GameCategory } from "@/config/games"
+import { Game, games, GameCategory } from "@/config/sprunkigame"
 import Link from "next/link"
 import { Rating } from "@/components/ui/rating"
 
@@ -11,22 +11,12 @@ interface GamesSidebarProps {
 export function GamesSidebar({ currentGameId, gameCategories, limit = 15 }: GamesSidebarProps) {
   // 定义分类组
   const mainCategories = [
-    GameCategory.RACING,
-    GameCategory.ACTION,
-    GameCategory.SHOOTER,
-    GameCategory.PUZZLE,
-    GameCategory.STRATEGY,
-    GameCategory.SPORTS,
-    GameCategory.ADVENTURE
+    GameCategory.SPRUNKIPHASE,
   ];
 
   const themeCategories = [
-    GameCategory.CAR,
-    GameCategory.FIGHTING,
-    GameCategory.STICKMAN,
-    GameCategory.RUNNING,
-    GameCategory.BOXING,
-    GameCategory.ANIMAL
+    GameCategory.SPRUNKI,
+    GameCategory.HALLOWEEN,
   ];
   
   // 获取当前游戏的各类分类
@@ -84,15 +74,15 @@ export function GamesSidebar({ currentGameId, gameCategories, limit = 15 }: Game
   return (
     <div className="w-full md:max-w-xs space-y-4">
       <div className="space-y-4">
-        <h2 className="text-xl font-heading text-text-primary mb-4">
-          Similar Games like shady bears
+        <h2 className="text-xl font-heading text-primary mb-4">
+          Similar Games like sprunki phase
         </h2>
         <div className="grid grid-cols-4 gap-3 md:grid-cols-2 lg:grid-cols-3 md:px-0">
           {similarGames.map((game) => (
             <Link
               key={game.id}
               href={`/games/${game.id}`}
-              className="relative group overflow-hidden rounded-2xl bg-white/80 backdrop-blur-sm border border-[#FFE5E5] hover:shadow-md transition-all aspect-square"
+              className="relative group overflow-hidden rounded-2xl bg-slate-800/80 backdrop-blur-sm border border-[#2A2C32] hover:shadow-[0_0_15px_rgba(74,144,226,0.1)] transition-all aspect-square"
             >
               {/* 图片容器 */}
               <div className="relative w-full h-full rounded-2xl overflow-hidden">
@@ -102,8 +92,8 @@ export function GamesSidebar({ currentGameId, gameCategories, limit = 15 }: Game
                   className="w-full h-full object-cover transition-transform duration-300 group-hover:scale-110"
                 />
                 {/* 悬停时显示的标题 */}
-                <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-2">
-                  <h3 className="font-heading text-white text-center text-xs md:text-sm line-clamp-2">
+                <div className="absolute inset-0 bg-slate-900/70 opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-center justify-center p-2">
+                  <h3 className="font-heading text-text-secondary text-center text-xs md:text-sm line-clamp-2">
                     {game.title}
                   </h3>
                 </div>

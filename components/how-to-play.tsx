@@ -15,74 +15,81 @@ interface Step {
 const steps: Step[] = [
   {
     number: 1,
-    title: "Begin Your Shady Bears Journey",
-    description: "Welcome to Shady Bears, where your shadow is your greatest challenge! Choose between single-player mode to master the basics or team up with a friend in 2-player mode for double the excitement.",
+    title: "Getting Started with Sprunki Phase",
+    description: "Welcome to Sprunki Phase, where music creation becomes an adventure! Choose your characters and discover how each one contributes unique sounds to your musical masterpiece.",
     tips: [
-      "Single-player mode: Perfect for learning",
-      "2-Player mode: Cooperative shadow-dodging",
-      "Practice shadow-dodging techniques",
-      "Learn acorn collection strategies"
-    ]
-  },
-  {
-    number: 2,
-    title: "Master Shady Bears Controls",
-    description: "Shady Bears features simple, intuitive controls that are easy to learn but challenging to master, especially when dodging your shadow!",
-    tips: [
-      "Move smoothly to outmaneuver shadows",
-      "Time your jumps carefully",
-      "Coordinate with your teammate",
-      "Watch your shadow's movements"
+      "Explore different characters",
+      "Learn each character's unique sound",
+      "Start with simple beat combinations",
+      "Experiment with Incredibox-style mixing"
     ],
     area: {
       name: "Basic Controls",
       hazards: [
-        "Player 1: A/Left Arrow - Move Left",
-        "Player 1: D/Right Arrow - Move Right",
-        "Player 1: W/Up Arrow - Jump",
-        "Player 2: J - Move Left",
-        "Player 2: L - Move Right",
-        "Player 2: I - Jump"
+        "Drag & Drop: Assign sounds to characters",
+        "Click characters to activate/deactivate",
+        "Use spacebar to reset all sounds",
+        "Right-click to remove individual sounds"
+      ]
+    }
+  },
+  {
+    number: 2,
+    title: "Master Sprunki Phase Sound Mixing",
+    description: "In Sprunki Phase, creating the perfect mix is an art. Learn how different characters and sounds complement each other, inspired by Incredibox and Colorbox Mustard mechanics.",
+    tips: [
+      "Layer sounds strategically",
+      "Time your additions perfectly",
+      "Create rhythm patterns",
+      "Mix different sound categories"
+    ],
+    area: {
+      name: "Sound Categories",
+      hazards: [
+        "Beats: Foundation rhythm sounds",
+        "Melodies: Main musical elements",
+        "Effects: Special sound additions",
+        "Vocals: Character voice elements"
       ]
     }
   },
   {
     number: 3,
-    title: "Shady Bears Power-ups & Strategies",
-    description: "In Shady Bears, your shadow mimics your movements, making it both predictable and challenging. Learn to use this to your advantage while collecting acorns.",
+    title: "Discover Sprunki Phase Special Features",
+    description: "Each version of Sprunki Phase, from Retake to Phase 7, offers unique features and bonus animations. Learn how to unlock these special combinations.",
     tips: [
-      "Watch your shadow's patterns",
-      "Collect acorns strategically",
-      "Use honey for bonus points",
-      "Look for helpful fireflies"
+      "Experiment with character combinations",
+      "Watch for special animations",
+      "Discover hidden sound effects",
+      "Master phase-specific features"
     ],
     area: {
-      name: "Power-ups and Items",
+      name: "Special Features",
       hazards: [
-        "Acorns: Main collectibles for points",
-        "Honey: Bonus points but attracts bees",
-        "Fireflies: Help deal with shadows",
-        "Strategic item placement throughout levels"
+        "Bonus Animations: Unlock through specific combinations",
+        "Character Transformations: Mr. Fun computer modes",
+        "Phase-specific Elements: Unique to each version",
+        "Community Discoveries: Share your findings"
       ]
     }
   },
   {
     number: 4,
-    title: "Master Shady Bears Like a Pro",
-    description: "Master advanced techniques in Shady Bears to maximize your score and effectively avoid shadows. Coordinate with your teammate in 2-player mode for the best results!",
+    title: "Share Your Sprunki Phase Creations",
+    description: "Join the Sprunki Phase community! Learn how to save, share, and collaborate with other music creators in this evolving musical universe.",
     tips: [
-      "Plan your movement patterns",
-      "Coordinate with your teammate",
-      "Balance risk and reward",
-      "Master timing for power-ups"
+      "Save your best mixes",
+      "Share with the community",
+      "Learn from other creators",
+      "Explore community favorites"
     ],
     area: {
-      name: "Pro Tips",
+      name: "Community Features",
       hazards: [
-        "Use platforms to your advantage",
-        "Time power-up collections carefully",
-        "Communicate in multiplayer mode",
-        "Learn shadow prediction patterns"
+        "Save Feature: Store your favorite mixes",
+        "Share System: Distribute your creations",
+        "Community Hub: Connect with other creators",
+        "Feedback System: Rate and comment"
       ]
     }
   }
@@ -93,25 +100,25 @@ export function HowToPlay() {
     <section className="w-full" aria-labelledby="how-to-play-heading">
       <div className="space-y-8">
         <div className="text-center space-y-2">
-          <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#FFE5E5]">
+          <div className="inline-block bg-slate-800/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#2A2C32]">
             <h2 className="text-2xl font-heading text-primary">
-              Shady Bears: Your Shadow-Chasing Adventure Guide
+              Master Sprunki Phase Music Creation
             </h2>
           </div>
-          <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-            Master Shady Bears&apos; unique shadow-dodging mechanics and discover the art of acorn collection in this exciting multiplayer adventure
+          <p className="text-lg text-[#9BA1B0] max-w-2xl mx-auto">
+            Learn how to create amazing music, from basic beats to advanced Incredibox-style mixing techniques
           </p>
         </div>
 
         <div className="max-w-4xl mx-auto space-y-8">
           {steps.map((step) => (
             <div key={step.number} className="relative">
-              <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-md transition-all border border-[#FFE5E5] space-y-4">
+              <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-[0_0_15px_rgba(74,144,226,0.1)] transition-all border border-[#2A2C32] space-y-4">
                 <div className="flex items-center gap-4 mb-2">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-[#FFE5E5] text-primary font-heading shadow-md">
+                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/20 text-primary font-heading shadow-md">
                     {step.number}
                   </div>
-                  <h2 className="text-xl font-heading text-text-primary">
+                  <h2 className="text-xl font-heading text-text-secondary">
                     {step.title}
                   </h2>
                 </div>
@@ -122,7 +129,7 @@ export function HowToPlay() {
 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-3">
-                    <h3 className="font-heading text-text-primary">Tips</h3>
+                    <h3 className="font-heading text-text-secondary">Tips</h3>
                     <ul className="space-y-2">
                       {step.tips.map((tip, index) => (
                         <li key={index} className="flex items-start gap-2">
@@ -135,7 +142,7 @@ export function HowToPlay() {
 
                   {step.area && (
                     <div className="space-y-3">
-                      <h3 className="font-heading text-text-primary">{step.area.name}</h3>
+                      <h3 className="font-heading text-text-secondary">{step.area.name}</h3>
                       <ul className="space-y-2">
                         {step.area.hazards.map((hazard, index) => (
                           <li key={index} className="flex items-start gap-2">

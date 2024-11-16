@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { Game, GameCategory, games, getGamesByCategory } from "@/config/games"
+import { Game, GameCategory, games, getGamesByCategory } from "@/config/sprunkigame"
 import { Breadcrumb } from "@/components/ui/breadcrumb"
 import Link from "next/link"
 import { notFound } from "next/navigation"
@@ -32,10 +32,10 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   const categoryName = getCategoryDisplayName(params.category);
   
   return {
-    title: `${categoryName} - Play Free Online Games | Shady Bears`,
-    description: `Play the best ${categoryName.toLowerCase()} on Shady Bears. Find your favorite games and enjoy hours of entertainment! All games are free to play and no download required!`,
+    title: `${categoryName} - Free Music Games | Sprunki phase`,
+    description: `Play the best ${categoryName.toLowerCase()} on Sprunki phase. Find your favorite games and enjoy hours of entertainment! All games are free to play and no download required!`,
     alternates: {
-      canonical: `https://www.shadybears.org/categories/${params.category}`,
+      canonical: `https://www.sprunkiphase.xyz/categories/${params.category}`,
     },
   }
 }
@@ -57,7 +57,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
       <Breadcrumb 
         items={[
-          { label: "Play Shady Bears", href: "/" },
+          { label: "Play Sprunki phase", href: "/" },
           { label: categoryName, href: `/categories/${params.category}` }
         ]} 
       />
@@ -69,7 +69,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             {categoryName}
           </h1>
           <p className="text-text-secondary max-w-2xl mx-auto">
-            Discover and play the best {categoryName.toLowerCase()} on Shady Bears. 
+            Discover and play the best {categoryName.toLowerCase()} on Sprunki phase. 
             All games are free to play and no download required!
           </p>
         </div>
@@ -83,7 +83,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 href={`/games/${game.id}`}
                 className="group block"
               >
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-[#FFE5E5] overflow-hidden transition-all hover:shadow-md">
+                <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-[#2A2C32] overflow-hidden transition-all hover:shadow-[0_0_15px_rgba(74,144,226,0.1)]">
                   <div className="aspect-video relative overflow-hidden">
                     <img
                       src={game.image}
@@ -115,7 +115,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                 href={`/games/${game.id}`}
                 className="group block"
               >
-                <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-[#FFE5E5] overflow-hidden transition-all hover:shadow-md">
+                <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-[#2A2C32] overflow-hidden transition-all hover:shadow-[0_0_15px_rgba(74,144,226,0.1)]">
                   <div className="aspect-video relative overflow-hidden">
                     <img
                       src={game.image}

@@ -1,19 +1,33 @@
 import type { Metadata } from "next";
-import { Outfit } from "next/font/google";
+import { Space_Grotesk, Inter, JetBrains_Mono } from "next/font/google";
 import Script from "next/script";
 import "./globals.css";
 import { Footer } from "@/components/footer";
 import { Navbar } from "@/components/navbar";
 
-const outfit = Outfit({ 
+// 配置字体
+const spaceGrotesk = Space_Grotesk({ 
   subsets: ["latin"],
   display: 'swap',
+  variable: '--font-space-grotesk',
+});
+
+const inter = Inter({ 
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-inter',
+});
+
+const jetbrainsMono = JetBrains_Mono({
+  subsets: ["latin"],
+  display: 'swap',
+  variable: '--font-jetbrains-mono',
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.shadybears.org'),
+  metadataBase: new URL('https://www.sprunkiphase.xyz'),
   openGraph: {
-    siteName: 'Shady Bears',
+    siteName: 'Sprunkiphase',
     locale: 'en_US',
     type: 'website',
   },
@@ -31,7 +45,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-V4PEXXTX7L"
+          src="https://www.googletagmanager.com/gtag/js?id=G-JML65EXP9Q"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -40,12 +54,19 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-V4PEXXTX7L');
+            gtag('config', 'G-JML65EXP9Q');
           `}
         </Script>
-        <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Quicksand:wght@400;500;600&display=swap" rel="stylesheet" />
       </head>
-      <body className={outfit.className}>
+      <body 
+        className={`
+          ${spaceGrotesk.variable} 
+          ${inter.variable} 
+          ${jetbrainsMono.variable} 
+          font-body 
+          bg-[#1A1B1E]
+        `}
+      >
         <Navbar />
         {children}
         <Footer />

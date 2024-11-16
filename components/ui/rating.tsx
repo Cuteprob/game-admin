@@ -81,8 +81,8 @@ export function Rating({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           className={cn(
-            filled ? "fill-yellow-400 text-yellow-400" : "fill-slate-200 text-slate-200",
-            !isReadOnly && !hasVoted && "hover:fill-yellow-400 hover:text-yellow-400",
+            filled ? "fill-accent text-accent" : "fill-slate-600 text-slate-600",
+            !isReadOnly && !hasVoted && "hover:fill-accent hover:text-accent",
           )}
         >
           <path
@@ -113,13 +113,13 @@ export function Rating({
         {[1, 2, 3, 4, 5].map(renderStar)}
       </div>
       {!isReadOnly && (
-        <div className="flex items-center gap-2 text-sm">
+        <div className="flex items-center gap-2 text-sm font-mono">
           <div className="flex items-center gap-1">
-            <span className="font-medium text-primary">{currentRating}</span>
-            <span className="text-[#FFE5E5]">/</span>
+            <span className="font-medium text-accent">{currentRating}</span>
+            <span className="text-border">/</span>
             <span className="text-text-secondary">5</span>
           </div>
-          <span className="text-[#FFE5E5]">•</span>
+          <span className="text-border">•</span>
           <div className="flex items-center gap-1">
             <span className="text-text-secondary">{currentVotes.toLocaleString()}</span>
             <span className="text-text-secondary">votes</span>
@@ -160,37 +160,37 @@ export function Rating({
       {!isReadOnly && (
         <>
           {reviewSubmitted ? (
-            <div className="text-sm text-primary text-center p-4 bg-[#FFF5E4] rounded-2xl border border-[#FFE5E5]">
+            <div className="text-sm text-accent text-center p-4 bg-slate-800/80 rounded-2xl border border-[#2A2C32]">
               Thank you for your review! It will be displayed after moderation.
             </div>
           ) : (
             <form onSubmit={handleSubmitReview} className="space-y-4">
               <div>
-                <label className="block text-sm font-medium text-primary">Name</label>
+                <label className="block text-sm font-medium text-text-primary">Name</label>
                 <input
                   type="text"
                   required
-                  className="mt-1 block w-full rounded-2xl border-[#FFE5E5] shadow-sm focus:border-primary focus:ring-primary bg-white/80 backdrop-blur-sm"
+                  className="mt-1 block w-full rounded-2xl border-[#2A2C32] shadow-sm focus:border-accent focus:ring-accent bg-slate-800/80 backdrop-blur-sm text-text-primary"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-primary">Email</label>
+                <label className="block text-sm font-medium text-text-primary">Email</label>
                 <input
                   type="email"
                   required
-                  className="mt-1 block w-full rounded-2xl border-[#FFE5E5] shadow-sm focus:border-primary focus:ring-primary bg-white/80 backdrop-blur-sm"
+                  className="mt-1 block w-full rounded-2xl border-[#2A2C32] shadow-sm focus:border-accent focus:ring-accent bg-slate-800/80 backdrop-blur-sm text-text-primary"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-primary">Review</label>
+                <label className="block text-sm font-medium text-text-primary">Review</label>
                 <textarea
                   required
                   rows={4}
-                  className="mt-1 block w-full rounded-2xl border-[#FFE5E5] shadow-sm focus:border-primary focus:ring-primary bg-white/80 backdrop-blur-sm"
+                  className="mt-1 block w-full rounded-2xl border-[#2A2C32] shadow-sm focus:border-accent focus:ring-accent bg-slate-800/80 backdrop-blur-sm text-text-primary"
                   value={formData.comment}
                   onChange={(e) => setFormData({...formData, comment: e.target.value})}
                 />
@@ -198,7 +198,7 @@ export function Rating({
               <div className="flex justify-end">
                 <button
                   type="submit"
-                  className="px-6 py-2 text-sm font-heading text-[#FFF5E4] bg-[#ff6b6bd8] hover:bg-[#ff5252fa] rounded-full transition-all duration-300 shadow-sm hover:shadow-md border border-[#FFE5E5]"
+                  className="px-6 py-2 text-sm font-heading text-text-primary bg-primary hover:bg-primary/90 rounded-full transition-all duration-300 shadow-sm hover:shadow-md border border-[#2A2C32]"
                 >
                   Submit Review
                 </button>

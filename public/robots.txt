@@ -11,7 +11,7 @@ Allow: /faq
 Allow: /games/*
 
 # Sitemap location
-Sitemap: https://www.shadybears.org/sitemap.xml
+Sitemap: https://www.sprunkiphase.xyz/sitemap.xml
 
 # Crawl delay
 Crawl-delay: 10

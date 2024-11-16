@@ -26,26 +26,26 @@ const config: Config = {
   				foreground: 'hsl(var(--popover-foreground))'
   			},
   			primary: {
-  				DEFAULT: 'hsl(var(--primary))',
-  				foreground: 'hsl(var(--primary-foreground))'
+  				DEFAULT: '#8B5CF6',
+  				foreground: '#F3F0FF'
   			},
   			secondary: {
-  				DEFAULT: 'hsl(var(--secondary))',
-  				foreground: 'hsl(var(--secondary-foreground))'
+  				DEFAULT: '#A78BFA',
+  				foreground: '#DDD6FE'
   			},
   			muted: {
   				DEFAULT: 'hsl(var(--muted))',
   				foreground: 'hsl(var(--muted-foreground))'
   			},
   			accent: {
-  				DEFAULT: 'hsl(var(--accent))',
-  				foreground: 'hsl(var(--accent-foreground))'
+  				DEFAULT: '#C4B5FD',
+  				foreground: '#F3F0FF'
   			},
   			destructive: {
   				DEFAULT: 'hsl(var(--destructive))',
   				foreground: 'hsl(var(--destructive-foreground))'
   			},
-  			border: 'hsl(var(--border))',
+  			border: '#4C1D95',
   			input: 'hsl(var(--input))',
   			ring: 'hsl(var(--ring))',
   			chart: {
@@ -56,9 +56,14 @@ const config: Config = {
   				'5': 'hsl(var(--chart-5))'
   			},
   			text: {
-  				primary: 'var(--text-primary)',
-  				secondary: 'var(--text-secondary)'
+  				primary: '#F3F0FF',
+  				secondary: '#DDD6FE'
   			}
+  		},
+  		fontFamily: {
+  			heading: ['var(--font-space-grotesk)', 'sans-serif'],
+  			body: ['var(--font-inter)', 'sans-serif'],
+  			mono: ['var(--font-jetbrains-mono)', 'monospace'],
   		},
   		keyframes: {
   			'accordion-down': {

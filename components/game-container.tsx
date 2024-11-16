@@ -8,7 +8,7 @@ import {
 } from "@/components/ui/dropdown-menu"
 import { useRef, useState } from "react"
 import { Icons } from "@/config/icons"
-import { Game } from "@/config/games"
+import { Game } from "@/config/sprunkigame"
 
 interface GameContainerProps {
   game: Game;
@@ -32,40 +32,41 @@ export function GameContainer({ game }: GameContainerProps) {
   };
 
   return (
-    <div className="aspect-video w-full relative rounded-2xl bg-white/90 backdrop-blur-sm border border-[#FFE5E5] p-4">
+    <div className="aspect-video w-full relative rounded-2xl bg-slate-800/80 backdrop-blur-sm border border-[#2A2C32] p-4">
       {!isPlaying ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/90 backdrop-blur-sm rounded-2xl z-10">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-800/80 backdrop-blur-sm rounded-2xl z-10">
           {/* 图片容器 */}
           <div className="relative group">
             {/* 背景光效 */}
             <div className="absolute inset-0">
-              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/10 to-primary/20 blur-lg animate-pulse" />
+              <div className="absolute inset-0 rounded-xl bg-gradient-to-r from-primary/20 to-accent/20 blur-lg animate-pulse" />
             </div>
             
-            {/* 游戏图片 - 移动端优化 */}
+            {/* 游戏图片 */}
             <img
               src={game.image}
               alt={game.title}
-              className="relative w-36 h-36 md:w-48 md:h-48 rounded-xl mb-4 shadow-slate-400 shadow-2xl 
+              className="relative w-36 h-36 md:w-48 md:h-48 rounded-xl mb-4 shadow-lg 
               hover:scale-110 transition-transform duration-300 z-10 
-              sm:mb-6" // 移动端调整大小和间距
+              sm:mb-6"
             />
           </div>
 
-          {/* 游戏标题 - 移动端优化 */}
-          <h2 className="text-xl md:text-2xl font-heading text-primary mb-4 md:mb-6 text-center px-4">
+          {/* 游戏标题 */}
+          <h2 className="text-xl md:text-2xl font-heading text-text-secondary mb-4 md:mb-6 text-center px-4">
             {game.title}
           </h2>
 
-          {/* 游戏按钮 - 移动端优化 */}
+          {/* 游戏按钮 */}
           <button
             onClick={() => setIsPlaying(true)}
             className="relative px-6 md:px-8 py-2 md:py-3 text-sm md:text-base font-heading 
-            text-[#FFF5E4] bg-[#ff6b6bd8] hover:bg-[#ff5252fa] 
+            text-text-primary bg-primary hover:bg-primary/90 
             rounded-full transition-all duration-300 shadow-sm 
-            hover:shadow-2xl hover:scale-110 md:hover:scale-125 border border-[#FFE5E5] 
+            hover:shadow-[0_0_15px_rgba(74,144,226,0.3)] hover:scale-110 md:hover:scale-125 
+            border border-[#2A2C32] 
             animate-pulse delay-500 hover:animate-none
-            active:scale-95" // 添加点击反馈
+            active:scale-95"
           >
             Play Now
           </button>
@@ -73,11 +74,11 @@ export function GameContainer({ game }: GameContainerProps) {
       ) : null}
 
       {error ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-white/80 backdrop-blur-sm rounded-2xl z-10">
-          <p className="text-sm text-red-500">Failed to load game. Please try refreshing the page.</p>
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-800/80 backdrop-blur-sm rounded-2xl z-10">
+          <p className="text-sm text-destructive">Failed to load game. Please try refreshing the page.</p>
           <button 
             onClick={() => window.location.reload()} 
-            className="mt-4 px-4 py-2 bg-primary text-[#FFF5E4] rounded-full hover:bg-[#ff5252fa] transition-colors"
+            className="mt-4 px-4 py-2 bg-primary text-text-primary rounded-full hover:bg-primary/90 transition-colors"
           >
             Refresh Page
           </button>
@@ -88,7 +89,7 @@ export function GameContainer({ game }: GameContainerProps) {
         ref={iframeRef}
         src={game.iframeUrl}
         title={game.title}
-        className="w-full h-full border-0 rounded-xl bg-white" 
+        className="w-full h-full p-1 border-0 rounded-xl bg-slate-900" 
         allowFullScreen
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
@@ -105,7 +106,7 @@ export function GameContainer({ game }: GameContainerProps) {
             variant="outline" 
             size="icon"
             onClick={enterFullscreen}
-            className="bg-white/90 hover:bg-secondary/10 border-secondary text-secondary"
+            className="bg-slate-800/80 hover:bg-slate-700/80 border-[#2A2C32] text-text-primary hover:text-accent"
           >         
             {Icons.fullscreen}
           </Button>
@@ -114,12 +115,12 @@ export function GameContainer({ game }: GameContainerProps) {
               <Button 
                 variant="outline" 
                 size="icon"
-                className="bg-white/90 hover:bg-secondary/10 border-secondary text-secondary"
+                className="bg-slate-800/80 hover:bg-slate-700/80 border-[#2A2C32] text-text-primary hover:text-accent"
               >
                 {Icons.help}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80 bg-white border border-[#FFE5E5] rounded-2xl p-0">
+            <DropdownMenuContent align="end" className="w-80 bg-slate-800/90 border border-[#2A2C32] rounded-2xl p-0">
               <div className="p-4 space-y-4">
                 <div>
                   <h3 className="font-heading text-primary text-sm mb-2">Movement Controls</h3>

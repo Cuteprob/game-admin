@@ -33,7 +33,7 @@ export function GameVideo({ youtubeId, clipId, clipTime, title, thumbnail }: Gam
               </svg>
             </div>
             <div className="absolute bottom-0 left-0 right-0 p-4 bg-gradient-to-t from-black/60 to-transparent">
-              <p className="text-white text-sm font-medium">{title}</p>
+              <p className="text-text-secondary text-sm font-medium">{title}</p>
             </div>
           </button>
         )}

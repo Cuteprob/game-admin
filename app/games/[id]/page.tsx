@@ -1,5 +1,5 @@
 import { Metadata } from "next"
-import { GameCategory, games } from "@/config/games"
+import { GameCategory, games } from "@/config/sprunkigame"
 import { GameContainer } from "@/components/game-container"
 import { GamesSidebar } from "@/components/games-sidebar"
 import { RelatedGames } from "@/components/related-games"
@@ -51,7 +51,7 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
       images: [game.image],
     },
     alternates: {
-      canonical: `https://www.shadybears.org/games/${params.id}`,
+      canonical: `https://www.sprunkiphase.xyz/games/${params.id}`,
     },
   }
 }
@@ -70,7 +70,7 @@ export default function GamePage({ params }: GamePageProps) {
         <div className="mb-6">
           <Breadcrumb 
             items={[
-              { label: "Play Shady Bears", href: "/" },
+              { label: "Play Sprunki phase", href: "/" },
               { label: `Play ${game.title}`, href: `/games/${game.id}` }
             ]} 
           />
@@ -82,7 +82,7 @@ export default function GamePage({ params }: GamePageProps) {
             <span className="text-3xl font-heading text-primary tracking-tight">
               {game.title}
             </span>
-            <span className="text-lg font-heading text-text-secondary md:border-l border-[#FFE5E5] md:pl-2 tracking-wide">
+            <span className="text-lg font-heading text-text-secondary md:border-l border-[#2A2C32] md:pl-2 tracking-wide">
               Play {game.title} Online for Free!
             </span>
           </h1>
@@ -101,9 +101,9 @@ export default function GamePage({ params }: GamePageProps) {
             </div>
 
           {/* 游戏介绍 */}
-          <section className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
+          <section className="max-w-4xl mx-auto bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-[#2A2C32]">
             <div className="space-y-4">
-              <h2 className="text-2xl font-heading text-text-primary">About {game.title}</h2>
+              <h2 className="text-2xl font-heading text-primary">About {game.title}</h2>
               <div className="space-y-4">
                 <p className="text-lg leading-relaxed text-text-secondary">
                   Experience {game.title} - {game.description}
@@ -129,7 +129,7 @@ export default function GamePage({ params }: GamePageProps) {
                     <Link
                       key={category}
                       href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-white/80 text-text-secondary hover:bg-[#ff6b6bd8] hover:text-white transition-all duration-300 border border-[#FFE5E5] hover:shadow-md hover:scale-105"
+                      className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-slate-700/80 text-text-secondary hover:bg-slate-700 hover:text-primary transition-all duration-300 border border-[#2A2C32] hover:shadow-[0_0_15px_rgba(74,144,226,0.1)] hover:scale-105"
                     >
                       {category}
                     </Link>
@@ -143,12 +143,12 @@ export default function GamePage({ params }: GamePageProps) {
           <RelatedGames currentGameId={game.id} />
 
           {/* 游戏操作指南 */}
-          <section className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
+          <section className="max-w-4xl mx-auto bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-[#2A2C32]">
             <div className="space-y-6">
-              <h2 className="text-2xl font-heading text-text-primary">{game.title} Controls Guide</h2>
+              <h2 className="text-2xl font-heading text-primary">{game.title} Controls Guide</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                 <div className="space-y-4">
-                  <h3 className="font-heading text-text-primary">Movement Controls</h3>
+                  <h3 className="font-heading text-primary">Movement Controls</h3>
                   <ul className="space-y-2">
                     {game.controls.guide.movement.map((control, index) => (
                       <li key={index} className="text-text-secondary">{control}</li>
@@ -156,7 +156,7 @@ export default function GamePage({ params }: GamePageProps) {
                   </ul>
                 </div>
                 <div className="space-y-4">
-                  <h3 className="font-heading text-text-primary">Game Actions</h3>
+                  <h3 className="font-heading text-primary">Game Actions</h3>
                   <ul className="space-y-2">
                     {game.controls.guide.actions.map((action, index) => (
                       <li key={index} className="text-text-secondary">{action}</li>
@@ -168,9 +168,9 @@ export default function GamePage({ params }: GamePageProps) {
           </section>
 
           {/* 游戏特性 */}
-          <section className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
+          <section className="max-w-4xl mx-auto bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-[#2A2C32]">
             <div className="space-y-6">
-              <h2 className="text-2xl font-heading text-text-primary">{game.title} Features</h2>
+              <h2 className="text-2xl font-heading text-primary">{game.title} Features</h2>
               <p className="text-lg text-text-secondary">
                 Discover what makes {game.title} unique and exciting:
               </p>
@@ -187,15 +187,15 @@ export default function GamePage({ params }: GamePageProps) {
 
           {/* FAQ Section */}
           {game.faqs.length > 0 && (
-            <section className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
-              <h2 className="text-2xl font-heading text-text-primary mb-6">{game.title} - Frequently Asked Questions</h2>
+            <section className="max-w-4xl mx-auto bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-[#2A2C32]">
+              <h2 className="text-2xl font-heading text-primary mb-6">{game.title} - Frequently Asked Questions</h2>
               <p className="text-lg text-text-secondary mb-6">
                 Get answers to common questions about {game.title} and improve your gameplay experience:
               </p>
               <Accordion type="single" collapsible className="space-y-4">
                 {game.faqs.map((faq, index) => (
                   <AccordionItem key={index} value={`faq-${index}`}>
-                    <AccordionTrigger className="text-left text-lg font-heading text-text-primary">
+                    <AccordionTrigger className="text-left text-lg font-heading text-primary">
                       {faq.question}
                     </AccordionTrigger>
                     <AccordionContent className="text-base leading-relaxed text-text-secondary pt-2">
@@ -208,7 +208,7 @@ export default function GamePage({ params }: GamePageProps) {
           )}
 
           {/* 评分模块 */}
-          <section className="max-w-4xl mx-auto bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5]">
+          <section className="max-w-4xl mx-auto bg-slate-800/80 backdrop-blur-sm rounded-2xl p-8 border border-[#2A2C32]">
             <div className="space-y-6">
               <div className="text-center space-y-2">
                 <h3 className="text-2xl font-heading text-primary">

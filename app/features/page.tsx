@@ -8,7 +8,7 @@ export default function FeaturesPage() {
       <main className="flex-1 container mx-auto px-4 py-12 max-w-7xl">
         <Breadcrumb 
           items={[
-            { label: "Play Shady Bears", href: "/" },
+            { label: "Play Sprunki phase", href: "/" },
             { label: "Features", href: "/features" }
           ]} 
         />
@@ -22,9 +22,9 @@ export default function FeaturesPage() {
 }
 
 export const metadata = {
-  title: "Discover Shady Bears Features - Shady Bears",
-  description: "Discover Shady Bears' features and benefits. Learn about our game collection, instant play technology, and enjoy the best unblocked games online.",
+  title: "Discover Sprunki phase Features - Sprunki phase",
+  description: "Discover Sprunki phase's features and benefits. Learn about our game collection, instant play technology, and enjoy the best unblocked games online.",
   alternates: {
-    canonical: "https://www.shadybears.org/features",
+    canonical: "https://www.sprunkiphase.xyz/features",
   },
 }

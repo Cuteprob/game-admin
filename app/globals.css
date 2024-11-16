@@ -3,23 +3,37 @@
 @tailwind utilities;
 
 :root {
-  --primary: #FF6B6B;
-  --secondary: #FFB84C;
-  --accent: #FF9F9F;
-  --background: #FFF5E4;
-  --text-primary: #4A4A4A;
-  --text-secondary: #767676;
+  /* 主题色 */
+  --primary: #8B5CF6;
+  --secondary: #A78BFA;
+  --accent: #C4B5FD;
+  --background: #1E1B2E;
+  
+  /* 文本色 */
+  --text-primary: #F3F0FF;
+  --text-secondary: #DDD6FE;
+  
+  /* 边框色 */
+  --border: #4C1D95;
+
+  /* 新增字体变量 */
+  --font-space-grotesk: 'Space Grotesk', sans-serif;
+  --font-inter: 'Inter', sans-serif;
+  --font-jetbrains-mono: 'JetBrains Mono', monospace;
 }
 
 @layer base {
   body {
     background-color: var(--background);
-    font-family: 'Quicksand', sans-serif;
-    color: var(--text-primary);
+    @apply font-body text-text-primary;
   }
 
   h1, h2, h3, h4, h5, h6 {
-    font-family: 'Fredoka One', cursive;
-    color: var(--primary);
+    @apply font-heading text-primary;
+  }
+
+  /* 游戏数值显示 */
+  .game-stats {
+    @apply font-mono;
   }
 }

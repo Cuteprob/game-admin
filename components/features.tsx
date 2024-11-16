@@ -2,129 +2,192 @@ import React from 'react';
 
 interface Feature {
   title: string;
-  description: string;
-  icon: string;
-  highlight?: string;
-  size?: 'large' | 'small';
+  description: string[];
+  highlight: string;
+  category: 'evolution' | 'gameplay' | 'technical';
 }
 
 const features: Feature[] = [
   {
-    title: "Shady Bears Adventure",
-    description: "Experience Shady Bears' unique shadow mechanics where your own shadow becomes your greatest challenge. Master the art of shadow-dodging while collecting acorns in this innovative platformer. Every movement counts as your shadow mimics and chases you, creating an exciting blend of strategy and quick reflexes.",
-    icon: "/features/shadow-mechanics.webp",
-    highlight: "Unique Gameplay",
-    size: "large"
+    title: "Character Cast & Transformations",
+    description: [
+      "Orin: The central character of Incredibox Sprunki with versatile sound contributions and special Mr. Fun computer transformations.",
+      
+      "Clucker: Master of rhythmic beats, providing essential drum patterns and unique beat combinations in Incredibox.",
+      
+      "Funbot: Brings electronic elements and synthesized beats to Incredibox Sprunki with futuristic transformations.",
+      
+      "Ratty: Creates unexpected musical twists with special sound combinations and hidden features.",
+      
+      "Venia: Contributes ethereal tones and melodic elements, unlocking beautiful visual displays."
+    ],
+    highlight: "Core Cast",
+    category: 'evolution'
   },
   {
-    title: "Two-Player Action",
-    description: "Team up with a friend in Shady Bears' exciting 2-player mode. Coordinate your movements and help each other avoid shadows!",
-    icon: "/features/multiplayer.webp",
-    highlight: "2 Players",
-    size: "small"
+    title: "Music Creation System",
+    description: [
+      "Intuitive Interface: Drag-and-drop system inspired by Incredibox for seamless sound mixing and layering.",
+      
+      "Character Sounds: Each Incredibox Sprunki character brings unique sound loops and effects to your mix.",
+      
+      "Real-time Mixing: Instant audio feedback as you create and modify your musical compositions.",
+      
+      "Beat Synchronization: Automatic tempo matching ensures perfect rhythm in all combinations.",
+      
+      "Sound Categories: Organized library of beats, melodies, effects, and vocals for easy access."
+    ],
+    highlight: "Core Mechanics",
+    category: 'gameplay'
   },
   {
-    title: "Power-Up System",
-    description: "In Shady Bears, collect sweet honey for bonus points and discover magical fireflies that help you overcome shadows. But be careful - those pesky bees are always buzzing around!",
-    icon: "/features/power-ups.webp",
-    highlight: "Strategic Items",
-    size: "small"
+    title: "Dynamic Music Design",
+    description: [
+      "Sound Layering: Create complex musical compositions by combining multiple audio tracks in Incredibox Sprunki.",
+      
+      "Adaptive System: Music dynamically responds to your actions, creating seamless transitions.",
+      
+      "Character Integration: Unique sounds from each character blend perfectly in the mix.",
+      
+      "Special Combinations: Unlock unique audio events through creative experimentation.",
+      
+      "Professional Audio: High-quality sound output maintains clarity in complex arrangements."
+    ],
+    highlight: "Audio",
+    category: 'technical'
   },
   {
-    title: "Acorn Collection",
-    description: "Gather acorns throughout your Shady Bears adventure while avoiding your shadow clone.",
-    icon: "/features/acorns.webp",
-    highlight: "Score Points",
-    size: "small"
-  },
-  {
-    title: "Browser-Based Gaming",
-    description: "Jump into Shady Bears instantly through your browser - no downloads required!",
-    icon: "/features/browser-gaming.webp",
-    highlight: "Play Now",
-    size: "small"
+    title: "Community Features",
+    description: [
+      "Share Creations: Showcase your Sprunki Phase musical masterpieces with the global community.",
+      
+      "Community Hub: Connect with fellow creators, share tips, and collaborate on projects.",
+      
+      "Achievement System: Track progress and unlock rewards as you master Sprunki Phase.",
+      
+      "Regular Events: Participate in special challenges and collaborative community projects.",
+      
+      "Feedback System: Rate compositions and help other creators improve their work."
+    ],
+    highlight: "Social",
+    category: 'technical'
   }
 ];
 
 export function Features() {
   return (
     <section className="w-full" aria-labelledby="features-heading">
-      <div className="space-y-8">
-        <div className="text-center space-y-2">
-          <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#FFE5E5]">
-            <h2 className="text-2xl font-heading text-primary">
-              Discover Shady Bears Game Features
-            </h2>
-          </div>
+      <div className="space-y-12">
+        {/* Header */}
+        <div className="text-center">
+          <h2 className="text-3xl font-heading text-primary mb-4">
+            Sprunki Phase Features
+          </h2>
           <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-            Experience Shady Bears&apos; unique blend of shadow-chasing challenges, multiplayer fun, and exciting gameplay mechanics
+            Explore the evolution and features, from its origins to the latest innovations
           </p>
         </div>
 
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-          <div className="col-span-2 row-span-2">
-            {features.filter(f => f.size === 'large').map((feature, index) => (
-              <div 
-                key={index}
-                className="h-full group bg-white/80 backdrop-blur-sm rounded-2xl p-8 border border-[#FFE5E5] hover:shadow-md transition-all"
-              >
-                <div className="relative w-80 h-80 mx-auto mb-8">
-                  <img
-                    src={feature.icon}
-                    alt={feature.title}
-                    className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
-                  />
-                </div>
-                <div className="space-y-4">
-                  <h3 className="text-2xl font-heading text-text-primary text-center">
-                    {feature.title}
-                  </h3>
-                  {feature.highlight && (
-                    <div className="flex justify-center">
-                      <span className="inline-block px-3 py-1 bg-primary/10 text-primary text-sm font-heading rounded-full">
-                        {feature.highlight}
-                      </span>
-                    </div>
-                  )}
-                  <p className="text-text-secondary leading-relaxed text-center">
-                    {feature.description}
+        {/* Main Features Grid */}
+        <div className="grid gap-8">
+          {/* Characters Section */}
+          <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-8 border border-[#2A2C32]">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-heading text-primary">
+                Character Cast & Transformations
+              </h3>
+              <span className="px-4 py-1.5 bg-primary/10 text-primary text-sm font-heading rounded-full">
+                Core Cast
+              </span>
+            </div>
+            <div className="grid gap-4">
+              {features[0].description.map((item, i) => (
+                <div 
+                  key={i}
+                  className="bg-slate-700/20 rounded-lg p-4 hover:bg-slate-700/30 transition-colors"
+                >
+                  <p className="text-text-secondary leading-relaxed">
+                    {item}
                   </p>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
 
-          {features.filter(f => f.size === 'small').map((feature, index) => (
-            <div 
-              key={index}
-              className="group bg-white/80 backdrop-blur-sm rounded-2xl p-6 border border-[#FFE5E5] hover:shadow-md transition-all flex flex-col"
-            >
-              <div className="relative w-20 h-20 mx-auto mb-4">
-                <img
-                  src={feature.icon}
-                  alt={feature.title}
-                  className="w-full h-full object-contain group-hover:scale-110 transition-transform duration-300"
-                />
+          {/* Music System & Technical Features */}
+          <div className="grid md:grid-cols-2 gap-8">
+            {/* Music Creation System */}
+            <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-8 border border-[#2A2C32]">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-heading text-primary">
+                  Music Creation System
+                </h3>
+                <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-heading rounded-full">
+                  Core Mechanics
+                </span>
               </div>
-              <div className="flex-1 flex flex-col justify-between space-y-3">
-                <div className="space-y-2">
-                  <h3 className="text-lg font-heading text-text-primary text-center">
-                    {feature.title}
-                  </h3>
-                  {feature.highlight && (
-                    <div className="flex justify-center">
-                      <span className="inline-block px-2 py-0.5 bg-primary/10 text-primary text-xs font-heading rounded-full">
-                        {feature.highlight}
-                      </span>
-                    </div>
-                  )}
-                </div>
-                <p className="text-sm text-text-secondary text-center">
-                  {feature.description}
-                </p>
+              <div className="space-y-4">
+                {features[1].description.map((item, i) => (
+                  <div 
+                    key={i}
+                    className="bg-slate-700/20 rounded-lg p-4"
+                  >
+                    <p className="text-text-secondary leading-relaxed">
+                      {item}
+                    </p>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+
+            {/* Dynamic Music Design */}
+            <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-8 border border-[#2A2C32]">
+              <div className="flex items-center justify-between mb-6">
+                <h3 className="text-xl font-heading text-primary">
+                  Dynamic Music Design
+                </h3>
+                <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-heading rounded-full">
+                  Audio
+                </span>
+              </div>
+              <div className="space-y-4">
+                {features[2].description.map((item, i) => (
+                  <div 
+                    key={i}
+                    className="bg-slate-700/20 rounded-lg p-4"
+                  >
+                    <p className="text-text-secondary leading-relaxed">
+                      {item}
+                    </p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+
+          {/* Community Features */}
+          <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-8 border border-[#2A2C32]">
+            <div className="flex items-center justify-between mb-6">
+              <h3 className="text-2xl font-heading text-primary">
+                Community Features
+              </h3>
+              <span className="px-4 py-1.5 bg-primary/10 text-primary text-sm font-heading rounded-full">
+                Social
+              </span>
+            </div>
+            <div className="grid md:grid-cols-2 gap-4">
+              {features[3].description.map((item, i) => (
+                <div 
+                  key={i}
+                  className="bg-slate-700/20 rounded-lg p-4 hover:bg-slate-700/30 transition-colors"
+                >
+                  <p className="text-text-secondary leading-relaxed">
+                    {item}
+                  </p>
+                </div>
+              ))}
+            </div>
+          </div>
         </div>
       </div>
     </section>

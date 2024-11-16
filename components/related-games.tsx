@@ -1,5 +1,5 @@
 import Link from "next/link"
-import { Game, games, GameCategory } from "@/config/games"
+import { Game, games, GameCategory } from "@/config/sprunkigame"
 import { Rating } from "@/components/ui/rating"
 
 interface RelatedGamesProps {
@@ -24,7 +24,7 @@ export function RelatedGames({ currentGameId }: RelatedGamesProps) {
 
   // 获取热门游戏（排除已经在新游戏中的游戏）
   const popularGames = games.filter(game => 
-    game.categories.includes(GameCategory.POPULAR) && 
+    game.categories.includes(GameCategory.HOT) && 
     game.id !== currentGameId &&
     !game.categories.includes(GameCategory.NEW) && // 排除新游戏
     !newGames.some(newGame => newGame.id === game.id) // 确保不重复
@@ -37,7 +37,7 @@ export function RelatedGames({ currentGameId }: RelatedGamesProps) {
     <section className="space-y-8">
       {/* 标题部分 */}
       <div className="text-center space-y-4">
-        <div className="inline-block bg-white/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#FFE5E5]">
+        <div className="inline-block bg-slate-800/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#2A2C32]">
           <h2 className="text-2xl font-heading text-primary">
             More Games You Might Like
           </h2>
@@ -52,21 +52,21 @@ export function RelatedGames({ currentGameId }: RelatedGamesProps) {
             href={`/games/${game.id}`}
             className="group block"
           >
-            <div className="bg-white/80 backdrop-blur-sm rounded-2xl border border-[#FFE5E5] overflow-hidden transition-all hover:shadow-md">
+            <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-[#2A2C32] overflow-hidden transition-all hover:shadow-[0_0_15px_rgba(74,144,226,0.1)]">
               <div className="aspect-video relative overflow-hidden">
                 <img
                   src={game.image}
                   alt={game.title}
                   className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                 />
-                {/* 添加标签显示是新游戏还是热门游戏 */}
+                {/* 更新标签样式 */}
                 {game.categories.includes(GameCategory.NEW) && (
-                  <div className="absolute top-2 right-2 px-2 py-1 text-xs font-medium bg-[#ff6b6bd8] text-white rounded-full">
+                  <div className="absolute top-2 right-2 px-2 py-1 text-xs font-medium bg-primary text-text-primary rounded-full">
                     New
                   </div>
                 )}
-                {game.categories.includes(GameCategory.POPULAR) && !game.categories.includes(GameCategory.NEW) && (
-                  <div className="absolute top-2 right-2 px-2 py-1 text-xs font-medium bg-[#ff5252fa] text-white rounded-full">
+                {game.categories.includes(GameCategory.HOT) && !game.categories.includes(GameCategory.NEW) && (
+                  <div className="absolute top-2 right-2 px-2 py-1 text-xs font-medium bg-accent text-text-primary rounded-full">
                     Popular
                   </div>
                 )}
