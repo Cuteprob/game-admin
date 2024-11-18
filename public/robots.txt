@@ -1,28 +1,34 @@
 User-agent: *
 Allow: /
 
+# Sitemap
+Sitemap: https://www.sprunkiphase.xyz/sitemap.xml
+
 # Important pages
 Allow: /games
 Allow: /features
 Allow: /how-to-play
 Allow: /faq
-Allow: /categories
-Allow: /categories/*
 Allow: /privacy
 Allow: /terms
 
 # Game pages
 Allow: /games/*
 
-# Block admin and system pages
+# Category pages
+Allow: /categories/*
+
+# Block dynamic routes and system pages
 Disallow: /admin
 Disallow: /system
 Disallow: /api
 Disallow: /_next
-Disallow: /cdn-cgi
+Disallow: /games/[id]
+Disallow: /categories/[category]
 
-# Sitemap location
-Sitemap: https://www.sprunkiphase.xyz/sitemap.xml
-
-# Crawl delay
-Crawl-delay: 10
+# Block template and system files
+Disallow: /*.tsx$
+Disallow: /*.ts$
+Disallow: /layout
+Disallow: /error
+Disallow: /loading

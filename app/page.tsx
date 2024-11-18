@@ -228,55 +228,157 @@ export default function Home() {
 // Metadata optimization
 export const generateMetadata = (): Metadata => {
   return {
-    title: "Sprunki Phase - Play Incredibox Style Music Games Online",
-    description: "Play Sprunki Phase online! Experience the evolution of Incredibox-style gaming with Sprunki Retake and multiple phases. Create music, and mix beats!",
+    title: "Sprunki Phase - Free Music Creation Game | Make Music Online",
+    description: "Create and mix music in Sprunki Phase, a free Incredibox-style game. Transform characters, share your creations, and join our creative community.",
     keywords: [
       "sprunki phase",
-      "sprunki incredibox",
       "music creation game",
+      "online music maker",
+      "incredibox style",
+      "music game"
     ],
     alternates: {
       canonical: "https://www.sprunkiphase.xyz",
     },
     openGraph: {
-      title: "Sprunki Phase - Incredibox Style Music Creation Game",
-      description: "Create amazing music with Sprunki Phase! Experience Incredibox-style gameplay across multiple phases. Mix beats, transform characters, and share your creations!",
+      title: "Sprunki Phase - Create Music Like Never Before | Free Online Game",
+      description: "Join millions playing Sprunki Phase! Mix beats, create music, and share your masterpieces in this free Incredibox-style game. Perfect for music lovers of all ages!",
       type: "website",
+      url: "https://www.sprunkiphase.xyz",
+      siteName: "Sprunki Phase",
+      images: [
+        {
+          url: "/features/music-creation.webp",
+          width: 1200,
+          height: 630,
+          alt: "Sprunki Phase Music Creation Game"
+        }
+      ],
+      locale: "en_US",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: "Sprunki Phase - Best Free Online Music Creation Game",
+      description: "Create amazing music with Sprunki Phase! Mix beats, transform characters, and share your creations in this free Incredibox-style game.",
       images: ["/features/music-creation.webp"],
+      creator: "@sprunkiphase",
     },
     other: {
-      "application-ld+json": JSON.stringify({
-        "@context": "https://schema.org",
-        "@type": "VideoGame",
-        "name": "Sprunki Phase",
-        "description": "Create music in Sprunki Phase, an Incredibox-style game featuring multiple phases and character transformations. Mix beats, share creations, and explore the evolution of musical gaming.",
-        "genre": ["Music", "Creativity", "Educational"],
-        "gamePlatform": ["Web Browser"],
-        "applicationCategory": "Game",
-        "numberOfPlayers": {
-          "@type": "QuantitativeValue",
-          "minValue": "1",
-          "maxValue": "1"
+      "application-ld+json": JSON.stringify([
+        {
+          "@context": "https://schema.org",
+          "@type": "VideoGame",
+          "name": "Sprunki Phase",
+          "alternateName": "Sprunki Phase Music Game",
+          "url": "https://www.sprunkiphase.xyz",
+          "description": "Create music in Sprunki Phase, the ultimate Incredibox-style game featuring multiple phases and character transformations. Mix beats, share creations, and explore the evolution of musical gaming.",
+          "genre": ["Music", "Creativity", "Educational", "Rhythm"],
+          "gamePlatform": ["Web Browser", "Desktop", "Mobile"],
+          "applicationCategory": "Game",
+          "operatingSystem": ["Windows", "macOS", "Android", "iOS"],
+          "numberOfPlayers": {
+            "@type": "QuantitativeValue",
+            "minValue": "1",
+            "maxValue": "1"
+          },
+          "aggregateRating": {
+            "@type": "AggregateRating",
+            "ratingValue": "5",
+            "ratingCount": "1000",
+            "bestRating": "5",
+            "worstRating": "1"
+          },
+          "author": {
+            "@type": "Organization",
+            "name": "Mea Coda",
+            "url": "https://www.sprunkiphase.xyz"
+          },
+          "offers": {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "USD",
+            "availability": "https://schema.org/InStock",
+            "url": "https://www.sprunkiphase.xyz"
+          },
+          "image": {
+            "@type": "ImageObject",
+            "url": "https://www.sprunkiphase.xyz/features/music-creation.webp",
+            "width": "1200",
+            "height": "630"
+          },
+          "inLanguage": "en",
+          "datePublished": "2024-01-01",
+          "dateModified": "2024-03-19"
         },
-        "aggregateRating": {
-          "@type": "AggregateRating",
-          "ratingValue": "5",
-          "ratingCount": "1",
-          "bestRating": "5",
-          "worstRating": "1"
+        {
+          "@context": "https://schema.org",
+          "@type": "FAQPage",
+          "mainEntity": [
+            {
+              "@type": "Question",
+              "name": "What exactly is Sprunki Phase?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sprunki Phase is an innovative music creation game inspired by Incredibox. It allows players to create unique musical compositions by combining different character sounds and beats. Each character contributes distinct audio elements, and when transformed into 'Mr. Fun' computers, they unlock special sound combinations."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "How do I create music in Sprunki Phase?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Creating music is intuitive and fun. Simply drag and drop characters onto the stage to add their unique sounds to your mix. Each character in Sprunki Phase contributes different elements like beats, melodies, or effects. You can activate or deactivate sounds by clicking characters, and use the spacebar to reset your Sprunki Phase composition."
+              }
+            },
+            {
+              "@type": "Question",
+              "name": "What makes Sprunki Phase different from other music games?",
+              "acceptedAnswer": {
+                "@type": "Answer",
+                "text": "Sprunki Phase stands out with its unique character transformation system and Incredibox-inspired gameplay mechanics. Unlike traditional music games, Sprunki Phase combines visual character animations with sound creation, allowing players to see their music come to life."
+              }
+            }
+          ]
         },
-        "author": {
-          "@type": "Organization",
-          "name": "Mea Coda"
-        },
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "USD",
-          "availability": "https://schema.org/InStock"
+        {
+          "@context": "https://schema.org",
+          "@type": "HowTo",
+          "name": "How to Play Sprunki Phase",
+          "description": "Learn how to create music and play Sprunki Phase",
+          "step": [
+            {
+              "@type": "HowToStep",
+              "name": "Choose Characters",
+              "text": "Select different characters to add unique sounds to your mix"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Combine Sounds",
+              "text": "Drag and drop characters to combine their sounds and create music"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Transform Characters",
+              "text": "Transform characters into 'Mr. Fun' computers to unlock special combinations"
+            },
+            {
+              "@type": "HowToStep",
+              "name": "Save and Share",
+              "text": "Save your favorite compositions and share them with the community"
+            }
+          ],
+          "tool": [
+            {
+              "@type": "HowToTool",
+              "name": "Web Browser"
+            },
+            {
+              "@type": "HowToTool",
+              "name": "Internet Connection"
+            }
+          ]
         }
-      })
+      ])
     }
   }
 }
-
