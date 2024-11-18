@@ -9,232 +9,201 @@
         http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
 >
   <url>
-    <loc>https://www.sprunkiphase.xyz</loc>
-    <lastmod>2024-11-15</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>1.0</priority>
+    <loc>https://www.sprunkiphase.xyz/</loc>
+    <lastmod>2024-11-18</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://www.sprunkiphase.xyz/faq</loc>
+    <lastmod>2024-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://www.sprunkiphase.xyz/features</loc>
     <lastmod>2024-11-14</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/how-to-play</loc>
     <lastmod>2024-11-14</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>monthly</changefreq>
     <priority>0.8</priority>
   </url>
-
   <url>
-    <loc>https://www.sprunkiphase.xyz/faq</loc>
+    <loc>https://www.sprunkiphase.xyz/privacy</loc>
     <lastmod>2024-11-14</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
   </url>
-
+  <url>
+    <loc>https://www.sprunkiphase.xyz/terms</loc>
+    <lastmod>2024-11-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.5</priority>
+  </url>
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-0</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-1</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-2</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-3</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-4</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-5</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-6</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-7</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-8</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-9</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-phase-10</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-retake</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-swapped-version</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-dandys-world</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-but-everyone-is-alive</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-but-alpha</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-incredibox</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/games/sprunki-with-fan-character</loc>
     <lastmod>2024-11-18</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.8</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/categories/music-games</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/categories/featured-games</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/categories/hot-games</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/categories/sprunki-phase-games</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/categories/incredibox-games</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/categories/sprunki-games</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/categories/mod-games</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/categories/new-games</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
   </url>
-
   <url>
     <loc>https://www.sprunkiphase.xyz/categories/halloween-games</loc>
     <lastmod>2024-11-18</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.7</priority>
-  </url>
-
-  <url>
-    <loc>https://www.sprunkiphase.xyz/privacy</loc>
-    <lastmod>2024-11-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
-  </url>
-
-  <url>
-    <loc>https://www.sprunkiphase.xyz/terms</loc>
-    <lastmod>2024-11-14</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.4</priority>
   </url>
 </urlset>
