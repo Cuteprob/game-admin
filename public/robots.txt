@@ -2,7 +2,7 @@ User-agent: *
 Allow: /
 
 # Sitemap
-Sitemap: https://www.sprunkiphase.xyz/sitemap.xml
+Sitemap: https://sprunkiphase4.app/sitemap.xml
 
 # Important pages
 Allow: /games

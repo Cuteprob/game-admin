@@ -5,7 +5,7 @@ export const metadata = {
   title: 'Privacy Policy - Sprunki phase',
   description: 'Privacy policy and data collection practices for Sprunki phase online game. Learn how we protect your information and maintain your privacy.',
   alternates: {
-    canonical: 'https://www.sprunkiphase.xyz/privacy'
+    canonical: 'https://sprunkiphase4.app/privacy'
   }
 }
 
@@ -72,7 +72,7 @@ export default function PrivacyPolicy() {
           <section className="mt-8">
             <h2 className="text-2xl font-heading text-primary mb-4">5. Contact Us</h2>
             <p className="text-text-secondary leading-relaxed">
-              If you have any questions about this Privacy Policy, please contact us at support@sprunkiphase.xyz.
+              If you have any questions about this Privacy Policy, please contact us at support@sprunkiphase4.a.
             </p>
           </section>
         </div>

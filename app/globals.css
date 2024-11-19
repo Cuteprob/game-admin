@@ -3,19 +3,46 @@
 @tailwind utilities;
 
 :root {
-  /* 主题色 */
-  --primary: #8B5CF6;
-  --secondary: #A78BFA;
-  --accent: #C4B5FD;
-  --background: #1E1B2E;
+  /* 主色调 - 深紫色 */
+  --primary: 265 60% 40%;
+  --primary-foreground: 265 100% 98%;
   
-  /* 文本色 */
-  --text-primary: #F3F0FF;
-  --text-secondary: #DDD6FE;
+  /* 次要色调 - 较浅的紫色 */
+  --secondary: 265 40% 60%;
+  --secondary-foreground: 265 60% 25%;
   
-  /* 边框色 */
-  --border: #4C1D95;
-
+  /* 背景色 - 浅紫色调的白色 */
+  --background: 265 30% 97%;
+  --foreground: 265 60% 25%;
+  
+  /* 卡片背景 - 纯白带紫色阴影 */
+  --card: 265 30% 99%;
+  --card-foreground: 265 60% 25%;
+  
+  /* 弹出层 */
+  --popover: 265 30% 99%;
+  --popover-foreground: 265 60% 25%;
+  
+  /* 静音色调 - 柔和的紫色 */
+  --muted: 265 20% 90%;
+  --muted-foreground: 265 30% 40%;
+  
+  /* 强调色 - 鲜艳的紫色 */
+  --accent: 265 80% 60%;
+  --accent-foreground: 265 100% 98%;
+  
+  /* 危险色 */
+  --destructive: 0 100% 50%;
+  --destructive-foreground: 0 0% 100%;
+  
+  /* 边框和输入框 */
+  --border: 265 30% 85%;
+  --input: 265 30% 95%;
+  --ring: 265 60% 40%;
+  
+  /* 圆角 */
+  --radius: 0.8rem;
+  
   /* 新增字体变量 */
   --font-space-grotesk: 'Space Grotesk', sans-serif;
   --font-inter: 'Inter', sans-serif;
@@ -24,12 +51,33 @@
 
 @layer base {
   body {
-    background-color: var(--background);
-    @apply font-body text-text-primary;
+    @apply bg-background text-foreground;
+    background-image: 
+      radial-gradient(at 100% 0%, hsla(265,40%,90%,0.2) 0px, transparent 50%),
+      radial-gradient(at 0% 100%, hsla(265,60%,85%,0.2) 0px, transparent 50%);
+    background-attachment: fixed;
   }
 
+  /* 游戏卡片悬停效果 */
+  .game-card {
+    @apply transition-all duration-300;
+    box-shadow: 0 4px 20px -8px hsla(265,60%,40%,0.2);
+  }
+  
+  .game-card:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 30px -8px hsla(265,60%,40%,0.3);
+  }
+
+  /* 标题样式 */
   h1, h2, h3, h4, h5, h6 {
-    @apply font-heading text-primary;
+    @apply font-heading text-primary font-bold;
+  }
+
+  /* 按钮样式 */
+  .btn-primary {
+    @apply bg-primary text-primary-foreground hover:bg-primary/90 
+           transition-colors duration-200 shadow-lg shadow-primary/20;
   }
 
   /* 游戏数值显示 */

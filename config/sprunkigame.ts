@@ -460,7 +460,7 @@ export const games: Game[] = [
     createdAt: "2024-01-05",
     description: "Sprunki Phase 4 introduces new characters and sound loops while maintaining the core gameplay style. This version enhances the musical variety available to players with an expanded sound library and improved character interactions.",
     iframeUrl: "https://iframegame.com/embed/sprunki-phase-4/index.html",
-    image: "/games/sprunki-phase-4.webp",
+    image: "/logo.jpeg",
     rating: 4.8,
     categories: [
       GameCategory.MUSIC,

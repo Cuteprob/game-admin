@@ -6,90 +6,114 @@ interface Step {
   title: string;
   description: string;
   tips: string[];
-  area?: {
+  area: {
     name: string;
     hazards: string[];
   };
+  image?: string;
 }
 
 const steps: Step[] = [
   {
     number: 1,
-    title: "Getting Started with Sprunki Phase",
-    description: "Welcome to Sprunki Phase, where music creation becomes an adventure! Choose your characters and discover how each one contributes unique sounds to your musical masterpiece.",
+    title: "Start Your Sprunki Phase 4 Journey",
+    description: "Start your Sprunki Phase 4 journey by exploring our extensive collection of rhythmic patterns, melodic elements, and special effects. Each sound element is carefully crafted to complement the game's innovative combat mechanics.",
     tips: [
-      "Explore different characters",
-      "Learn each character's unique sound",
-      "Start with simple beat combinations",
-      "Experiment with Incredibox-style mixing"
+      "Browse through different sound categories",
+      "Preview sounds before selection",
+      "Consider combat rhythm compatibility",
+      "Look for special transformation triggers"
     ],
     area: {
-      name: "Basic Controls",
+      name: "Sound Library",
       hazards: [
-        "Drag & Drop: Assign sounds to characters",
-        "Click characters to activate/deactivate",
-        "Use spacebar to reset all sounds",
-        "Right-click to remove individual sounds"
+        "Beats: Foundation for combat rhythm",
+        "Melodies: Enhance transformation timing",
+        "Effects: Special combat bonuses",
+        "Companion Sounds: Defensive harmonies"
       ]
-    }
+    },
+    image: "/features/step-1.webp"
   },
   {
     number: 2,
-    title: "Master Sprunki Phase Sound Mixing",
-    description: "In Sprunki Phase, creating the perfect mix is an art. Learn how different characters and sounds complement each other, inspired by Incredibox and Colorbox Mustard mechanics.",
+    title: "Master Sprunki Phase 4 Combat Flow",
+    description: "In Sprunki Phase 4, strategically place your selected sounds to create a powerful combat rhythm. Each element's position affects both your musical composition and battle effectiveness.",
     tips: [
-      "Layer sounds strategically",
-      "Time your additions perfectly",
-      "Create rhythm patterns",
-      "Mix different sound categories"
+      "Consider rhythm flow",
+      "Balance defensive and offensive sounds",
+      "Create synergistic combinations",
+      "Plan for transformation moments"
     ],
     area: {
-      name: "Sound Categories",
+      name: "Arrangement Tactics",
       hazards: [
-        "Beats: Foundation rhythm sounds",
-        "Melodies: Main musical elements",
-        "Effects: Special sound additions",
-        "Vocals: Character voice elements"
+        "Element Spacing: Timing is crucial",
+        "Layer Management: Build complexity",
+        "Pattern Creation: Combat effectiveness",
+        "Sound Synergy: Enhanced power"
       ]
-    }
+    },
+    image: "/features/step-2.webp"
   },
   {
     number: 3,
-    title: "Discover Sprunki Phase Special Features",
-    description: "Each version of Sprunki Phase, from Retake to Phase 7, offers unique features and bonus animations. Learn how to unlock these special combinations.",
+    title: "Unleash Sprunki Phase 4 Powers",
+    description: "Discover powerful combinations that trigger special effects in Sprunki Phase 4. Experiment with different sound arrangements to unlock unique combat abilities and transformation sequences.",
     tips: [
-      "Experiment with character combinations",
-      "Watch for special animations",
-      "Discover hidden sound effects",
-      "Master phase-specific features"
+      "Test various sound combinations",
+      "Watch for transformation triggers",
+      "Practice rhythm maintenance",
+      "Learn enemy pattern responses"
     ],
     area: {
-      name: "Special Features",
+      name: "Combat Mastery",
       hazards: [
-        "Bonus Animations: Unlock through specific combinations",
-        "Character Transformations: Mr. Fun computer modes",
-        "Phase-specific Elements: Unique to each version",
-        "Community Discoveries: Share your findings"
+        "Pattern Recognition: Enemy behaviors",
+        "Transformation Timing: Power activation",
+        "Rhythm Control: Maintain effectiveness",
+        "Combo Chains: Enhanced damage"
+      ]
+    },
+    image: "/features/step-3.webp"
+  },
+  {
+    number: 4,
+    title: "Advanced Sprunki Phase 4 Tactics",
+    description: "Fine-tune your musical combat strategy in Sprunki Phase 4. Adjust your sound arrangement and timing to maximize both defensive capabilities and offensive power.",
+    tips: [
+      "Balance attack and defense",
+      "Optimize transformation timing",
+      "Refine rhythm patterns",
+      "Master companion positioning"
+    ],
+    area: {
+      name: "Combat Optimization",
+      hazards: [
+        "Defensive Timing: Block effectiveness",
+        "Attack Windows: Maximum damage",
+        "Power Management: Resource control",
+        "Rhythm Maintenance: Sustained power"
       ]
     }
   },
   {
-    number: 4,
-    title: "Share Your Sprunki Phase Creations",
-    description: "Join the Sprunki Phase community! Learn how to save, share, and collaborate with other music creators in this evolving musical universe.",
+    number: 5,
+    title: "Join the Sprunki Phase 4 Community",
+    description: "Share your combat strategies and musical compositions with the Sprunki Phase 4 community. Learn from other players, discover new techniques, and contribute to the evolving meta.",
     tips: [
-      "Save your best mixes",
-      "Share with the community",
-      "Learn from other creators",
-      "Explore community favorites"
+      "Record your best combinations",
+      "Share successful strategies",
+      "Study community discoveries",
+      "Participate in challenges"
     ],
     area: {
-      name: "Community Features",
+      name: "Community Engagement",
       hazards: [
-        "Save Feature: Store your favorite mixes",
-        "Share System: Distribute your creations",
-        "Community Hub: Connect with other creators",
-        "Feedback System: Rate and comment"
+        "Strategy Sharing: Help others grow",
+        "Technique Exchange: Learn new moves",
+        "Challenge Participation: Test skills",
+        "Community Events: Special rewards"
       ]
     }
   }
@@ -97,67 +121,102 @@ const steps: Step[] = [
 
 export function HowToPlay() {
   return (
-    <section className="w-full" aria-labelledby="how-to-play-heading">
-      <div className="space-y-8">
-        <div className="text-center space-y-2">
-          <div className="inline-block bg-slate-800/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-[#2A2C32]">
-            <h2 className="text-2xl font-heading text-primary">
-              Master Sprunki Phase Music Creation
-            </h2>
-          </div>
-          <p className="text-lg text-[#9BA1B0] max-w-2xl mx-auto">
-            Learn how to create amazing music, from basic beats to advanced Incredibox-style mixing techniques
-          </p>
+    <section className="w-full max-w-5xl mx-auto space-y-8">
+      <div className="text-center space-y-4">
+        <div className="inline-block bg-card/80 backdrop-blur-sm px-6 py-3 rounded-2xl border border-border">
+          <h2 className="text-2xl font-heading text-primary">
+            Master Sprunki Phase 4 Combat Music
+          </h2>
         </div>
+        <p className="text-lg text-muted-foreground max-w-2xl mx-auto">
+          Learn how to create powerful musical combinations while mastering the art of combat in Sprunki Phase 4
+        </p>
+      </div>
 
-        <div className="max-w-4xl mx-auto space-y-8">
-          {steps.map((step) => (
-            <div key={step.number} className="relative">
-              <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl p-6 hover:shadow-[0_0_15px_rgba(74,144,226,0.1)] transition-all border border-[#2A2C32] space-y-4">
-                <div className="flex items-center gap-4 mb-2">
-                  <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary/20 text-primary font-heading shadow-md">
-                    {step.number}
-                  </div>
-                  <h2 className="text-xl font-heading text-text-secondary">
-                    {step.title}
-                  </h2>
+      <div className="grid gap-6">
+        {steps.map((step) => (
+          <div
+            key={step.number}
+            className="bg-card/80 backdrop-blur-sm rounded-2xl border border-border overflow-hidden hover:shadow-lg transition-all duration-300"
+          >
+            {/* Header */}
+            <div className="flex items-center gap-4 bg-primary/5 border-b border-border p-4">
+              <span className="flex items-center justify-center w-10 h-10 rounded-xl bg-primary text-background font-heading text-lg">
+                {step.number}
+              </span>
+              <h3 className="text-xl font-heading text-primary">
+                {step.title}
+              </h3>
+            </div>
+
+            {/* Content */}
+            <div className="p-6">
+              <div className="grid gap-8 md:grid-cols-3">
+                {/* Description Column */}
+                <div className="space-y-4">
+                  <p className="text-muted-foreground leading-relaxed">
+                    {step.description}
+                  </p>
                 </div>
 
-                <p className="text-text-secondary">
-                  {step.description}
-                </p>
+                {/* Tips Column */}
+                <div className="space-y-4">
+                  <h4 className="font-heading text-foreground text-lg flex items-center gap-2">
+                    <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                    Tips
+                  </h4>
+                  <ul className="grid gap-2.5">
+                    {step.tips.map((tip, i) => (
+                      <li key={i} className="flex items-start gap-3 group">
+                        <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/50 flex-shrink-0 group-hover:scale-125 transition-transform" />
+                        <span className="text-muted-foreground text-sm group-hover:text-foreground transition-colors">
+                          {tip}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div className="space-y-3">
-                    <h3 className="font-heading text-text-secondary">Tips</h3>
-                    <ul className="space-y-2">
-                      {step.tips.map((tip, index) => (
-                        <li key={index} className="flex items-start gap-2">
-                          <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5" />
-                          <span className="text-text-secondary">{tip}</span>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-
-                  {step.area && (
-                    <div className="space-y-3">
-                      <h3 className="font-heading text-text-secondary">{step.area.name}</h3>
-                      <ul className="space-y-2">
-                        {step.area.hazards.map((hazard, index) => (
-                          <li key={index} className="flex items-start gap-2">
-                            <div className="w-1.5 h-1.5 rounded-full bg-primary mt-1.5" />
-                            <span className="text-text-secondary">{hazard}</span>
+                {/* Area Info or Image */}
+                <div className="space-y-4">
+                  {step.image ? (
+                    <>
+                      <h4 className="font-heading text-foreground text-lg flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        Preview
+                      </h4>
+                      <div className="relative aspect-[4/3] rounded-xl overflow-hidden bg-muted border border-border/50">
+                        <Image
+                          src={step.image}
+                          alt={`Step ${step.number}: ${step.title}`}
+                          fill
+                          className="object-cover hover:scale-105 transition-transform duration-300"
+                        />
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <h4 className="font-heading text-foreground text-lg flex items-center gap-2">
+                        <span className="w-1.5 h-1.5 rounded-full bg-primary" />
+                        {step.area.name}
+                      </h4>
+                      <ul className="grid gap-2.5">
+                        {step.area.hazards.map((hazard, i) => (
+                          <li key={i} className="flex items-start gap-3 group">
+                            <span className="mt-1.5 w-1 h-1 rounded-full bg-primary/50 flex-shrink-0 group-hover:scale-125 transition-transform" />
+                            <span className="text-muted-foreground text-sm group-hover:text-foreground transition-colors">
+                              {hazard}
+                            </span>
                           </li>
                         ))}
                       </ul>
-                    </div>
+                    </>
                   )}
                 </div>
               </div>
             </div>
-          ))}
-        </div>
+          </div>
+        ))}
       </div>
     </section>
   );

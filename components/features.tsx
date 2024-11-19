@@ -4,159 +4,109 @@ interface Feature {
   title: string;
   description: string[];
   highlight: string;
-  category: 'evolution' | 'gameplay' | 'technical';
+  category: 'evolution' | 'gameplay' | 'technical' | 'characters';
 }
 
 const features: Feature[] = [
   {
-    title: "Character Cast & Transformations",
+    title: "Sprunki Phase 4 Combat Evolution",
     description: [
-      "Orin: The central character of Incredibox Sprunki with versatile sound contributions and special Mr. Fun computer transformations.",
-      
-      "Clucker: Master of rhythmic beats, providing essential drum patterns and unique beat combinations in Incredibox.",
-      
-      "Funbot: Brings electronic elements and synthesized beats to Incredibox Sprunki with futuristic transformations.",
-      
-      "Ratty: Creates unexpected musical twists with special sound combinations and hidden features.",
-      
-      "Venia: Contributes ethereal tones and melodic elements, unlocking beautiful visual displays."
+      "Sprite Companion: A revolutionary defensive ally that blocks enemy bullets while following your movements.",
+      "Windgunner Transformation: Unlock powerful offensive capabilities through specific gameplay conditions.",
+      "Dynamic Combat: Experience rhythm-based gameplay with strategic bullet-blocking mechanics.",
+      "Adaptive Difficulty: Face evolving enemy patterns and challenges as you progress.",
+      "Multiple Combat Styles: Switch between defensive and offensive approaches based on your playstyle."
     ],
-    highlight: "Core Cast",
-    category: 'evolution'
-  },
-  {
-    title: "Music Creation System",
-    description: [
-      "Intuitive Interface: Drag-and-drop system inspired by Incredibox for seamless sound mixing and layering.",
-      
-      "Character Sounds: Each Incredibox Sprunki character brings unique sound loops and effects to your mix.",
-      
-      "Real-time Mixing: Instant audio feedback as you create and modify your musical compositions.",
-      
-      "Beat Synchronization: Automatic tempo matching ensures perfect rhythm in all combinations.",
-      
-      "Sound Categories: Organized library of beats, melodies, effects, and vocals for easy access."
-    ],
-    highlight: "Core Mechanics",
+    highlight: "Combat System",
     category: 'gameplay'
   },
   {
-    title: "Dynamic Music Design",
+    title: "Character Ensemble",
     description: [
-      "Sound Layering: Create complex musical compositions by combining multiple audio tracks in Incredibox Sprunki.",
-      
-      "Adaptive System: Music dynamically responds to your actions, creating seamless transitions.",
-      
-      "Character Integration: Unique sounds from each character blend perfectly in the mix.",
-      
-      "Special Combinations: Unlock unique audio events through creative experimentation.",
-      
-      "Professional Audio: High-quality sound output maintains clarity in complex arrangements."
+      "Support Specialists: Sky and Mr. Tree bring gentle, nature-inspired sounds with healing abilities.",
+      "Combat Experts: Clukr and Brud deliver energetic beats with powerful offensive capabilities.",
+      "Magic Users: Wenda and Vineria weave elegant melodies with crowd control abilities.",
+      "Technical Specialists: Mr. Fun Computer and Oren provide precise, mechanical rhythms.",
+      "Unique Specialists: Gray, Raddy, Tunner, and others each bring distinctive sound signatures."
     ],
-    highlight: "Audio",
+    highlight: "Characters",
+    category: 'characters'
+  },
+  {
+    title: "Sound Design & Rhythm",
+    description: [
+      "Unique Sound Palette: Each character brings their own distinct sound environment and musical style.",
+      "Voice Personalities: From gentle ethereal tones to robust mechanical beats.",
+      "Dynamic Sound Mixing: Real-time sound composition based on character interactions.",
+      "Musical Combat: Rhythm-based gameplay that integrates with character abilities.",
+      "Atmospheric Progression: Sound environments evolve with game progression."
+    ],
+    highlight: "Sound Design",
     category: 'technical'
   },
   {
-    title: "Community Features",
+    title: "Advanced Game Mechanics",
     description: [
-      "Share Creations: Showcase your Sprunki Phase musical masterpieces with the global community.",
-      
-      "Community Hub: Connect with fellow creators, share tips, and collaborate on projects.",
-      
-      "Achievement System: Track progress and unlock rewards as you master Sprunki Phase.",
-      
-      "Regular Events: Participate in special challenges and collaborative community projects.",
-      
-      "Feedback System: Rate compositions and help other creators improve their work."
+      "Passive Item System: Your companion provides constant support and enables powerful transformations.",
+      "Randomized Triggers: Each playthrough features unique transformation conditions for varied gameplay.",
+      "Strategic Depth: Master the timing of transformations and defensive maneuvers.",
+      "Sound Integration: Maintain musical rhythm while engaging in intense combat sequences.",
+      "Progressive Challenge: Unlock new abilities and face increasingly complex enemy patterns."
     ],
-    highlight: "Social",
+    highlight: "Game Systems",
     category: 'technical'
+  },
+  {
+    title: "Community & Updates",
+    description: [
+      "Community Strategies: Share and discover new tactics for maximizing combat effectiveness.",
+      "Regular Updates: Continuous refinement of gameplay mechanics and balance.",
+      "Player Feedback: Features evolved based on community input and gameplay data.",
+      "Competitive Elements: Compare strategies and scores with other players.",
+      "Active Community: Join discussions about tactics and game discoveries."
+    ],
+    highlight: "Social Features",
+    category: 'evolution'
   }
 ];
 
 export function Features() {
   return (
-    <section className="w-full" aria-labelledby="features-heading">
-      <div className="space-y-12">
-        {/* Header */}
-        <div className="text-center">
-          <h2 className="text-3xl font-heading text-primary mb-4">
-            Sprunki Phase Features
-          </h2>
-          <p className="text-lg text-text-secondary max-w-2xl mx-auto">
-            Explore the evolution and features, from its origins to the latest innovations
-          </p>
-        </div>
+    <section className="w-full max-w-5xl mx-auto py-12 px-4">
+      {/* Header */}
+      <div className="text-center mb-12">
+        <h2 className="text-2xl font-heading text-primary mb-4">
+          Sprunki Phase 4 Features
+        </h2>
+        <p className="text-muted-foreground">
+          Discover the latest innovations and improvements in Sprunki Phase 4
+        </p>
+      </div>
 
-        {/* Main Features Grid */}
-        <div className="grid gap-8">
-          {/* Characters Section */}
-          <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-8 border border-[#2A2C32]">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-heading text-primary">
-                Character Cast & Transformations
+      {/* Features Grid */}
+      <div className="grid gap-8">
+        {features.map((feature, index) => (
+          <div
+            key={index}
+            className="bg-card rounded-lg border border-border"
+          >
+            {/* Header */}
+            <div className="flex items-center gap-4 border-b border-border p-4">
+              <h3 className="text-xl font-heading text-primary flex-1">
+                {feature.title}
               </h3>
-              <span className="px-4 py-1.5 bg-primary/10 text-primary text-sm font-heading rounded-full">
-                Core Cast
+              <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-medium rounded-full">
+                {feature.highlight}
               </span>
             </div>
-            <div className="grid gap-4">
-              {features[0].description.map((item, i) => (
-                <div 
-                  key={i}
-                  className="bg-slate-700/20 rounded-lg p-4 hover:bg-slate-700/30 transition-colors"
-                >
-                  <p className="text-text-secondary leading-relaxed">
-                    {item}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
 
-          {/* Music System & Technical Features */}
-          <div className="grid md:grid-cols-2 gap-8">
-            {/* Music Creation System */}
-            <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-8 border border-[#2A2C32]">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-heading text-primary">
-                  Music Creation System
-                </h3>
-                <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-heading rounded-full">
-                  Core Mechanics
-                </span>
-              </div>
-              <div className="space-y-4">
-                {features[1].description.map((item, i) => (
-                  <div 
-                    key={i}
-                    className="bg-slate-700/20 rounded-lg p-4"
-                  >
-                    <p className="text-text-secondary leading-relaxed">
-                      {item}
-                    </p>
-                  </div>
-                ))}
-              </div>
-            </div>
-
-            {/* Dynamic Music Design */}
-            <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-8 border border-[#2A2C32]">
-              <div className="flex items-center justify-between mb-6">
-                <h3 className="text-xl font-heading text-primary">
-                  Dynamic Music Design
-                </h3>
-                <span className="px-3 py-1 bg-primary/10 text-primary text-sm font-heading rounded-full">
-                  Audio
-                </span>
-              </div>
-              <div className="space-y-4">
-                {features[2].description.map((item, i) => (
-                  <div 
-                    key={i}
-                    className="bg-slate-700/20 rounded-lg p-4"
-                  >
-                    <p className="text-text-secondary leading-relaxed">
+            {/* Content */}
+            <div className="p-6">
+              <div className="grid gap-4">
+                {feature.description.map((item, i) => (
+                  <div key={i} className="flex items-start gap-3">
+                    <span className="mt-1.5 w-1.5 h-1.5 rounded-full bg-primary flex-shrink-0" />
+                    <p className="text-muted-foreground text-sm">
                       {item}
                     </p>
                   </div>
@@ -164,31 +114,7 @@ export function Features() {
               </div>
             </div>
           </div>
-
-          {/* Community Features */}
-          <div className="bg-slate-800/80 backdrop-blur-sm rounded-xl p-8 border border-[#2A2C32]">
-            <div className="flex items-center justify-between mb-6">
-              <h3 className="text-2xl font-heading text-primary">
-                Community Features
-              </h3>
-              <span className="px-4 py-1.5 bg-primary/10 text-primary text-sm font-heading rounded-full">
-                Social
-              </span>
-            </div>
-            <div className="grid md:grid-cols-2 gap-4">
-              {features[3].description.map((item, i) => (
-                <div 
-                  key={i}
-                  className="bg-slate-700/20 rounded-lg p-4 hover:bg-slate-700/30 transition-colors"
-                >
-                  <p className="text-text-secondary leading-relaxed">
-                    {item}
-                  </p>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
+        ))}
       </div>
     </section>
   );

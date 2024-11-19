@@ -23,6 +23,6 @@ export const metadata = {
   description: "Find answers to frequently asked questions. Get help with games, features, tips,and more. Discover controls, strategies, and gameplay mechanics.",
   keywords: ["FAQ", "Sprunki phase", "Sprunki phase FAQ", "Sprunki phase Help", "Sprunki phase Support"],
   alternates: {
-    canonical: "https://www.sprunkiphase.xyz/faq",
+    canonical: "https://sprunkiphase4.app/faq",
   },
 }

@@ -2,6 +2,7 @@ import { Metadata } from "next"
 import { Game, GameCategory, games, getGamesByCategory } from "@/config/sprunkigame"
 import { Breadcrumb } from "@/components/ui/breadcrumb"
 import Link from "next/link"
+import Image from 'next/image';
 import { notFound } from "next/navigation"
 
 export const runtime = 'edge';
@@ -35,7 +36,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
     title: `${categoryName} - Free Music Games | Sprunki phase`,
     description: `Play the best ${categoryName.toLowerCase()} on Sprunki phase. Find your favorite games and enjoy hours of entertainment! All games are free to play and no download required!`,
     alternates: {
-      canonical: `https://www.sprunkiphase.xyz/categories/${params.category}`,
+      canonical: `https://sprunkiphase4.app/categories/${params.category}`,
     },
   }
 }
@@ -57,53 +58,61 @@ export default function CategoryPage({ params }: CategoryPageProps) {
     <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
       <Breadcrumb 
         items={[
-          { label: "Play Sprunki phase", href: "/" },
+          { label: "Play Sprunki phase 4", href: "/" },
           { label: categoryName, href: `/categories/${params.category}` }
         ]} 
       />
       
       <div className="space-y-12">
         {/* 分类标题和描述 */}
-        <div className="text-center space-y-4">
-          <h1 className="text-3xl font-heading text-primary">
+        <div className="mb-8">
+          <h1 className="text-3xl font-heading text-primary tracking-tight mb-2">
             {categoryName}
           </h1>
-          <p className="text-text-secondary max-w-2xl mx-auto">
-            Discover and play the best {categoryName.toLowerCase()} on Sprunki phase. 
-            All games are free to play and no download required!
+          <p className="text-lg text-muted-foreground">
+            Explore our collection of {categoryName.toLowerCase()}
           </p>
         </div>
 
         {/* 该分类的游戏 - 按日期排序 */}
-        <section className="space-y-6">
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-4">
-            {categoryGames.map((game) => (
-              <Link
-                key={game.id}
-                href={`/games/${game.id}`}
-                className="group block"
-              >
-                <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-[#2A2C32] overflow-hidden transition-all hover:shadow-[0_0_15px_rgba(74,144,226,0.1)]">
-                  <div className="aspect-video relative overflow-hidden">
-                    <img
-                      src={game.image}
-                      alt={game.title}
-                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
-                    />
-                  </div>
-                  <div className="p-4">
-                    <h2 className="font-heading text-primary text-lg mb-2 line-clamp-1">
-                      {game.title}
-                    </h2>
-                    <p className="text-text-secondary text-sm line-clamp-2">
-                      {game.description}
-                    </p>
-                  </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {categoryGames.map((game) => (
+            <Link
+              key={game.id}
+              href={game.id === 'sprunki-phase-4' ? '/' : `/games/${game.id}`}
+              className="group bg-card/80 backdrop-blur-sm rounded-2xl border border-border p-6 hover:shadow-game transition-all"
+            >
+              <div className="space-y-4">
+                <div className="aspect-video relative rounded-xl overflow-hidden">
+                  <Image
+                    src={game.image}
+                    alt={game.title}
+                    fill
+                    className="object-cover transition-transform group-hover:scale-105"
+                  />
                 </div>
-              </Link>
-            ))}
-          </div>
-        </section>
+                <div>
+                  <h2 className="text-xl font-heading text-foreground mb-2">
+                    {game.title}
+                  </h2>
+                  <p className="text-sm text-muted-foreground line-clamp-2">
+                    {game.description}
+                  </p>
+                </div>
+                <div className="flex flex-wrap gap-2">
+                  {game.categories.map((cat) => (
+                    <span
+                      key={cat}
+                      className="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-muted/50 text-muted-foreground"
+                    >
+                      {cat}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </Link>
+          ))}
+        </div>
 
         {/* 所有游戏 - 按日期排序 */}
         <section className="space-y-6">
@@ -112,10 +121,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             {allGames.map((game) => (
               <Link
                 key={game.id}
-                href={`/games/${game.id}`}
+                href={game.id === 'sprunki-phase-4' ? '/' : `/games/${game.id}`}
                 className="group block"
               >
-                <div className="bg-slate-800/80 backdrop-blur-sm rounded-2xl border border-[#2A2C32] overflow-hidden transition-all hover:shadow-[0_0_15px_rgba(74,144,226,0.1)]">
+                <div className="bg-card/80 backdrop-blur-sm rounded-2xl border border-border overflow-hidden transition-all hover:shadow-game">
                   <div className="aspect-video relative overflow-hidden">
                     <img
                       src={game.image}
@@ -124,10 +133,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
                     />
                   </div>
                   <div className="p-4">
-                    <h3 className="font-heading text-primary text-lg mb-2 line-clamp-1">
+                    <h3 className="font-heading text-foreground text-lg mb-2 line-clamp-1 group-hover:text-primary transition-colors">
                       {game.title}
                     </h3>
-                    <p className="text-text-secondary text-sm line-clamp-2">
+                    <p className="text-muted-foreground text-sm line-clamp-2">
                       {game.description}
                     </p>
                   </div>

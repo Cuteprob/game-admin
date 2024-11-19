@@ -4,7 +4,8 @@ import { globby } from 'globby';
 import prettier from 'prettier';
 import { games, GameCategory } from '../config/sprunkigame';
 
-// 获取页面的修改时间
+// 获取页面的修改时间  
+// npx tsx scripts/generate-sitemap.ts
 function getLastModified(filePath: string): string {
     try {
         const stats = fs.statSync(filePath);
@@ -61,7 +62,7 @@ function getCategories(): string[] {
 function generateUrlEntry(pagePath: string, lastmod: string): string {
     return `
   <url>
-    <loc>https://www.sprunkiphase.xyz${pagePath}</loc>
+    <loc>https://sprunkiphase4.app${pagePath}</loc>
     <lastmod>${lastmod}</lastmod>
     <changefreq>${getChangeFreq(pagePath)}</changefreq>
     <priority>${getPriority(pagePath)}</priority>

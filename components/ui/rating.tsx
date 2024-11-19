@@ -63,9 +63,9 @@ export function Rating({
       <button
         key={position}
         className={cn(
-          "transition-colors",
-          !isReadOnly && !hasVoted && "cursor-pointer hover:scale-110",
-          "disabled:cursor-default",
+          "transition-all duration-300 transform",
+          !isReadOnly && !hasVoted && "cursor-pointer hover:scale-125",
+          "disabled:cursor-default group",
           {
             'w-6 h-6': size === 'sm',
             'w-8 h-8': size === 'md',
@@ -81,8 +81,10 @@ export function Rating({
           xmlns="http://www.w3.org/2000/svg"
           viewBox="0 0 24 24"
           className={cn(
-            filled ? "fill-accent text-accent" : "fill-slate-600 text-slate-600",
-            !isReadOnly && !hasVoted && "hover:fill-accent hover:text-accent",
+            "transition-all duration-300 drop-shadow-md",
+            filled ? "fill-yellow-400 text-yellow-400 drop-shadow-[0_0_10px_rgba(250,204,21,0.5)]" : 
+                    "fill-muted-foreground/20 text-muted-foreground/20 group-hover:fill-yellow-400/50 group-hover:text-yellow-400/50",
+            !isReadOnly && !hasVoted && "group-hover:drop-shadow-[0_0_10px_rgba(250,204,21,0.3)]",
           )}
         >
           <path
@@ -113,16 +115,16 @@ export function Rating({
         {[1, 2, 3, 4, 5].map(renderStar)}
       </div>
       {!isReadOnly && (
-        <div className="flex items-center gap-2 text-sm font-mono">
-          <div className="flex items-center gap-1">
-            <span className="font-medium text-accent">{currentRating}</span>
-            <span className="text-border">/</span>
-            <span className="text-text-secondary">5</span>
+        <div className="flex items-center gap-3 text-sm font-mono bg-card/50 px-4 py-2 rounded-full border border-border/50 shadow-sm">
+          <div className="flex items-center gap-1.5">
+            <span className="font-bold text-yellow-400 drop-shadow-[0_0_3px_rgba(250,204,21,0.3)]">{currentRating}</span>
+            <span className="text-muted-foreground/30">/</span>
+            <span className="text-muted-foreground">5</span>
           </div>
-          <span className="text-border">•</span>
-          <div className="flex items-center gap-1">
-            <span className="text-text-secondary">{currentVotes.toLocaleString()}</span>
-            <span className="text-text-secondary">votes</span>
+          <span className="text-muted-foreground/30">•</span>
+          <div className="flex items-center gap-1.5">
+            <span className="text-muted-foreground font-medium">{currentVotes.toLocaleString()}</span>
+            <span className="text-muted-foreground/70">votes</span>
           </div>
         </div>
       )}
@@ -160,45 +162,48 @@ export function Rating({
       {!isReadOnly && (
         <>
           {reviewSubmitted ? (
-            <div className="text-sm text-accent text-center p-4 bg-slate-800/80 rounded-2xl border border-[#2A2C32]">
+            <div className="text-sm text-yellow-400 text-center p-6 bg-card/50 backdrop-blur-sm rounded-2xl border border-yellow-400/20 shadow-[0_0_15px_rgba(250,204,21,0.1)]">
               Thank you for your review! It will be displayed after moderation.
             </div>
           ) : (
-            <form onSubmit={handleSubmitReview} className="space-y-4">
+            <form onSubmit={handleSubmitReview} className="space-y-5 bg-card/50 backdrop-blur-sm p-6 rounded-2xl border border-border/50 shadow-lg">
               <div>
-                <label className="block text-sm font-medium text-text-primary">Name</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Name</label>
                 <input
                   type="text"
                   required
-                  className="mt-1 block w-full rounded-2xl border-[#2A2C32] shadow-sm focus:border-accent focus:ring-accent bg-slate-800/80 backdrop-blur-sm text-text-primary"
+                  className="block w-full rounded-xl border border-border/50 shadow-sm focus:border-yellow-400/50 focus:ring focus:ring-yellow-400/20 bg-background/50 text-foreground placeholder-muted-foreground/50 px-4 py-2.5 transition-all duration-300"
                   value={formData.name}
                   onChange={(e) => setFormData({...formData, name: e.target.value})}
+                  placeholder="Your name"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-text-primary">Email</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Email</label>
                 <input
                   type="email"
                   required
-                  className="mt-1 block w-full rounded-2xl border-[#2A2C32] shadow-sm focus:border-accent focus:ring-accent bg-slate-800/80 backdrop-blur-sm text-text-primary"
+                  className="block w-full rounded-xl border border-border/50 shadow-sm focus:border-yellow-400/50 focus:ring focus:ring-yellow-400/20 bg-background/50 text-foreground placeholder-muted-foreground/50 px-4 py-2.5 transition-all duration-300"
                   value={formData.email}
                   onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  placeholder="your.email@example.com"
                 />
               </div>
               <div>
-                <label className="block text-sm font-medium text-text-primary">Review</label>
+                <label className="block text-sm font-medium text-foreground mb-2">Review</label>
                 <textarea
                   required
                   rows={4}
-                  className="mt-1 block w-full rounded-2xl border-[#2A2C32] shadow-sm focus:border-accent focus:ring-accent bg-slate-800/80 backdrop-blur-sm text-text-primary"
+                  className="block w-full rounded-xl border border-border/50 shadow-sm focus:border-yellow-400/50 focus:ring focus:ring-yellow-400/20 bg-background/50 text-foreground placeholder-muted-foreground/50 px-4 py-2.5 transition-all duration-300"
                   value={formData.comment}
                   onChange={(e) => setFormData({...formData, comment: e.target.value})}
+                  placeholder="Share your thoughts about the game..."
                 />
               </div>
-              <div className="flex justify-end">
+              <div className="flex justify-end pt-2">
                 <button
                   type="submit"
-                  className="px-6 py-2 text-sm font-heading text-text-primary bg-primary hover:bg-primary/90 rounded-full transition-all duration-300 shadow-sm hover:shadow-md border border-[#2A2C32]"
+                  className="px-8 py-2.5 text-sm font-heading font-medium text-white bg-gradient-to-r from-yellow-400 to-orange-500 hover:from-yellow-500 hover:to-orange-600 rounded-full transition-all duration-300 shadow-lg hover:shadow-xl hover:shadow-yellow-400/20 focus:ring-2 focus:ring-yellow-400/20 active:scale-95"
                 >
                   Submit Review
                 </button>

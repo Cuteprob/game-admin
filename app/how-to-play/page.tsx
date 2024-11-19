@@ -25,6 +25,6 @@ export const metadata = {
   title: "How to Play Unblocked Games Online - Sprunki phase",
   description: "Learn how to play unblocked games on Sprunki phase. Get started with our easy-to-follow guide. Discover controls, strategies for all our browser games.",
   alternates: {
-    canonical: "https://www.sprunkiphase.xyz/how-to-play",
+    canonical: "https://sprunkiphase4.app/how-to-play",
   },
 }

@@ -25,6 +25,6 @@ export const metadata = {
   title: "Discover Sprunki phase Features - Sprunki phase",
   description: "Discover Sprunki phase's features and benefits. Learn about our game collection, instant play technology, and enjoy the best unblocked games online.",
   alternates: {
-    canonical: "https://www.sprunkiphase.xyz/features",
+    canonical: "https://sprunkiphase4.app/features",
   },
 }

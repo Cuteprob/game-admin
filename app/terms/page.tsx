@@ -4,7 +4,7 @@ export const metadata = {
   title: 'Terms of Service - Sprunki phase',
   description: 'Terms of service and user guidelines for Sprunki phase online game. Read about our policies, user conduct, and service terms.',
   alternates: {
-    canonical: 'https://www.sprunkiphase.xyz/terms'
+    canonical: 'https://sprunkiphase4.app/terms'
   }
 }
 

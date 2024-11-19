@@ -25,7 +25,7 @@ const jetbrainsMono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://www.sprunkiphase.xyz'),
+  metadataBase: new URL('https://sprunkiphase4.app'),
   openGraph: {
     siteName: 'Sprunkiphase',
     locale: 'en_US',
@@ -45,7 +45,7 @@ export default function RootLayout({
     <html lang="en">
       <head>
         <Script
-          src="https://www.googletagmanager.com/gtag/js?id=G-JML65EXP9Q"
+          src="https://www.googletagmanager.com/gtag/js?id=G-C01VWXR0LG"
           strategy="afterInteractive"
         />
         <Script id="google-analytics" strategy="afterInteractive">
@@ -54,7 +54,7 @@ export default function RootLayout({
             function gtag(){dataLayer.push(arguments);}
             gtag('js', new Date());
 
-            gtag('config', 'G-JML65EXP9Q');
+            gtag('config', 'G-C01VWXR0LG');
           `}
         </Script>
       </head>
@@ -64,7 +64,7 @@ export default function RootLayout({
           ${inter.variable} 
           ${jetbrainsMono.variable} 
           font-body 
-          bg-[#1A1B1E]
+          bg-background
         `}
       >
         <Navbar />

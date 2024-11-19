@@ -32,9 +32,9 @@ export function GameContainer({ game }: GameContainerProps) {
   };
 
   return (
-    <div className="aspect-video w-full relative rounded-2xl bg-slate-800/80 backdrop-blur-sm border border-[#2A2C32] p-4">
+    <div className="aspect-video w-full relative rounded-2xl bg-card/80 backdrop-blur-sm border border-border p-2 sm:p-4">
       {!isPlaying ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-800/80 backdrop-blur-sm rounded-2xl z-10">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-card/80 backdrop-blur-sm rounded-2xl z-10">
           {/* 图片容器 */}
           <div className="relative group">
             {/* 背景光效 */}
@@ -46,25 +46,24 @@ export function GameContainer({ game }: GameContainerProps) {
             <img
               src={game.image}
               alt={game.title}
-              className="relative w-36 h-36 md:w-48 md:h-48 rounded-xl mb-4 shadow-lg 
-              hover:scale-110 transition-transform duration-300 z-10 
-              sm:mb-6"
+              className="relative w-24 h-24 sm:w-36 sm:h-36 md:w-48 md:h-48 rounded-xl mb-3 
+              shadow-game hover:scale-110 transition-transform duration-300 z-10"
             />
           </div>
 
           {/* 游戏标题 */}
-          <h2 className="text-xl md:text-2xl font-heading text-text-secondary mb-4 md:mb-6 text-center px-4">
+          <h2 className="text-lg sm:text-xl md:text-2xl font-heading text-foreground mb-3 sm:mb-4 md:mb-6 text-center px-2 sm:px-4">
             {game.title}
           </h2>
 
           {/* 游戏按钮 */}
           <button
             onClick={() => setIsPlaying(true)}
-            className="relative px-6 md:px-8 py-2 md:py-3 text-sm md:text-base font-heading 
-            text-text-primary bg-primary hover:bg-primary/90 
-            rounded-full transition-all duration-300 shadow-sm 
-            hover:shadow-[0_0_15px_rgba(74,144,226,0.3)] hover:scale-110 md:hover:scale-125 
-            border border-[#2A2C32] 
+            className="relative px-4 sm:px-6 md:px-8 py-2 md:py-3 text-sm md:text-base font-heading 
+            text-primary-foreground bg-primary hover:bg-primary/90 
+            rounded-full transition-all duration-300 shadow-game
+            hover:shadow-game-hover hover:scale-105 sm:hover:scale-110 md:hover:scale-125 
+            border border-border
             animate-pulse delay-500 hover:animate-none
             active:scale-95"
           >
@@ -74,11 +73,11 @@ export function GameContainer({ game }: GameContainerProps) {
       ) : null}
 
       {error ? (
-        <div className="absolute inset-0 flex flex-col items-center justify-center bg-slate-800/80 backdrop-blur-sm rounded-2xl z-10">
+        <div className="absolute inset-0 flex flex-col items-center justify-center bg-card/80 backdrop-blur-sm rounded-2xl z-10">
           <p className="text-sm text-destructive">Failed to load game. Please try refreshing the page.</p>
           <button 
             onClick={() => window.location.reload()} 
-            className="mt-4 px-4 py-2 bg-primary text-text-primary rounded-full hover:bg-primary/90 transition-colors"
+            className="mt-4 px-4 py-2 bg-primary text-primary-foreground rounded-full hover:bg-primary/90 transition-colors"
           >
             Refresh Page
           </button>
@@ -89,7 +88,7 @@ export function GameContainer({ game }: GameContainerProps) {
         ref={iframeRef}
         src={game.iframeUrl}
         title={game.title}
-        className="w-full h-full p-1 border-0 rounded-xl bg-slate-900" 
+        className="w-full h-full p-1 border-0 rounded-xl bg-background" 
         allowFullScreen
         loading="lazy"
         sandbox="allow-scripts allow-same-origin allow-popups allow-forms"
@@ -97,8 +96,8 @@ export function GameContainer({ game }: GameContainerProps) {
         onError={handleIframeError}
       />
 
-      <div className="flex justify-between items-center mt-4">
-        <p className="text-sm text-text-secondary">
+      <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0 mt-2 sm:mt-4">
+        <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
           {game.controls.fullscreenTip}
         </p>
         <div className="flex gap-2">
@@ -106,7 +105,7 @@ export function GameContainer({ game }: GameContainerProps) {
             variant="outline" 
             size="icon"
             onClick={enterFullscreen}
-            className="bg-slate-800/80 hover:bg-slate-700/80 border-[#2A2C32] text-text-primary hover:text-accent"
+            className="h-8 w-8 sm:h-10 sm:w-10 bg-background hover:bg-muted border-border text-foreground hover:text-primary"
           >         
             {Icons.fullscreen}
           </Button>
@@ -115,35 +114,35 @@ export function GameContainer({ game }: GameContainerProps) {
               <Button 
                 variant="outline" 
                 size="icon"
-                className="bg-slate-800/80 hover:bg-slate-700/80 border-[#2A2C32] text-text-primary hover:text-accent"
+                className="h-8 w-8 sm:h-10 sm:w-10 bg-background hover:bg-muted border-border text-foreground hover:text-primary"
               >
                 {Icons.help}
               </Button>
             </DropdownMenuTrigger>
-            <DropdownMenuContent align="end" className="w-80 bg-slate-800/90 border border-[#2A2C32] rounded-2xl p-0">
-              <div className="p-4 space-y-4">
+            <DropdownMenuContent align="end" className="w-[280px] sm:w-80 bg-card/95 border border-border rounded-2xl p-0">
+              <div className="p-3 sm:p-4 space-y-3 sm:space-y-4">
                 <div>
-                  <h3 className="font-heading text-primary text-sm mb-2">Movement Controls</h3>
-                  <ul className="space-y-1">
+                  <h3 className="font-heading text-primary text-xs sm:text-sm mb-1.5 sm:mb-2">Movement Controls</h3>
+                  <ul className="space-y-0.5 sm:space-y-1">
                     {game.controls.guide.movement.map((control, index) => (
-                      <li key={index} className="text-sm text-text-secondary">{control}</li>
+                      <li key={index} className="text-xs sm:text-sm text-muted-foreground">{control}</li>
                     ))}
                   </ul>
                 </div>
                 <div>
-                  <h3 className="font-heading text-primary text-sm mb-2">Game Actions</h3>
-                  <ul className="space-y-1">
+                  <h3 className="font-heading text-primary text-xs sm:text-sm mb-1.5 sm:mb-2">Game Actions</h3>
+                  <ul className="space-y-0.5 sm:space-y-1">
                     {game.controls.guide.actions.map((action, index) => (
-                      <li key={index} className="text-sm text-text-secondary">{action}</li>
+                      <li key={index} className="text-xs sm:text-sm text-muted-foreground">{action}</li>
                     ))}
                   </ul>
                 </div>
                 {game.controls.guide.special && (
                   <div>
-                    <h3 className="font-heading text-primary text-sm mb-2">Special Controls</h3>
-                    <ul className="space-y-1">
+                    <h3 className="font-heading text-primary text-xs sm:text-sm mb-1.5 sm:mb-2">Special Controls</h3>
+                    <ul className="space-y-0.5 sm:space-y-1">
                       {game.controls.guide.special.map((special, index) => (
-                        <li key={index} className="text-sm text-text-secondary">{special}</li>
+                        <li key={index} className="text-xs sm:text-sm text-muted-foreground">{special}</li>
                       ))}
                     </ul>
                   </div>
