@@ -7,12 +7,10 @@ import { useState } from "react"
 export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
-  const navCategories = [
-    GameCategory.SPRUNKIPHASE,
-    GameCategory.SPRUNKI,
-    GameCategory.HOT,
-    GameCategory.INCREDIBOX,
-    GameCategory.MOD,
+  const navItems = [
+    { name: 'Sprunki Phase 5', href: '/games/sprunki-phase-5' },
+    { name: 'Sprunki Phase 3', href: '/games/sprunki-phase-3' },
+    { name: 'Sprunki Retake', href: '/games/sprunki-retake' },
   ];
 
   return (
@@ -64,13 +62,13 @@ export function Navbar() {
 
           {/* Desktop Categories */}
           <div className="hidden md:flex items-center space-x-4">
-            {navCategories.map((category) => (
+            {navItems.map((item) => (
               <Link 
-                key={category}
-                href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                key={item.href}
+                href={item.href}
                 className="px-3 py-1.5 rounded-full text-sm font-medium bg-background hover:bg-muted text-foreground hover:text-primary transition-all duration-300 border border-border hover:shadow-game hover:scale-105"
               >
-                {category}
+                {item.name}
               </Link>
             ))}
           </div>
@@ -79,14 +77,14 @@ export function Navbar() {
         {/* Mobile Menu */}
         {isMenuOpen && (
           <div className="md:hidden py-4 space-y-2 bg-card/95 border-t border-border shadow-game">
-            {navCategories.map((category) => (
+            {navItems.map((item) => (
               <Link 
-                key={category}
-                href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                key={item.href}
+                href={item.href}
                 className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-all duration-300 rounded-lg mx-2"
                 onClick={() => setIsMenuOpen(false)}
               >
-                {category}
+                {item.name}
               </Link>
             ))}
           </div>
