@@ -79,7 +79,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
           {categoryGames.map((game) => (
             <Link
               key={game.id}
-              href={game.id === 'sprunki-phase-4' ? '/' : `/games/${game.id}`}
+              href={game.id === 'sprunki-phase-4' ? '/' : `/${game.id}`}
               className="group bg-card/80 backdrop-blur-sm rounded-2xl border border-border p-6 hover:shadow-game transition-all"
             >
               <div className="space-y-4">
@@ -121,7 +121,7 @@ export default function CategoryPage({ params }: CategoryPageProps) {
             {allGames.map((game) => (
               <Link
                 key={game.id}
-                href={game.id === 'sprunki-phase-4' ? '/' : `/games/${game.id}`}
+                href={game.id === 'sprunki-phase-4' ? '/' : `/${game.id}`}
                 className="group block"
               >
                 <div className="bg-card/80 backdrop-blur-sm rounded-2xl border border-border overflow-hidden transition-all hover:shadow-game">

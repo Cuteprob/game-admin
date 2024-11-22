@@ -46,7 +46,7 @@ export function RelatedGames({ currentGameId }: RelatedGamesProps) {
         {relatedGames.map((game) => (
           <Link
             key={game.id}
-            href={`/games/${game.id}`}
+            href={`/${game.id}`}
             className="group block"
           >
             <div className="bg-card/80 backdrop-blur-sm rounded-2xl border border-border overflow-hidden transition-all hover:shadow-game">

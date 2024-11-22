@@ -17,7 +17,7 @@ function getLastModified(filePath: string): string {
 
 // 获取页面的更新频率
 function getChangeFreq(pagePath: string): string {
-    if (pagePath.startsWith('/games/')) {
+    if (pagePath.startsWith('/')) {
         return 'daily';
     } else if (pagePath.startsWith('/categories/')) {
         return 'weekly';
@@ -29,7 +29,6 @@ function getChangeFreq(pagePath: string): string {
 function getPriority(pagePath: string): string {
     const priorities: Record<string, number> = {
         '/': 0.5,
-        '/games': 0.9,
         '/features': 0.8,
         '/how-to-play': 0.8,
         '/faq': 0.8,
@@ -38,7 +37,7 @@ function getPriority(pagePath: string): string {
         '/not-found': 0.5
     };
 
-    if (pagePath.startsWith('/games/')) {
+    if (pagePath.startsWith('/')) {
         return '0.6';
     } else if (pagePath.startsWith('/categories/')) {
         return '0.7';
@@ -90,7 +89,7 @@ async function generateSitemap(): Promise<void> {
 
         // 2. 生成游戏页面的 URL 条目
         const gameUrlEntries = games.map(game => {
-            const pagePath = `/games/${game.id}`;
+            const pagePath = `/${game.id}`;
             return generateUrlEntry(pagePath, '2024-11-18');
         });
 

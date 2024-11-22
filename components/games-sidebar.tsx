@@ -74,7 +74,7 @@ export function GamesSidebar({ currentGameId, gameCategories, limit = 15 }: Game
         {similarGames.map((game) => (
           <Link
             key={game.id}
-            href={game.id === 'sprunki-phase-4' ? '/' : `/games/${game.id}`}
+            href={game.id === 'sprunki-phase-4' ? '/' : `/${game.id}`}
             className="group block"
           >
             <div className="bg-card/80 backdrop-blur-sm rounded-2xl border border-border overflow-hidden transition-all hover:shadow-game">

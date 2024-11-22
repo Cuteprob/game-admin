@@ -63,12 +63,14 @@ export default function RootLayout({
           ${spaceGrotesk.variable} 
           ${inter.variable} 
           ${jetbrainsMono.variable} 
-          font-body 
-          bg-background
+          font-sans 
+          antialiased
         `}
       >
         <Navbar />
-        {children}
+        <main className="min-h-screen">
+          {children}
+        </main>
         <Footer />
       </body>
     </html>

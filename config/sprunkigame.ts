@@ -37,7 +37,7 @@ export interface Game {
   faqs: {
     question: string;
     answer: string;
-    category: 'gameplay' | 'technical' | 'features' | 'general';
+    category: 'gameplay' | 'technical' | 'features' | 'general' | 'tips' | 'audio';
   }[];
   video?: {
     youtubeId: string;    // YouTube 视频 ID
@@ -248,7 +248,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "WNEaYjH5wbI",
       title: "Sprunki Phase 1 - Original Music Creation Game",
-      thumbnail: "/games/sprunki-phase-1-thumb.webp"
+      thumbnail: "/games/sprunki-phase-1.webp"
     }
   },
   {
@@ -350,7 +350,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "wwe35EyXgmo",
       title: "Sprunki Phase 2 Gameplay Showcase",
-      thumbnail: "/games/sprunki-phase-2-thumb.webp"
+      thumbnail: "/games/sprunki-phase-2.webp"
     }
   },
   {
@@ -429,7 +429,7 @@ export const games: Game[] = [
       },
       {
         question: "What new sound categories are available?",
-        answer: "Phase 3 introduces new sound categories including enhanced beats, melodic elements, and special effects, offering more creative possibilities.",
+        answer: "Phase 3 introduces new sound categories including enhanced beats, melodies, and effects, offering more creative possibilities.",
         category: 'features'
       },
       {
@@ -448,11 +448,6 @@ export const games: Game[] = [
         category: 'features'
       }
     ],
-    video: {
-      youtubeId: "wwe35EyXgmo",
-      title: "Sprunki Phase 3 Gameplay Showcase",
-      thumbnail: "/games/sprunki-phase-3-thumb.webp"
-    }
   },
   {
     id: "sprunki-phase-4",
@@ -650,11 +645,6 @@ export const games: Game[] = [
         category: 'features'
       }
     ],
-    video: {
-      youtubeId: "dQw4w9WgXcQ",
-      title: "Sprunki Phase 5 Gameplay Showcase",
-      thumbnail: "/games/sprunki-phase-5-thumb.webp"
-    }
   },
   {
     id: "sprunki-phase-6",
@@ -1166,8 +1156,8 @@ export const games: Game[] = [
   {
     id: "sprunki-retake",
     title: "Sprunki Retake",
-    createdAt: "2024-01-12",
-    description: "Sprunki Retake is a fun and engaging music creation game that allows players to mix and match adorable Sprunki characters to create their own unique tunes. It combines simplicity with creativity, making music accessible to everyone.",
+    createdAt: "2024-11-19",
+    description: "Sprunki Retake is a fan-made horror modification of Incredibox, transforming the classic experience into a darker, atmospheric journey. Players create haunting melodies using eerie sound effects, ghostly characters, and mysterious gameplay elements. The mod retains core music-mixing mechanics while introducing new categories like spectral vocals and otherworldly beats. Features include atmospheric horror sound design, redesigned characters like The Phantom and Shadow Walker, and unlockable content triggered by unique sound combinations.",
     iframeUrl: "https://iframegame.com/embed/sprunki-retake/index.html",
     image: "/games/sprunki-retake.webp",
     rating: 4.8,
@@ -1181,15 +1171,12 @@ export const games: Game[] = [
       GameCategory.MOD
     ],
     metadata: {
-      title: "Sprunki Retake - Reimagined Music Creation Game | Free Online",
-      description: "Experience Sprunki Retake, a reimagined version of the classic music creation game! Create unique tunes with enhanced features and nostalgic elements.",
+      title: "Play Incredibox Sprunki Retake online for Free",
+      description: "Sprunki Retake is a fan-made modification of the popular rhythm game Incredibox!You can create unique tunes with enhanced features and nostalgic elements.",
       keywords: [
         "sprunki retake",
-        "sprunki remake",
-        "music creation game",
-        "sprunki music",
-        "incredibox style game",
-        "online music maker"
+        "incredibox remake",
+        "incredibox music",
       ]
     },
     controls: {
@@ -1208,61 +1195,107 @@ export const games: Game[] = [
       }
     },
     features: [
-      "Reimagined character designs",
-      "Enhanced sound mixing",
-      "Improved visual effects",
-      "Intuitive controls",
-      "Mobile optimization",
-      "High-quality audio",
-      "Creative sandbox",
-      "Community features"
+      // 核心音乐创作
+      "In Sprunki Retake, you can Create Music with 20+ Unique Sprunki Characters",
+      "Professional-grade Audio Engine with HD Sound Quality",
+      "Multiple Sprunki Themes and Sound Packs",
+      
+      // 游戏界面和体验
+      "Stunning Visual Effects and Character Animations",
+      "Intuitive Drag-and-Drop Music Creation Interface",
+      "Built-in Tutorial System for New Players",
+      
+      // 技术和兼容性
+      "Cross-platform Support (PC, Mobile, Tablet)",
+      "Real-time Music Creation and Processing",
+      "Optimized Performance with Quick Save System",
+      
+      // 社区和更新
+      "Real-time Music Collaboration Features",
+      "Regular Updates with New Content",
+      "Seamless Integration with Sprunki Series"
     ],
     faqs: [
       {
-        question: "What's new in Sprunki Retake?",
-        answer: "Sprunki Retake brings the latest innovations in music creation, featuring new characters, enhanced sound mixing capabilities, and improved visual effects.",
+        question: "What makes Sprunki Retake special in the Incredibox music game family?",
+        answer: "Sprunki Retake represents a groundbreaking evolution in the Incredibox-style music creation genre. It combines the beloved mechanics of Sprunki Phase series with innovative features like advanced sound mixing, 20+ unique character sounds, and stunning visual effects. The game stands out with its distinctive Sprunki art style and enhanced music creation capabilities that set new standards in interactive music gaming.",
         category: 'general'
       },
       {
-        question: "How do I create music in Retake?",
-        answer: "Simply choose your favorite Sprunki characters and drag them onto the canvas. Each character adds unique sounds to your mix, creating an interactive music-making experience.",
+        question: "How do I create music in Sprunki Retake compared to other Incredibox games?",
+        answer: "Sprunki Retake features an intuitive drag-and-drop system that builds upon the classic Incredibox formula. Select from over 20 uniquely designed Sprunki characters, each representing different musical elements - beats, melodies, harmonies, and effects. Drag them onto the stage to create your mix, and watch as the Sprunki characters come to life with stunning animations. The game includes advanced features like real-time mixing controls, sound layering, and tempo adjustment, giving you complete creative freedom.",
         category: 'gameplay'
       },
       {
-        question: "Is Retake suitable for beginners?",
-        answer: "Yes! Sprunki Retake is designed for all skill levels, with intuitive controls and helpful tutorials to get you started.",
+        question: "What's new in Sprunki Retake compared to previous Sprunki Phase games?",
+        answer: "Sprunki Retake introduces several groundbreaking features to the Sprunki Phase series: enhanced HD audio quality, advanced real-time mixing capabilities, new character designs with unique animations, expanded sound library with multiple themes, improved mobile optimization, and seamless cloud saving. The game also features a new collaborative mode where Sprunki enthusiasts can create music together in real-time.",
+        category: 'features'
+      },
+      {
+        question: "Is Sprunki Retake suitable for both beginners and experienced Incredibox players?",
+        answer: "Absolutely! Sprunki Retake is designed with a progressive difficulty system that caters to all skill levels. Beginners can start with basic beat-making using the intuitive interface and built-in tutorials, while experienced players can explore advanced features like complex sound layering, custom mix creation, and real-time effects manipulation. The game grows with you as you develop your music-making skills.",
         category: 'general'
       },
       {
-        question: "What devices support Retake?",
-        answer: "Sprunki Retake runs on any modern web browser, both desktop and mobile. No downloads required - just visit and start creating!",
+        question: "What devices and platforms support Sprunki Retake?",
+        answer: "Sprunki Retake is optimized for cross-platform play. It runs smoothly on desktop browsers (Chrome, Firefox, Safari, Edge), tablets, and mobile devices. The responsive design automatically adjusts to your screen size, ensuring the best possible experience across all devices. No downloads required - just visit the website and start creating your Sprunki music!",
         category: 'technical'
       },
       {
-        question: "Can I save my creations?",
-        answer: "Yes, you can save and share your musical creations with the Sprunki Retake community.",
+        question: "How does the Sprunki Retake community and sharing system work?",
+        answer: "The Sprunki Retake community features are extensive. You can save your creations to your profile, share them with other players, collaborate in real-time music sessions, and discover mixes from other Sprunki enthusiasts. The game includes a voting system for popular mixes, weekly featured creations, and the ability to remix other players' works while giving proper credit.",
         category: 'technical'
       },
       {
-        question: "What makes Retake unique?",
-        answer: "Retake features the latest character designs, enhanced sound mixing capabilities, and improved visual effects that set it apart from previous versions.",
+        question: "What are the different sound themes available in Sprunki Retake?",
+        answer: "Sprunki Retake offers multiple themed sound packs, each with its own unique character designs and music styles. These include Classic Sprunki, Electronic, Hip-Hop, and special seasonal themes. Each theme pack contains carefully crafted sounds that work harmoniously together, allowing for endless creative possibilities in your music making.",
+        category: 'general'
+      },
+      {
+        question: "How often is Sprunki Retake updated with new content?",
+        answer: "The Sprunki Retake development team regularly releases updates with new features, characters, and sound packs. Updates typically include new Sprunki characters, fresh sound elements, additional themes, and gameplay improvements based on community feedback. Major updates occur quarterly, with smaller content additions and optimizations released monthly.",
         category: 'features'
       },
       {
-        question: "How does multiplayer work?",
-        answer: "Sprunki Retake includes collaborative features that let you create and share music with other players in the community.",
+        question: "Can I use Sprunki Retake for music learning and education?",
+        answer: "Yes! Sprunki Retake includes educational features that make it perfect for music learning. Through interactive play, users learn about rhythm, harmony, and composition. Teachers can use it in music education, and students can learn music fundamentals while having fun with the Sprunki characters.",
         category: 'gameplay'
       },
       {
-        question: "Are there tutorials available?",
-        answer: "Yes, comprehensive tutorials help you learn all aspects of music creation in Sprunki Retake.",
-        category: 'features'
+        question: "What makes Sprunki Retake different from the original Incredibox?",
+        answer: "While inspired by Incredibox Sprunki Phase games, Sprunki Retake brings its own unique identity with the beloved Sprunki character universe, enhanced visual effects, and expanded musical capabilities. It features exclusive Sprunki-themed sound packs, advanced mixing tools, and seamless integration with the broader Sprunki Phase game series, creating a fresh and exciting music-making experience.",
+        category: 'general'
+      },
+      {
+        question: "How do I get started with Sprunki Retake?",
+        answer: "Begin by exploring the dark, atmospheric interface.  Incredibox Sprunki Retake presents you with a unique cast of horror-themed characters, each contributing distinct eerie sounds. Simply drag and drop these characters onto the stage to start creating your haunting masterpiece.",
+        category: "gameplay"
+      },
+      {
+        question: "What makes Sprunki Retake different from the original?",
+        answer: "Sprunki Retake transforms the classic experience with a horror theme, featuring ghostly vocals, dark atmospherics, and mysterious sound elements. The characters have been redesigned with a darker aesthetic, and the overall ambiance creates a more suspenseful musical experience.",
+        category: "general"
+      },
+      {
+        question: "Are there any hidden features in Sprunki Retake to discover?",
+        answer: "Yes! Experiment with different character combinations and sound effects in Sprunki Retake to unlock secret animations and hidden sequences. Each successful combination reveals new, eerie visual effects and adds depth to your musical creation. The more you explore, the more mysteries you'll uncover.",
+        category: "features"
+      },
+      {
+        question: "How can I create the best horror-themed compositions in Sprunki Retake?",
+        answer: "Layer your sounds strategically - start with a deep, atmospheric base, add ghostly vocals, then complement with eerie effects. Try combining different character types to create tension and release in your composition. Don't be afraid to experiment with unexpected combinations.",
+        category: "tips"
+      },
+      {
+        question: "What are the key elements of the horror soundscape of Sprunki Retake?",
+        answer: "The horror soundscape includes spectral vocals, dark ambient sounds, mysterious rhythms, and haunting melodies. Each character contributes unique elements that can be layered to create an immersive, spine-chilling atmosphere.",
+        category: "audio"
       }
     ],
     video: {
-      youtubeId: "5H2YIR7WXAI",
-      title: "Sprunki Retake Gameplay Showcase",
-      thumbnail: "/sprunki-phase.webp"
+      youtubeId: "LKOJe2ywiY0",
+      title: "Incredibox Sprunki Retake ALL Characters BONUS ~ New Mod",
+      thumbnail: "/games/sprunki-retake.webp"
     }
   },
   {

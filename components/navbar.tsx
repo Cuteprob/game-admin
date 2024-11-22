@@ -8,9 +8,9 @@ export function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   
   const navItems = [
-    { name: 'Sprunki Phase 5', href: '/games/sprunki-phase-5' },
-    { name: 'Sprunki Phase 3', href: '/games/sprunki-phase-3' },
-    { name: 'Sprunki Retake', href: '/games/sprunki-retake' },
+    { name: 'Sprunki Retake', href: '/sprunki-retake', isHot: true },
+    { name: 'Sprunki Phase 5', href: '/sprunki-phase-5' },
+    { name: 'Sprunki Phase 3', href: '/sprunki-phase-3' },
   ];
 
   return (
@@ -66,9 +66,14 @@ export function Navbar() {
               <Link 
                 key={item.href}
                 href={item.href}
-                className="px-3 py-1.5 rounded-full text-sm font-medium bg-background hover:bg-muted text-foreground hover:text-primary transition-all duration-300 border border-border hover:shadow-game hover:scale-105"
+                className="relative px-3 py-1.5 rounded-full text-sm font-medium bg-background hover:bg-muted text-foreground hover:text-primary transition-all duration-300 border border-border hover:shadow-game hover:scale-105 flex items-center gap-2"
               >
                 {item.name}
+                {item.isHot && (
+                  <span className="absolute -top-1.5 -right-1 px-1.5 py-[1px] text-[9px] font-bold text-white rounded-full bg-gradient-to-r from-red-500 to-orange-500 shadow-sm animate-pulse border border-white/20">
+                    HOT
+                  </span>
+                )}
               </Link>
             ))}
           </div>
@@ -81,10 +86,15 @@ export function Navbar() {
               <Link 
                 key={item.href}
                 href={item.href}
-                className="block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-all duration-300 rounded-lg mx-2"
+                className="relative block px-4 py-2 text-sm text-foreground hover:bg-muted hover:text-primary transition-all duration-300 rounded-lg mx-2"
                 onClick={() => setIsMenuOpen(false)}
               >
                 {item.name}
+                {item.isHot && (
+                  <span className="absolute top-1.5 left-[calc(100%-40px)] px-1.5 py-[1px] text-[9px] font-bold text-white rounded-full bg-gradient-to-r from-red-500 to-orange-500 shadow-sm animate-pulse border border-white/20">
+                    HOT
+                  </span>
+                )}
               </Link>
             ))}
           </div>
