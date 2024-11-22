@@ -547,7 +547,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "dQw4w9WgXcQ",
       title: "Sprunki Phase 4 Gameplay Showcase",
-      thumbnail: "/games/sprunki-phase-4-thumb.webp"
+      thumbnail: "/sprunki-phase-4.webp"
     }
   },
   {
