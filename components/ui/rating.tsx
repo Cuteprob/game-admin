@@ -22,7 +22,7 @@ interface ReviewFormData {
 
 export function Rating({ 
   initialRating = 4.8, 
-  totalVotes = 234, 
+  totalVotes = 1265, 
   onRate, 
   className, 
   size = "md",

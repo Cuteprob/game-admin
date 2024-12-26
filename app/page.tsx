@@ -8,6 +8,7 @@ import { HowToPlay } from '@/components/how-to-play'
 import { Features } from '@/components/features'
 import { FAQ } from '@/components/faq'
 import Link from "next/link"
+import { GameDescription } from "@/components/game-description"
 
 export const runtime = "edge";
 
@@ -219,71 +220,7 @@ export default function Home() {
 
         {/* Game Description Section */}
         <div className="space-y-12">
-          <section className="flex flex-col md:flex-row items-start gap-8 max-w-4xl mx-auto bg-card/80 backdrop-blur-sm rounded-2xl p-8 border border-border">
-            <div className="w-[120px] h-[120px] flex-shrink-0 rounded-2xl overflow-hidden bg-primary/10 p-0 shadow-game">
-              <img
-                src="/logo.jpeg"
-                alt="Sprunki Phase 4 Music Game"
-                className="w-full h-full object-contain"
-              />
-            </div>
-            <div className="flex-1 space-y-6">
-              <div className="space-y-4">
-                <h2 className="text-2xl md:text-3xl font-heading text-primary">
-                  Sprunki Phase 4: Evolution of Musical Innovation
-                </h2>
-                <div className="flex items-center gap-2">
-                  <Rating 
-                    initialRating={4.8} 
-                    isReadOnly 
-                    size="md"
-                    showReviewSystem={true}
-                  />
-                </div>
-              </div>
-
-              <div className="space-y-4">
-                <p className="text-lg leading-relaxed text-foreground">
-                  Welcome to Sprunki Phase 4, a groundbreaking iteration that revolutionizes musical gameplay. Building upon the beloved mechanics of previous versions, this release introduces dynamic transformations and enhanced interactive elements that elevate your musical journey.
-                </p>
-                <p className="text-lg leading-relaxed text-foreground">
-                  As a significant evolution in the series, Sprunki Phase 4 introduces the innovative Passive Item system, allowing your musical companion to not only follow your rhythm but also provide defensive capabilities through bullet blocking and transformative abilities.
-                </p>
-              </div>
-
-              <div className="space-y-4">
-                <h3 className="text-xl font-heading text-primary">
-                  Watch Sprunki video in Action
-                </h3>
-                {SprunkiphaseGame.video && (
-                  <GameVideo 
-                    youtubeId={SprunkiphaseGame.video.youtubeId}
-                    title={SprunkiphaseGame.video.title}
-                    clipId={SprunkiphaseGame.video.clipId}
-                    clipTime={SprunkiphaseGame.video.clipTime}
-                    thumbnail={SprunkiphaseGame.video.thumbnail}
-                  />
-                )}
-              </div>
-
-              <div className="space-y-2">
-                <h3 className="text-lg font-heading text-primary text-center md:text-left">
-                  Explore Sprunki Phase 4 related Categories
-                </h3>
-                <div className="flex flex-wrap justify-center md:justify-start gap-2">
-                  {SprunkiphaseGame.categories.map((category: GameCategory) => (
-                    <Link
-                      key={category}
-                      href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
-                      className="inline-flex items-center px-3 py-1 rounded-full text-xs md:text-sm font-medium bg-background hover:bg-muted text-foreground hover:text-primary transition-all duration-300 border border-border hover:shadow-game hover:scale-105"
-                    >
-                      {category}
-                    </Link>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </section>
+          <GameDescription game={SprunkiphaseGame} />
           <HowToPlay />
           <Features />
           <FAQ />

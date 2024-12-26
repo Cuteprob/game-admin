@@ -1,17 +1,25 @@
 'use client'
 
-import { Game } from "@/config/sprunkigame"
+import { Game, GameCategory } from "@/config/sprunkigame"
 import { Rating } from "@/components/ui/rating"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { Icons } from "@/config/icons"
 import { GameVideo } from "@/components/game-video"
-  import  ShareButtons  from '@/components/ShareButtons'
+import ShareButtons from '@/components/ShareButtons'
+import Link from "next/link"
+import { useState, useEffect } from 'react'
 
 interface GameDescriptionProps {
   game: Game
 }
 
 export function GameDescription({ game }: GameDescriptionProps) {
+  const [randomReviews, setRandomReviews] = useState<number>(0);
+
+  useEffect(() => {
+    setRandomReviews(Math.floor(Math.random() * (2000 - 500 + 1) + 500));
+  }, []);
+
   return (
     <section className="max-w-7xl mx-auto bg-card/80 backdrop-blur-sm rounded-2xl p-8 border border-border">
       {/* Header */}
@@ -34,12 +42,19 @@ export function GameDescription({ game }: GameDescriptionProps) {
               <h1 className="text-3xl font-heading text-primary">
                 {game.title}
               </h1>
-              <Rating 
-                initialRating={game.rating} 
-                isReadOnly 
-                size="md"
-                showReviewSystem={true}
-              />
+              <div className="flex items-center gap-2">
+                <div className="flex items-center gap-2">
+                  <Rating 
+                    initialRating={game.rating} 
+                    isReadOnly 
+                    size="md"
+                    showReviewSystem={true}
+                  />
+                  <span className="text-sm text-muted-foreground whitespace-nowrap">
+                    {randomReviews > 0 && `(${randomReviews.toLocaleString()} votes)`}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
 
@@ -112,6 +127,18 @@ export function GameDescription({ game }: GameDescriptionProps) {
             {/* Description - Right Side */}
             <div className="flex-1 space-y-4 text-muted-foreground">
               <p>{game.description}</p>
+              
+              <div className="flex flex-wrap gap-2 pt-4">
+                {game.categories.map((category: GameCategory) => (
+                  <Link
+                    key={category}
+                    href={`/categories/${category.toLowerCase().replace(/\s+/g, '-')}`}
+                    className="inline-flex items-center px-3 py-1.5 rounded-full text-sm font-medium bg-muted/50 text-muted-foreground hover:bg-muted hover:text-primary transition-all duration-300 border border-border hover:shadow-game hover:scale-105"
+                  >
+                    {category}
+                  </Link>
+                ))}
+              </div>
             </div>
           </div>
         </TabsContent>
