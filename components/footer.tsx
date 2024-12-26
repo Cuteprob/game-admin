@@ -56,13 +56,13 @@ export function Footer() {
             <h3 className="font-heading text-primary font-bold">Game</h3>
             <ul className="space-y-2">
               <li>
-                <Link href="/how-to-play" className="text-sm text-foreground hover:text-primary transition-colors">
-                  How to Play
-                </Link>
+                <a href="https://sprunkimegalovania.org" target="_self" className="text-sm text-foreground hover:text-primary transition-colors">
+                  Sprunki Megalovania
+                </a>
               </li>
               <li>
                 <Link href="/features" className="text-sm text-foreground hover:text-primary transition-colors">
-                  Features
+                  
                 </Link>
               </li>
             </ul>
@@ -80,6 +80,16 @@ export function Footer() {
                 <a href="mailto:support@sprunkiphase4.app" className="text-sm text-foreground hover:text-primary transition-colors">
                   support@sprunkiphase4.app
                 </a>
+              </li>
+              <li>
+                <Link href="/how-to-play" className="text-sm text-foreground hover:text-primary transition-colors">
+                  How to Play
+                </Link>
+              </li>
+              <li>
+                <Link href="/features" className="text-sm text-foreground hover:text-primary transition-colors">
+                  Features
+                </Link>
               </li>
             </ul>
           </div>

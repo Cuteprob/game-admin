@@ -50,12 +50,12 @@ export interface Game {
 
 export const games: Game[] = [
   {
-    id: "sprunki-phase-0",
-    title: "Sprunki Phase 0",
+    id: "sprunki-babies",
+    title: "Sprunki Babies",
     createdAt: "2024-01-01",
     description: "Sprunki Phase 0 is a fun and engaging music creation game that allows players to mix and match adorable Sprunki characters to create their own unique tunes. It combines simplicity with creativity, making music accessible to everyone.",
     iframeUrl: "https://iframegame.com/embed/sprunki-babies/index.html",
-    image: "/games/sprunki-phase-0.webp",
+    image: "/games/sprunki-babies.webp",
     rating: 4.8,
     categories: [
       GameCategory.MUSIC,
@@ -66,10 +66,10 @@ export const games: Game[] = [
       GameCategory.SPRUNKI
     ],
     metadata: {
-      title: "Sprunki Phase 0 - Create Music with Baby Sprunkis | Free Online Game",
-      description: "Play Sprunki Phase 0 and create unique tunes with adorable baby Sprunki characters! Mix sounds, make music, and unleash your creativity in this fun music creation game.",
+      title: "Sprunki Babies - Create Music with Baby Sprunkis | Free Online Game",
+      description: "Play Sprunki Babies and create unique tunes with adorable baby Sprunki characters! Mix sounds, make music, and unleash your creativity in this fun music creation game.",
       keywords: [
-        "sprunki phase 0",
+        "sprunki babies",
         "baby sprunki",
         "music creation game",
         "sprunki music",
@@ -78,7 +78,7 @@ export const games: Game[] = [
       ]
     },
     controls: {
-      fullscreenTip: "Click the fullscreen button for the best Sprunki Phase 0 experience",
+      fullscreenTip: "Click the fullscreen button for the best Sprunki Babies experience",
       guide: {
         movement: [
           "Drag & Drop: Move characters",
@@ -104,50 +104,50 @@ export const games: Game[] = [
     ],
     faqs: [
       {
-        question: "What is Sprunki Phase 0?",
-        answer: "Sprunki Phase 0 is a music creation game featuring baby Sprunki characters. It's designed as an entry point to the Sprunki Phase series, perfect for beginners and young players.",
+        question: "What is Sprunki Babies?",
+        answer: "Sprunki Babies is a music creation game featuring baby Sprunki characters. It's designed as an entry point to the Sprunki Phase series, perfect for beginners and young players.",
         category: 'general'
       },
       {
-        question: "How do I create music in Sprunki Phase 0?",
+        question: "How do I create music in Sprunki Babies?",
         answer: "Simply drag and drop baby Sprunki characters onto the canvas. Each character adds unique sounds to your mix, creating a fun and interactive music-making experience.",
         category: 'gameplay'
       },
       {
-        question: "Is Sprunki Phase 0 suitable for children?",
-        answer: "Yes! Sprunki Phase 0 is specifically designed for players of all ages, with a kid-friendly interface and intuitive controls that make music creation accessible and fun.",
+        question: "Is Sprunki Babies suitable for children?",
+        answer: "Yes! Sprunki Babies is specifically designed for players of all ages, with a kid-friendly interface and intuitive controls that make music creation accessible and fun.",
         category: 'general'
       },
       {
-        question: "Can I save my Sprunki Phase 0 creations?",
+        question: "Can I save my Sprunki Babies creations?",
         answer: "Yes, you can save your musical creations and share them with friends. The game includes features for storing and sharing your favorite mixes.",
         category: 'technical'
       },
       {
-        question: "What makes Sprunki Phase 0 unique?",
-        answer: "Sprunki Phase 0 features adorable baby Sprunki characters, each with unique sounds. The game combines cute visuals with engaging sound mixing options in a creative sandbox environment.",
+        question: "What makes Sprunki Babies unique?",
+        answer: "Sprunki Babies features adorable baby Sprunki characters, each with unique sounds. The game combines cute visuals with engaging sound mixing options in a creative sandbox environment.",
         category: 'features'
       },
       {
         question: "Are there tutorials available?",
-        answer: "Yes, Sprunki Phase 0 includes easy-to-follow tutorials that help new players understand how to create music, choose characters, and use all available features.",
+        answer: "Yes, Sprunki Babies includes easy-to-follow tutorials that help new players understand how to create music, choose characters, and use all available features.",
         category: 'gameplay'
       },
       {
-        question: "What devices can I play Sprunki Phase 0 on?",
-        answer: "Sprunki Phase 0 is optimized for both desktop and mobile devices. You can play it on any device with a modern web browser and internet connection.",
+        question: "What devices can I play Sprunki Babies on?",
+        answer: "Sprunki Babies is optimized for both desktop and mobile devices. You can play it on any device with a modern web browser and internet connection.",
         category: 'technical'
       },
       {
-        question: "How does Sprunki Phase 0 differ from other versions?",
-        answer: "Sprunki Phase 0 is designed as an introduction to the series, featuring simpler mechanics and baby versions of the characters, making it perfect for newcomers.",
+        question: "How does Sprunki Babies differ from other versions?",
+        answer: "Sprunki Babies is designed as an introduction to the series, featuring simpler mechanics and baby versions of the characters, making it perfect for newcomers.",
         category: 'features'
       }
     ],
     video: {
       youtubeId: "NSRrrdJHAMc",
-      title: "Sprunki Phase 0 Gameplay Tutorial",
-      thumbnail: "/sprunki-phase.webp"
+      title: "Sprunki Babies Gameplay Tutorial",
+      thumbnail: "/games/sprunki-babies.webp"
     }
   },
   {
@@ -256,7 +256,7 @@ export const games: Game[] = [
     title: "Sprunki Phase 2",
     createdAt: "2024-01-03",
     description: "Sprunki Phase 2 expands the original with new levels, characters, and enhanced graphics. This sequel introduces additional gameplay mechanics that encourage creativity and strategic thinking in music creation.",
-    iframeUrl: "https://html-classic.itch.zone/html/11700918/index.html",
+    iframeUrl: "https://wowtbc.net/sprunki/phase-3/index.html",
     image: "/games/sprunki-phase-2.webp",
     rating: 4.8,
     categories: [

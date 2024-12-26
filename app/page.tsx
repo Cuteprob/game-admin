@@ -2,7 +2,7 @@ import { Metadata } from "next"
 import { GameContainer } from "@/components/game-container"
 import { Rating } from "@/components/ui/rating"
 import { GamesSidebar } from "@/components/games-sidebar"
-import { Game, GameCategory } from "@/config/sprunkigame"
+import { Game, GameCategory, getGamesByCategory } from "@/config/sprunkigame"
 import { GameVideo } from "@/components/game-video"
 import { HowToPlay } from '@/components/how-to-play'
 import { Features } from '@/components/features'
@@ -57,6 +57,10 @@ const SprunkiphaseGame: Game = {
 };
 
 export default function Home() {
+  // 获取 NEW 和 HOT 分类的游戏
+  const newGames = getGamesByCategory(GameCategory.NEW);
+  const hotGames = getGamesByCategory(GameCategory.HOT);
+  
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">
@@ -74,11 +78,138 @@ export default function Home() {
           {/* Game Container */}
           <div className="space-y-4">
             <div className="flex flex-col gap-4 items-start">
-              <div className="w-full px-4 md:px-8 lg:px-12 flex justify-center">
-                <div className="w-full max-w-4xl">
-                  <GameContainer game={SprunkiphaseGame} />
+              <div className="w-full flex gap-4">
+                {/* Game Container Section */}
+                <div className="w-full flex flex-col gap-4">
+                  <div className="w-full flex gap-4">
+                    {/* 左侧游戏列表 - 桌面端显示 */}
+                    <div className="hidden lg:flex lg:w-[200px] flex-col gap-4 aspect-video">
+                      {newGames.slice(0, 3).map((game, i) => (
+                        <a 
+                          key={`left-${i}`} 
+                          href={`/${game.id}`}
+                          className="flex-1 bg-card rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group relative"
+                        >
+                          <div className="w-full h-full relative">
+                            <img 
+                              src={game.image} 
+                              alt={game.title}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                            />
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                              <span className="text-sm text-white font-medium truncate px-2">
+                                {game.title}
+                              </span>
+                            </div>
+                            {/* NEW 标签 */}
+                            <div className="absolute top-2 right-2 bg-primary px-2 py-0.5 rounded-full">
+                              <span className="text-xs font-medium text-primary-foreground">
+                                NEW
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+
+                    {/* 中间游戏区域 */}
+                    <div className="flex-1">
+                      <GameContainer game={SprunkiphaseGame} />
+                    </div>
+
+                    {/* 右侧游戏列表 - 桌面端显示 */}
+                    <div className="hidden lg:flex lg:w-[200px] flex-col gap-4 aspect-video">
+                      {newGames.slice(3, 6).map((game, i) => (
+                        <a 
+                          key={`right-${i}`} 
+                          href={`/${game.id}`}
+                          className="flex-1 bg-card rounded-lg border border-border hover:border-primary transition-colors overflow-hidden group relative"
+                        >
+                          <div className="w-full h-full relative">
+                            <img 
+                              src={game.image} 
+                              alt={game.title}
+                              className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                            />
+                            <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                              <span className="text-sm text-white font-medium truncate px-2">
+                                {game.title}
+                              </span>
+                            </div>
+                            {/* NEW 标签 */}
+                            <div className="absolute top-2 right-2 bg-primary px-2 py-0.5 rounded-full">
+                              <span className="text-xs font-medium text-primary-foreground">
+                                NEW
+                              </span>
+                            </div>
+                          </div>
+                        </a>
+                      ))}
+                    </div>
+                  </div>
+
+                  {/* 移动端游戏列表 - 水平滚动 */}
+                  <div className="lg:hidden flex gap-4 overflow-x-auto pb-2 scrollbar-hide">
+                    {newGames.slice(0, 6).map((game, i) => (
+                      <a 
+                        key={`mobile-${i}`}
+                        href={`/${game.id}`}
+                        className="w-[150px] aspect-square flex-shrink-0 bg-card rounded-lg border border-border overflow-hidden group relative"
+                      >
+                        <div className="w-full h-full relative">
+                          <img 
+                            src={game.image} 
+                            alt={game.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                          />
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-sm text-white font-medium truncate px-2">
+                              {game.title}
+                            </span>
+                          </div>
+                          {/* NEW 标签 */}
+                          <div className="absolute top-2 right-2 bg-primary px-2 py-0.5 rounded-full">
+                            <span className="text-xs font-medium text-primary-foreground">
+                              NEW
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
+
+                  {/* 底部游戏列表 */}
+                  <div className="w-full grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-7 gap-4">
+                    {hotGames.slice(0, 7).map((game, i) => (
+                      <a 
+                        key={`bottom-${i}`}
+                        href={`/${game.id}`}
+                        className="aspect-square bg-card rounded-lg border border-border overflow-hidden group relative"
+                      >
+                        <div className="w-full h-full relative">
+                          <img 
+                            src={game.image} 
+                            alt={game.title}
+                            className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                          />
+                          <div className="absolute inset-0 bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity">
+                            <span className="text-sm text-white font-medium truncate px-2">
+                              {game.title}
+                            </span>
+                          </div>
+                          {/* HOT 标签 */}
+                          <div className="absolute top-2 right-2 bg-destructive px-2 py-0.5 rounded-full">
+                            <span className="text-xs font-medium text-destructive-foreground">
+                              HOT
+                            </span>
+                          </div>
+                        </div>
+                      </a>
+                    ))}
+                  </div>
                 </div>
               </div>
+
               <div className="w-full">
                 <GamesSidebar currentGameId={SprunkiphaseGame.id} gameCategories={SprunkiphaseGame.categories} />
               </div>
