@@ -30,7 +30,6 @@ export function GameContainer({ game }: GameContainerProps) {
   const handleIframeError = () => {
     setError(true);
   };
-
   return (
     <div className="aspect-video w-full relative rounded-2xl bg-card/80 backdrop-blur-sm border border-border p-2 sm:p-4">
       {!isPlaying ? (
@@ -98,7 +97,7 @@ export function GameContainer({ game }: GameContainerProps) {
 
       <div className="flex flex-col sm:flex-row justify-between items-center gap-2 sm:gap-0 mt-2 sm:mt-4">
         <p className="text-xs sm:text-sm text-muted-foreground text-center sm:text-left">
-          {game.controls.fullscreenTip}
+          {game?.controls.fullscreenTip}
         </p>
         <div className="flex gap-2">
           <Button 
@@ -124,7 +123,7 @@ export function GameContainer({ game }: GameContainerProps) {
                 <div>
                   <h3 className="font-heading text-primary text-xs sm:text-sm mb-1.5 sm:mb-2">Movement Controls</h3>
                   <ul className="space-y-0.5 sm:space-y-1">
-                    {game.controls.guide.movement.map((control, index) => (
+                    {game?.controls?.guide?.movement?.map((control, index) => (
                       <li key={index} className="text-xs sm:text-sm text-muted-foreground">{control}</li>
                     ))}
                   </ul>
@@ -132,16 +131,16 @@ export function GameContainer({ game }: GameContainerProps) {
                 <div>
                   <h3 className="font-heading text-primary text-xs sm:text-sm mb-1.5 sm:mb-2">Game Actions</h3>
                   <ul className="space-y-0.5 sm:space-y-1">
-                    {game.controls.guide.actions.map((action, index) => (
+                    {game?.controls?.guide?.actions?.map((action, index) => (
                       <li key={index} className="text-xs sm:text-sm text-muted-foreground">{action}</li>
                     ))}
                   </ul>
                 </div>
-                {game.controls.guide.special && (
+                {game?.controls?.guide?.special && (
                   <div>
                     <h3 className="font-heading text-primary text-xs sm:text-sm mb-1.5 sm:mb-2">Special Controls</h3>
                     <ul className="space-y-0.5 sm:space-y-1">
-                      {game.controls.guide.special.map((special, index) => (
+                      {game?.controls?.guide?.special?.map((special, index) => (
                         <li key={index} className="text-xs sm:text-sm text-muted-foreground">{special}</li>
                       ))}
                     </ul>

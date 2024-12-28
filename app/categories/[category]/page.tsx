@@ -1,9 +1,10 @@
 import { Metadata } from "next"
-import { Game, GameCategory, games, getGamesByCategory } from "@/config/sprunkigame"
+import { Game, GameCategory } from "@/config/sprunkigame"
 import { Breadcrumb } from "@/components/ui/breadcrumb"
 import Link from "next/link"
 import Image from 'next/image';
 import { notFound } from "next/navigation"
+import { getProjectGamesByCategory, getAllGames } from '@/repositories/projectGamesRepository';
 
 export const runtime = 'edge';
 
@@ -41,7 +42,7 @@ export async function generateMetadata({ params }: CategoryPageProps): Promise<M
   }
 }
 
-export default function CategoryPage({ params }: CategoryPageProps) {
+export default async function CategoryPage({ params }: CategoryPageProps) {
   const categoryName = getCategoryDisplayName(params.category);
   
   if (!categoryName) {
@@ -49,10 +50,10 @@ export default function CategoryPage({ params }: CategoryPageProps) {
   }
 
   // 获取该分类的游戏并按日期排序
-  const categoryGames = sortGamesByDate(getGamesByCategory(categoryName as GameCategory));
+  const categoryGames = sortGamesByDate(await getProjectGamesByCategory(categoryName as GameCategory));
   
   // 获取所有游戏并按日期排序
-  const allGames = sortGamesByDate(games);
+  const allGames = sortGamesByDate(await getAllGames());
   
   return (
     <main className="flex-1 container mx-auto px-4 py-8 max-w-7xl">

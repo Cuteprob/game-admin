@@ -153,7 +153,7 @@ export function GameDescription({ game }: GameDescriptionProps) {
                   title={game.video.title}
                   clipId={game.video.clipId}
                   clipTime={game.video.clipTime}
-                  thumbnail={game.video.thumbnail}
+                  thumbnail={game?.video?.thumbnail}
                 />
               </div>
             )}

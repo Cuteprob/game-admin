@@ -1,11 +1,11 @@
 import Link from "next/link"
-import { Game, games, GameCategory } from "@/config/sprunkigame"
+import { Game, GameCategory } from "@/config/sprunkigame"
 import { Rating } from "@/components/ui/rating"
+import { getAllGames } from "@/repositories/projectGamesRepository";
 
 interface RelatedGamesProps {
   currentGameId?: string;
 }
-
 // 添加日期排序函数
 const sortGamesByDate = (games: Game[]) => {
   return [...games].sort((a, b) => {
@@ -13,7 +13,8 @@ const sortGamesByDate = (games: Game[]) => {
   });
 };
 
-export function RelatedGames({ currentGameId }: RelatedGamesProps) {
+export async function RelatedGames({ currentGameId }: RelatedGamesProps) {
+  const games = await getAllGames();
   // 获取相关游戏列表
   const newGames = games
     .filter(game => (!currentGameId || game.id !== currentGameId) && game.categories.includes(GameCategory.NEW))

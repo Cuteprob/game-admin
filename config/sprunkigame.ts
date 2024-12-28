@@ -55,7 +55,7 @@ export const games: Game[] = [
     createdAt: "2024-01-01",
     description: "Sprunki Phase 0 is a fun and engaging music creation game that allows players to mix and match adorable Sprunki characters to create their own unique tunes. It combines simplicity with creativity, making music accessible to everyone.",
     iframeUrl: "https://iframegame.com/embed/sprunki-babies/index.html",
-    image: "/games/sprunki-babies.webp",
+    image: "https://images.shadybears.org/games/sprunki-babies.webp",
     rating: 4.8,
     categories: [
       GameCategory.MUSIC,
@@ -147,7 +147,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "NSRrrdJHAMc",
       title: "Sprunki Babies Gameplay Tutorial",
-      thumbnail: "/games/sprunki-babies.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-babies.webp"
     }
   },
   {
@@ -156,7 +156,7 @@ export const games: Game[] = [
     createdAt: "2024-01-02",
     description: "The original Sprunki Phase that introduced players to the core mechanics of music creation through character arrangement. This groundbreaking release established the foundation for all future Sprunki Phase games, featuring intuitive sound mixing and character transformations.",
     iframeUrl: "https://iframegame.com/embed/sprunki/index.html",
-    image: "/games/sprunki-phase-1.webp",
+    image: "https://images.shadybears.org/games/sprunki-phase-1.webp",
     rating: 4.9,
     categories: [
       GameCategory.MUSIC,
@@ -248,7 +248,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "WNEaYjH5wbI",
       title: "Sprunki Phase 1 - Original Music Creation Game",
-      thumbnail: "/games/sprunki-phase-1.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-phase-1.webp"
     }
   },
   {
@@ -256,8 +256,8 @@ export const games: Game[] = [
     title: "Sprunki Phase 2",
     createdAt: "2024-01-03",
     description: "Sprunki Phase 2 expands the original with new levels, characters, and enhanced graphics. This sequel introduces additional gameplay mechanics that encourage creativity and strategic thinking in music creation.",
-    iframeUrl: "https://wowtbc.net/sprunki/phase-3/index.html",
-    image: "/games/sprunki-phase-2.webp",
+    iframeUrl: "https://wowtbc.net/sprunki/phase-2/index.html",
+    image: "https://images.shadybears.org/games/sprunki-phase-2.webp",
     rating: 4.8,
     categories: [
       GameCategory.MUSIC,
@@ -350,7 +350,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "wwe35EyXgmo",
       title: "Sprunki Phase 2 Gameplay Showcase",
-      thumbnail: "/games/sprunki-phase-2.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-phase-2.webp"
     }
   },
   {
@@ -359,7 +359,7 @@ export const games: Game[] = [
     createdAt: "2024-01-04",
     description: "Sprunki Phase 3 continues the evolution with more complex challenges and a broader range of sound elements. This version deepens the music creation experience with advanced features and enhanced character interactions.",
     iframeUrl: "https://iframegame.com/embed/sprunki-phase-3/index.html",
-    image: "/games/sprunki-phase-3.webp",
+    image: "https://images.shadybears.org/games/sprunki-phase-3.webp",
     rating: 4.9,
     categories: [
       GameCategory.MUSIC,
@@ -448,6 +448,11 @@ export const games: Game[] = [
         category: 'features'
       }
     ],
+    video: {
+      youtubeId: "dQw4w9WgXcQ",
+      title: "Sprunki Phase 3 Gameplay Showcase",
+      thumbnail: "https://images.shadybears.org/games/sprunki-phase-3.webp"
+    }
   },
   {
     id: "sprunki-phase-4",
@@ -556,7 +561,7 @@ export const games: Game[] = [
     createdAt: "2024-01-06",
     description: "Sprunki Phase 5 adds more characters and levels, along with improved graphics and sound quality. This version enriches the gameplay experience with enhanced visual designs and a more sophisticated audio engine.",
     iframeUrl: "https://iframegame.com/embed/sprunki-phase-5/index.html",
-    image: "/games/sprunki-phase-5.webp",
+    image: "https://images.shadybears.org/games/sprunki-phase-5.webp",
     rating: 4.9,
     categories: [
       GameCategory.MUSIC,
@@ -645,6 +650,11 @@ export const games: Game[] = [
         category: 'features'
       }
     ],
+    video: {
+      youtubeId: "dQw4w9WgXcQ",
+      title: "Sprunki Phase 5 Gameplay Showcase",
+      thumbnail: "https://images.shadybears.org/games/sprunki-phase-5.webp"
+    }
   },
   {
     id: "sprunki-phase-6",
@@ -652,7 +662,7 @@ export const games: Game[] = [
     createdAt: "2024-01-07",
     description: "Sprunki Phase 6 focuses on refining gameplay mechanics and introducing new challenges. This version requires players to think critically about their sound combinations while maintaining the fun and creativity of music creation.",
     iframeUrl: "https://iframegame.com/embed/sprunki-phase-6/index.html",
-    image: "/games/sprunki-phase-6.webp",
+    image: "https://images.shadybears.org/games/sprunki-phase-6.webp",
     rating: 4.9,
     categories: [
       GameCategory.MUSIC,
@@ -745,7 +755,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki Phase 6 Gameplay Showcase",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-phase-6.webp"
     }
   },
   {
@@ -754,7 +764,7 @@ export const games: Game[] = [
     createdAt: "2024-01-08",
     description: "Sprunki Phase 7 represents the latest evolution in the series, featuring enhanced visuals, dynamic soundtracks, and unique characters with special abilities. This version emphasizes creativity and experimentation in music creation.",
     iframeUrl: "https://iframegame.com/embed/sprunki-phase-7/index.html",
-    image: "/games/sprunki-phase-7.webp",
+    image: "https://images.shadybears.org/games/sprunki-phase-7.webp",
     rating: 4.9,
     categories: [
       GameCategory.MUSIC,
@@ -847,7 +857,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki Phase 7 Gameplay Showcase",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-phase-7.webp"
     }
   },
   {
@@ -856,7 +866,7 @@ export const games: Game[] = [
     createdAt: "2024-01-09",
     description: "Sprunki Phase 8 builds upon the success of previous versions, introducing innovative sound manipulation features and enhanced visual effects. This version focuses on providing new creative tools while maintaining the intuitive gameplay that fans love.",
     iframeUrl: "https://iframegame.com/embed/sprunki-phase-8/index.html",
-    image: "/games/sprunki-phase-8.webp",
+    image: "https://images.shadybears.org/games/sprunki-phase-8.webp",
     rating: 4.8,
     categories: [
       GameCategory.MUSIC,
@@ -947,7 +957,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki Phase 8 Gameplay Showcase",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-phase-8.webp"
     }
   },
   {
@@ -956,7 +966,7 @@ export const games: Game[] = [
     createdAt: "2024-01-10",
     description: "Sprunki Phase 9 introduces groundbreaking features that push the boundaries of music creation. With advanced sound processing capabilities and innovative character interactions, this version offers unprecedented creative possibilities.",
     iframeUrl: "https://iframegame.com/embed/sprunki-phase-9/index.html",
-    image: "/games/sprunki-phase-9.webp",
+    image: "https://images.shadybears.org/games/sprunki-phase-9.webp",
     rating: 4.9,
     categories: [
       GameCategory.MUSIC,
@@ -1048,7 +1058,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki Phase 9 Gameplay Showcase",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-phase-9.webp"
     }
   },
   {
@@ -1057,7 +1067,7 @@ export const games: Game[] = [
     createdAt: "2024-01-11",
     description: "Sprunki Phase 10 is a fun and engaging music creation game that allows players to mix and match adorable Sprunki characters to create their own unique tunes. It combines simplicity with creativity, making music accessible to everyone.",
     iframeUrl: "https://iframegame.com/embed/sprunki-phase-10/index.html",
-    image: "/games/sprunki-phase-10.webp",
+    image: "https://images.shadybears.org/games/sprunki-phase-10.webp",
     rating: 4.9,
     categories: [
       GameCategory.MUSIC,
@@ -1150,7 +1160,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki Phase 10 Gameplay Showcase",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-phase-10.webp"
     }
   },
   {
@@ -1159,7 +1169,7 @@ export const games: Game[] = [
     createdAt: "2024-11-19",
     description: "Sprunki Retake is a fan-made horror modification of Incredibox, transforming the classic experience into a darker, atmospheric journey. Players create haunting melodies using eerie sound effects, ghostly characters, and mysterious gameplay elements. The mod retains core music-mixing mechanics while introducing new categories like spectral vocals and otherworldly beats. Features include atmospheric horror sound design, redesigned characters like The Phantom and Shadow Walker, and unlockable content triggered by unique sound combinations.",
     iframeUrl: "https://iframegame.com/embed/sprunki-retake/index.html",
-    image: "/games/sprunki-retake.webp",
+    image: "https://images.shadybears.org/games/sprunki-retake.webp",
     rating: 4.8,
     categories: [
       GameCategory.MUSIC,
@@ -1295,7 +1305,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "LKOJe2ywiY0",
       title: "Incredibox Sprunki Retake ALL Characters BONUS ~ New Mod",
-      thumbnail: "/games/sprunki-retake.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-retake.webp"
     }
   },
   {
@@ -1304,7 +1314,7 @@ export const games: Game[] = [
     createdAt: "2024-01-13",
     description: "Sprunki Swapped Version is a creative remix of the Sprunki game series, where characters swap their usual roles and sounds, resulting in a fun and unexpected twist on the original gameplay. In this version, familiar characters take on entirely new musical tones and styles, encouraging players to explore and experiment in fresh ways.",
     iframeUrl: "https://sprunki.org/sprunki-swapped-version.embed",
-    image: "/games/sprunki-swapped-version.webp",
+    image: "https://images.shadybears.org/games/sprunki-swapped-version.webp",
     rating: 4.7,
     categories: [
       GameCategory.MUSIC,
@@ -1398,7 +1408,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki Swapped Version Gameplay",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-swapped-version.webp"
     }
   },
   {
@@ -1407,7 +1417,7 @@ export const games: Game[] = [
     createdAt: "2024-01-14",
     description: "Sprunki Dandy's World is a fun and addictive rhythm game with a unique blend of music, art, and storytelling. In this mod, you'll be transported to the whimsical world of Sprunki Dandy.",
     iframeUrl: "https://sprunki.org/sprunki-dandys-world.embed",
-    image: "/games/sprunki-dandys-world.webp",
+    image: "https://images.shadybears.org/games/sprunki-dandys-world.webp",
     rating: 4.7,
     categories: [
       GameCategory.MUSIC,
@@ -1500,7 +1510,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki Dandy's World Gameplay",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-dandys-world.webp"
     }
   },
   {
@@ -1509,7 +1519,7 @@ export const games: Game[] = [
     createdAt: "2024-01-15",
     description: "Sprunki But Everyone Is Alive is a fun and engaging twist on the original Sprunki game series, designed to introduce a vibrant and dynamic world where all characters are alive and interactive. This installment emphasizes exploration, teamwork, and creative problem-solving, providing players with a unique gaming experience filled with humor and adventure.",
     iframeUrl: "https://sprunki.org/sprunki-but-everyone-is-alive.embed",
-    image: "/games/sprunki-but-everyone-is-alive.webp",
+    image: "https://images.shadybears.org/games/sprunki-but-everyone-is-alive.webp",
     rating: 4.8,
     categories: [
       GameCategory.MUSIC,
@@ -1598,7 +1608,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki But Everyone Is Alive Gameplay",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-but-everyone-is-alive.webp"
     }
   },
   {
@@ -1607,7 +1617,7 @@ export const games: Game[] = [
     createdAt: "2024-01-16",
     description: "Sprunki But Alpha is a fun and addictive rhythm game where you can create your own beats and music videos using a variety of colorful characters and instruments. In this mod, you'll be transported to the whimsical world of Sprunki But Alpha, where you'll have the chance to create your own beats and music videos using a variety of colorful characters and instruments.",
     iframeUrl: "https://sprunki.org/sprunki-but-alpha.embed",
-    image: "/games/sprunki-but-alpha.webp",
+    image: "https://images.shadybears.org/games/sprunki-but-alpha.webp",
     rating: 4.7,
     categories: [
       GameCategory.MUSIC,
@@ -1696,7 +1706,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "tJKMcu-Ut-Q",
       title: "Sprunki But Alpha Gameplay",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-but-alpha.webp"
     }
   },
   {
@@ -1705,7 +1715,7 @@ export const games: Game[] = [
     createdAt: "2024-01-17",
     description: "Sprunki Incredibox is a fun and addictive rhythm game where you can create your own beats and music videos using a variety of colorful characters and instruments. In this mod, you'll be transported to the whimsical world of Sprunki Incredibox, where you'll have the chance to create your own beats and music videos using a variety of colorful characters and instruments.",
     iframeUrl: "https://sprunki.org/sprunki-incredibox.embed",
-    image: "/games/sprunki-incredibox.webp",
+    image: "https://images.shadybears.org/games/sprunki-incredibox.webp",
     rating: 4.8,
     categories: [
       GameCategory.MUSIC,
@@ -1794,7 +1804,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki Incredibox Gameplay",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-incredibox.webp"
     }
   },
   {
@@ -1802,8 +1812,8 @@ export const games: Game[] = [
     title: "Sprunki With Fan Character",
     createdAt: "2024-01-18",
     description: "Sprunki With Fan Character is a fan-made game based on the popular Sprunki character from the Incredibox series. This game introduces a new fan-made character alongside Sprunki, embarking on a unique adventure together.",
-    iframeUrl: "https://sprunki.org/sprunki-with-fan-character.embed",
-    image: "/games/sprunki-with-fan-character.webp",
+    iframeUrl: "https://cdn-game.gombis.com/7/sprunki-oc/",
+    image: "https://images.shadybears.org/games/sprunki-with-fan-character.webp",
     rating: 4.6,
     categories: [
       GameCategory.MUSIC,
@@ -1896,7 +1906,7 @@ export const games: Game[] = [
     video: {
       youtubeId: "5H2YIR7WXAI",
       title: "Sprunki With Fan Character Gameplay",
-      thumbnail: "/sprunki-phase.webp"
+      thumbnail: "https://images.shadybears.org/games/sprunki-with-fan-character.webp"
     }
   }
 ];

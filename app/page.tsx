@@ -2,14 +2,12 @@ import { Metadata } from "next"
 import { GameContainer } from "@/components/game-container"
 import { Rating } from "@/components/ui/rating"
 import { GamesSidebar } from "@/components/games-sidebar"
-import { Game, GameCategory, getGamesByCategory } from "@/config/sprunkigame"
-import { GameVideo } from "@/components/game-video"
+import { Game, GameCategory } from "@/config/sprunkigame"
 import { HowToPlay } from '@/components/how-to-play'
 import { Features } from '@/components/features'
 import { FAQ } from '@/components/faq'
-import Link from "next/link"
+import { getProjectGamesByCategory } from '@/repositories/projectGamesRepository';
 import { GameDescription } from "@/components/game-description"
-
 export const runtime = "edge";
 
 // Sprunki Phase 4 game data
@@ -57,10 +55,10 @@ const SprunkiphaseGame: Game = {
   }
 };
 
-export default function Home() {
+export default async function Home() {
   // 获取 NEW 和 HOT 分类的游戏
-  const newGames = getGamesByCategory(GameCategory.NEW);
-  const hotGames = getGamesByCategory(GameCategory.HOT);
+  const newGames = await getProjectGamesByCategory(GameCategory.NEW);
+  const hotGames = await getProjectGamesByCategory(GameCategory.HOT);
   
   return (
     <div className="min-h-screen flex flex-col">

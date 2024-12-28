@@ -2,18 +2,10 @@ import { Metadata } from "next"
 import { GameCategory, games, getGamesByCategory } from "@/config/sprunkigame"
 import { GameContainer } from "@/components/game-container"
 import { GamesSidebar } from "@/components/games-sidebar"
-import { RelatedGames } from "@/components/related-games"
 import { Rating } from "@/components/ui/rating"
 import { Breadcrumb } from "@/components/ui/breadcrumb"
 import { notFound } from "next/navigation"
-import {
-  Accordion,
-  AccordionContent,
-  AccordionItem,
-  AccordionTrigger,
-} from "@/components/ui/accordion"
-import Link from "next/link"
-import { GameVideo } from "@/components/game-video"
+import { getAllGames, getGameById, getProjectGamesByCategory } from '@/repositories/projectGamesRepository';
 import { GameDescription } from "@/components/game-description"
 
 
@@ -27,15 +19,16 @@ export const runtime = 'edge';
 
 // 预生成所有游戏页面
 export async function generateStaticParams() {
+  const games = await getAllGames(); 
   return games.map((game) => ({
     id: game.id,
-  }))
+  }));
 }
 
 // 静态生成 metadata
 export async function generateMetadata({ params }: GamePageProps): Promise<Metadata> {
-  const game = games.find(game => game.id === params.id)
-  
+  // 使用数据库查询替代本地数据
+  const game = await getGameById(params.id);
   if (!game) {
     return {
       title: 'Game Not Found'
@@ -57,11 +50,11 @@ export async function generateMetadata({ params }: GamePageProps): Promise<Metad
   }
 }
 
-export default function GamePage({ params }: GamePageProps) {
-  const game = games.find(game => game.id === params.id);
+export default async function GamePage({ params }: GamePageProps) {
+  const game = await getGameById(params.id);
   // 获取 NEW 和 HOT 分类的游戏
-  const newGames = getGamesByCategory(GameCategory.NEW);
-  const hotGames = getGamesByCategory(GameCategory.HOT);
+  const newGames = await getProjectGamesByCategory(GameCategory.NEW);
+  const hotGames = await getProjectGamesByCategory(GameCategory.HOT);
   
   if (!game) {
     notFound();
@@ -75,7 +68,7 @@ export default function GamePage({ params }: GamePageProps) {
           <Breadcrumb 
             items={[
               { label: "Play Sprunki phase 4", href: "/" },
-              { label: `${game.title}`, href: `/games/${game.id}` }
+              { label: `${game.title}`, href: `/${game.id}` }
             ]} 
           />
         </div>
@@ -230,8 +223,9 @@ export default function GamePage({ params }: GamePageProps) {
             </div>
           </div>
 
-          {/* 使用 GameDescription 组件替换原有的游戏介绍部分 */}
-          <GameDescription game={game} />
+          {/* 游戏介绍 */}
+                    {/* 使用 GameDescription 组件替换原有的游戏描述部分 */}
+                    <GameDescription game={game} />
 
           {/* 游戏特性部分 */}
           <section className="max-w-4xl mx-auto space-y-8">
@@ -347,7 +341,7 @@ export default function GamePage({ params }: GamePageProps) {
             </div>
           </section>
 
-          {/* 评分模块 */}
+          {/* 评分块 */}
           <section className="max-w-4xl mx-auto bg-card/80 backdrop-blur-sm rounded-2xl p-8 border border-border">
             <div className="space-y-6">
               <div className="text-center space-y-2">
