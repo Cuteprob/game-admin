@@ -12,7 +12,6 @@ const JWT_SECRET = getEnvVariable("NEXTAUTH_SECRET", "your-nextauth-secret-key")
 export async function POST(request: Request) {
   try {
     const { username, password } = await request.json()
-
     // 验证用户名和密码
     if (
       username !== ADMIN_USERNAME ||
@@ -32,14 +31,19 @@ export async function POST(request: Request) {
       .sign(new TextEncoder().encode(JWT_SECRET))
 
     // 设置 cookie
-    cookies().set("token", token, {
+    const cookieStore = cookies()
+    cookieStore.set("token", token, {
       httpOnly: true,
       secure: process.env.NODE_ENV === "production",
       sameSite: "lax",
       maxAge: 60 * 60 * 24, // 24 hours
+      path: "/"
     })
 
-    return NextResponse.json({ success: true })
+    return NextResponse.json({ 
+      success: true,
+      message: "Login success"
+    })
   } catch (error) {
     console.error("Login error:", error)
     return NextResponse.json(

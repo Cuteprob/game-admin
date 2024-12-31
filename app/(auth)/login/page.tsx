@@ -24,15 +24,19 @@ export default function LoginPage() {
         body: JSON.stringify({ username, password }),
       })
 
+      const data = await response.json()
+
       if (response.ok) {
         toast.success("Login success")
-        router.push("/gamesBase")
+        // 等待 toast 显示
+        await new Promise(resolve => setTimeout(resolve, 1000))
+        // 强制刷新页面并跳转
+        window.location.href = "/gamesBase"
       } else {
-        const data = await response.json()
         toast.error(data.error || "Login failed")
       }
     } catch (error) {
-      toast.error("Login failed")
+      toast.error("Login Failed")
     } finally {
       setLoading(false)
     }
@@ -44,14 +48,14 @@ export default function LoginPage() {
         <div className="space-y-2 text-center">
           <h1 className="text-2xl font-bold">Admin Login</h1>
           <p className="text-sm text-muted-foreground">
-            Please enter your admin username and password
+            Please Input the login information
           </p>
         </div>
         <form onSubmit={handleSubmit} className="space-y-4">
           <div className="space-y-2">
             <Input
               type="text"
-              placeholder="Username"
+              placeholder="username"
               value={username}
               onChange={(e) => setUsername(e.target.value)}
               required
@@ -60,7 +64,7 @@ export default function LoginPage() {
           <div className="space-y-2">
             <Input
               type="password"
-              placeholder="Password"
+              placeholder="password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
               required
