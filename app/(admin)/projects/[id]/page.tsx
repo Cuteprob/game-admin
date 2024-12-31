@@ -5,6 +5,7 @@ import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
 import { ProjectGameList } from "@/components/admin/projects/ProjectGameList"
+export const runtime = 'edge';
 interface Project {
   id: string
   name: string

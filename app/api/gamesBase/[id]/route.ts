@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server';
 import { gamesBaseRepository } from '@/repositories/gamesBaseRepository';
-
+export const runtime = 'edge';
 interface RouteParams {
   params: { id: string }
 }

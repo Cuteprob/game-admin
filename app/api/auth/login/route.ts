@@ -2,6 +2,7 @@ import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
 import { SignJWT } from "jose"
 import { getEnvVariable } from "@/lib/env"
+export const runtime = 'edge';
 
 const ADMIN_USERNAME = getEnvVariable("ADMIN_USERNAME")
 const ADMIN_PASSWORD = getEnvVariable("ADMIN_PASSWORD")

@@ -9,7 +9,7 @@ import { Loader2 } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { toast, Toaster } from "sonner"
-
+export const runtime = 'edge';
 interface ProjectGame {
   id: string
   gameId: string
