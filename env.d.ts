@@ -2,4 +2,23 @@
 // by running `wrangler types --env-interface CloudflareEnv env.d.ts`
 
 interface CloudflareEnv {
+  // Database
+  TURSO_DATABASE_URL: string
+  TURSO_DATABASE_AUTH_TOKEN: string
+
+  // Admin Auth
+  ADMIN_USERNAME: string
+  ADMIN_PASSWORD: string
+  NEXTAUTH_SECRET: string
+
+  // OpenAI
+  OPENAI_API_KEY: string
+  OPENAI_API_BASE_URL: string
+  OPENAI_API_MODEL: string
+}
+
+declare global {
+  namespace NodeJS {
+    interface ProcessEnv extends CloudflareEnv {}
+  }
 }
