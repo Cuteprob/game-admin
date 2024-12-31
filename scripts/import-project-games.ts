@@ -3,7 +3,7 @@ dotenv.config({ path: '.env.local' });
 
 import { db } from './db';
 import { games } from '../config/sprunkigame';
-import { projectGames } from '../db/schema';
+import { projectGames } from '../lib/db/schema';
 import { eq } from 'drizzle-orm';
 
 async function importProjectGames() {

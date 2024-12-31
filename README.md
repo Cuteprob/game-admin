@@ -1,122 +1,135 @@
-# Sprunki Phase 4
+# Game Admin System
 
-![Sprunki Phase 4 Logo](assets/images/logo.png)
+一个现代化的游戏管理系统，用于管理和组织在线游戏数据。
 
-## Overview
+## 功能特点
 
-Welcome to Sprunki Phase 4, an innovative iteration in the Sprunki series that focuses on creative sound design and interactive musical experiences. This version represents a significant evolution in how passive items interact with sound elements, creating a unique and engaging gameplay experience.
+- 游戏管理：添加、编辑、删除和查看游戏
+- 分类系统：多维度游戏分类管理
+- 批量导入：支持批量导入游戏数据
+- 响应式设计：支持各种设备访问
+- 实时搜索：快速查找游戏
+- 分页浏览：高效浏览大量数据
 
-## Key Features
+## 技术栈
 
-### Passive Item Evolution
-- **Interactive Sound Sprite**: A friendly sprite that follows you, creating dynamic sound patterns based on your movements
-- **Transformative Abilities**: Under specific conditions, Sprunki transforms into Windgunner, offering enhanced sound manipulation capabilities
-- **Random Trigger System**: Each Sprunki acquisition comes with randomized activation conditions, creating unique sound experiences
-- **Literary Inspiration**: Drawing inspiration from the "Stormlight Archive" series, where Spren-like entities influence the sonic landscape
+- Next.js 14 (App Router)
+- TypeScript
+- Tailwind CSS
+- Drizzle ORM
+- SQLite (Turso)
+- Shadcn/ui
 
-### Character Ensemble
-![Character Showcase](assets/images/characters.png)
+## 开始使用
 
-#### Sound Specialists
-- **Sky**: Creates ethereal sound effects that float through space
-- **Clukr**: Specializes in quirky style and distinctive beats
-- **Gray**: Produces mysterious and haunting melodies
-- **Raddy**: Introduces fresh musical elements
+1. 克隆项目
+```bash
+git clone [repository-url]
+cd game-admin
+```
 
-#### Harmony Creators
-- **Wenda**: Combines personality with unique vocals
-- **Tunner**: Fan-favorite sound designer
-- **Garnold**: Adds depth to the musical landscape
-- **Brud**: Masters the bass elements
+2. 安装依赖
+```bash
+npm install
+# 或
+pnpm install
+```
 
-#### Atmosphere Architects
-- **Oren**: Crafts atmospheric soundscapes
-- **Vineria**: Develops deep sonic experiences
-- **Mr. Fun Computer**: Blends digital beats with interactive elements
-- **Durple**: Creates unique sound designs
+3. 环境配置
+```bash
+cp .env.example .env
+# 编辑 .env 文件，填写必要的环境变量
+```
 
-#### Nature Sound Artists
-- **Mr. Tree**: Specializes in organic, nature-themed sounds
-- **Simon**: Redesigned classic with enhanced sound effects
+4. 数据库设置
+```bash
+# 运行数据库迁移
+npm run db:migrate
+# 或
+pnpm db:migrate
 
-### Sound Design Innovation
-![Sound Design](assets/images/sound-design.png)
+# 初始化基础数据（分类等）
+npm run db:seed
+# 或
+pnpm db:seed
+```
 
-- **Real-time Sound Mixing**: Dynamic sound environment that responds to player interaction
-- **Character-Specific Sound Signatures**: Each character contributes unique audio elements
-- **Environmental Sound System**: Sound generation based on player movement and interaction
-- **Adaptive Music System**: Evolving soundscapes based on player creativity
+5. 启动开发服务器
+```bash
+npm run dev
+# 或
+pnpm dev
+```
 
-## Creative Gameplay
+## 部署
 
-### Core Experience
-1. **Sound Exploration**
-   - Discover unique sound combinations
-   - Create personal sound patterns
-   - Unlock new sound elements
-   - Interactive environment responses
+1. 构建项目
+```bash
+npm run build
+# 或
+pnpm build
+```
 
-2. **Creative Tools**
-   - Sound mixing capabilities
-   - Pattern creation system
-   - Environmental sound interaction
-   - Collaborative sound design
+2. 启动生产服务器
+```bash
+npm start
+# 或
+pnpm start
+```
 
-3. **Progressive Features**
-   - Unlockable sound elements
-   - Achievement system
-   - Daily sound challenges
-   - Community sound sharing
+## 数据导入
 
-## Development Path
+系统支持通过 JSON 格式批量导入游戏数据。导入数据需要包含以下字段：
 
-### Current Version Features
-- Enhanced Sprunki sound interaction system
-- 14 unique characters with distinct sound signatures
-- Improved audio design with spatial elements
-- Enhanced visual feedback system
+- title: 游戏标题
+- description: 游戏描述
+- iframeUrl: 游戏嵌入 URL
+- imageUrl: 游戏图片 URL
+- categories: 游戏分类列表
+- 其他可选字段...
 
-### Future Updates
-- New sound characters
-- Expanded sound library
-- Community sound creation tools
-- Enhanced sharing features
+## 项目结构
 
-## Community Features
+```
+game-admin/
+├── app/                # Next.js 应用目录
+│   ├── (admin)/       # 管理后台路由
+│   ├── api/           # API 路由
+│   └── layout.tsx     # 根布局
+├── components/        # React 组件
+├── lib/              # 工具函数和配置
+│   └── db/           # 数据库相关
+├── public/           # 静态资源
+└── styles/           # 样式文件
+```
 
-- Join sound design discussions
-- Share your sound creations
-- Participate in sound challenges
-- Provide feedback for future updates
+## 环境变量
 
-## Getting Started
+必需的环境变量：
 
-Start your sound journey now at [www.sprunkiphase4.app](https://www.sprunkiphase4.app)
+- `DATABASE_URL`: 数据库连接 URL
 
-### Quick Start Guide
-1. Create your profile
-2. Explore the sound tutorial
-3. Choose your first sound character
-4. Join the creative community
+可选的环境变量：
 
-### Tips for New Users
-- Start with basic sound patterns
-- Experiment with different characters
-- Join our Discord for creative tips
-- Participate in daily sound challenges
+- `NEXTAUTH_URL`: 认证 URL（如果使用认证）
+- `NEXTAUTH_SECRET`: 认证密钥（如果使用认证）
+- `UPLOAD_API_KEY`: 上传 API 密钥（如果使用外部上传服务）
 
-## System Requirements
+## 开发指南
 
-- **Operating System**: Browser Games are currently available on Windows, macOS, and Linux
-- **Browser**: Google Chrome, Mozilla Firefox, or Microsoft Edge
+1. 代码规范
+   - 使用 ESLint 和 Prettier 保持代码风格一致
+   - 遵循 TypeScript 类型定义
+   - 组件使用 React Hooks 和函数式组件
 
-## Connect With Us
+2. 提交规范
+   - 使用清晰的提交信息
+   - 遵循语义化版本控制
 
-### Official Channels
-- **Website**: [www.sprunkiphase4.app](https://www.sprunkiphase4.app)
-- **Twitter**: [@SprunkiPhase4](https://twitter.com/SprunkiPhase4)
----
+3. 测试
+   - 运行单元测试：`npm run test`
+   - 运行 E2E 测试：`npm run test:e2e`
 
- 2024 Sprunki Phase 4 Team. All rights reserved.
+## 许可证
 
-*Experience the next evolution of sound interaction - Play Sprunki Phase 4 today!*
+[MIT License](LICENSE)

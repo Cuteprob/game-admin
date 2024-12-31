@@ -1,0 +1,80 @@
+1. AddGameForm 主表单组件
+- 这是一个分步骤的表单
+- 包含三个主要步骤：选择游戏、选择处理模式、内容编辑
+- 需要管理整个表单的状态（当前步骤、选中的游戏、选择的模式等）
+2. 步骤 1：选择游戏（已完成）
+- 使用 GameSelect 组件
+- 可以搜索和选择游戏
+- 显示游戏预览信息（图片、标题、描述）
+3. 步骤 2：选择处理模式
+   <ModeSelector>
+     <RadioGroup>
+       - 纯翻译：直接翻译原始内容
+       - AI 生成：使用项目的 AI 配置生成新内容
+       - 手动编辑：完全手动编辑所有内容
+     </RadioGroup>
+   </ModeSelector>
+4. 步骤 3：内容编辑
+   <ContentEditor>
+     // 左侧显示原始内容
+     <OriginalContent>
+       - 游戏标题
+       - 游戏描述
+       - 游戏特性
+       - 控制说明
+       - FAQ等
+     </OriginalContent>
+
+     // 右侧是编辑区域
+     <GeneratedContent>
+       - 如果是"纯翻译"模式：显示翻译后的内容
+       - 如果是"AI生成"模式：显示AI生成的内容
+       - 如果是"手动编辑"模式：显示空白表单
+       - 所有模式下都可以手动修改内容
+     </GeneratedContent>
+   </ContentEditor>
+5. API 接口
+   // 更新项目的 AI 配置
+   PUT /api/projects/{id}
+   {
+     aiConfig: {
+       tone: string,
+       targetAudience: string,
+       // ... 其他配置
+     }
+   }
+
+   // 生成游戏内容
+   POST /api/projects/{projectId}/games/generate
+   {
+     gameId: string,
+     mode: 'translate' | 'ai' | 'manual',
+     locale: string
+   }
+
+   // 保存处理后的游戏内容
+   POST /api/projects/{projectId}/games
+   {
+     gameId: string,
+     locale: string,
+     content: {
+       title: string,
+       description: string,
+       features: string[],
+       controls: string[],
+       faqs: Array<{
+         question: string,
+         answer: string
+       }>
+     }
+   }
+
+工作流程：
+1. 用户选择一个游戏
+2. 选择处理模式（翻译/AI生成/手动）
+3. 根据模式：
+   翻译模式：调用翻译API
+   AI生成：使用项目配置生成新内容
+   手动：显示空白表单
+4. 用户可以预览和编辑生成的内容
+5. 确认后保存到数据库

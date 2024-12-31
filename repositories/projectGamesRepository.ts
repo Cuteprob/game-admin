@@ -1,6 +1,6 @@
-import { db } from '@/db/tursoDb';
+import { db } from '@/lib/db/tursoDb';
 import { eq, and } from 'drizzle-orm';
-import { projectGames } from '@/db/schema';
+import { projectGames } from '@/lib/db/schema';
 import type { Game, GameCategory } from '@/config/sprunkigame';
 
 // 获取项目中特定分类的游戏
@@ -67,7 +67,6 @@ export const getProjectGamesByCategory = async (
         title: true,
         description: true,
         metadata: true,
-        controls: true,
         features: true,
         faqs: true,
       },
@@ -76,6 +75,7 @@ export const getProjectGamesByCategory = async (
           columns: {
             iframeUrl: true,
             imageUrl: true,
+            controls: true,
             rating: true,
             video: true,
             createdAt: true,
@@ -106,7 +106,7 @@ export const getProjectGamesByCategory = async (
       metadata: JSON.parse(result.metadata),
       features: JSON.parse(result.features),
       faqs: JSON.parse(result.faqs),
-      controls: JSON.parse(result.controls),
+      controls: JSON.parse(result.game.controls),
       video: result.game.video ? JSON.parse(result.game.video) : undefined
     };
   };

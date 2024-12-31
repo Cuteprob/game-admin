@@ -3,7 +3,7 @@ dotenv.config({ path: '.env.local' });
 
 import { db } from './db';
 import { games, GameCategory } from '../config/sprunkigame';
-import { gamesBase, categories, gameCategories } from '../db/schema';
+import { gamesBase, categories, gameCategories } from '../lib/db/schema';
 
 async function importGames() {
   try {

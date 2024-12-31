@@ -164,6 +164,14 @@ UNIQUE(project_id, game_id, locale)
   - 格式转换（WebP优先）
   - 压缩策略
 - 命名规范：{gameId}-{imageType}-{timestamp}.{ext}
+### 2.5 数据同步设计
+- 基础数据与项目数据分离
+  - `games_base`: 存储全局共享数据（如 iframeUrl, imageUrl）
+  - `project_games`: 存储项目特定数据（如本地化内容）
+- 实时数据获取
+  - 使用 JOIN 查询获取最新的基础数据
+  - 通过关系定义确保数据一致性
+
 
 ## 3. API 设计
 
@@ -338,7 +346,46 @@ video: baseGame.video ? JSON.parse(baseGame.video) : undefined
 };
 }
 ```
-
+### 4.3 查询优化策略
+```typescript
+// 优化查询示例
+const result = await db.query.projectGames.findFirst({
+      where: and(
+        eq(projectGames.gameId, id), 
+        eq(projectGames.projectId, 'sprunkiphase4-app'), 
+        eq(projectGames.locale, 'en')
+      ),
+      columns: {
+        // 本地化数据
+        gameId: true,
+        title: true,
+        description: true,
+        metadata: true,
+        features: true,
+        faqs: true,
+      },
+      with: {
+        game: {
+          // 全局数据
+          columns: {
+            iframeUrl: true,
+            imageUrl: true,
+            controls: true,
+            rating: true,
+            video: true,
+            createdAt: true,
+          },
+          with: {
+            categories: {
+              with: {
+                category: true
+              }
+            }
+          }
+        }
+      }
+    });
+```
 ## 5. AI 内容生成
 
 ### 5.1 生成配置
@@ -387,7 +434,96 @@ return parseAIResponse(response.choices[0].text);
 - 关键信息保留检查
 - SEO 要素验证
 - 多语言质量检查
-
+### 5.5 AI 配置示例
+1. Kids Game Project
+```json
+{
+  "targetAudience": "kids",
+  "tone": "friendly",
+  "defaultPrompts": {
+    "title": "Create a game title suitable for children aged 6-12. The title should be fun, imaginative, easy to remember, and avoid complex vocabulary. It should spark curiosity and interest in children.",
+    
+    "description": "Write a brief description for a children's game. Use simple, vivid language and emphasize both fun and educational value. The description should:
+    - Use positive and encouraging language
+    - Highlight interactive and fun elements
+    - Mention skills development (creativity, thinking skills, etc.)
+    - Avoid complex gaming terminology",
+    
+    "features": "List 5-7 game features, each should:
+    - Use simple and fun language
+    - Highlight educational benefits
+    - Emphasize safety and age-appropriateness
+    - Include elements parents care about (no violence, learning value, etc.)",
+    
+    "faqs": "Create an FAQ list targeting both parents and children, including:
+    - Suitable age range
+    - Educational benefits
+    - Safety and content appropriateness
+    - Recommended play time
+    - Parental guidance suggestions"
+  }
+}
+```
+2. Casual Game Project
+```json
+{
+  "targetAudience": "general",
+  "tone": "casual",
+  "defaultPrompts": {
+    "title": "Create a catchy, memorable title for a casual game. The title should reflect the game's fun and relaxing nature, suitable for players of all ages.",
+    
+    "description": "Write an upbeat game description that emphasizes:
+    - Easy to pick up and play nature
+    - Fun gameplay mechanics
+    - Perfect for short gaming sessions
+    - Social or competitive elements (if any)",
+    
+    "features": "List the main game features, including:
+    - Simple and intuitive controls
+    - Game modes and gameplay variety
+    - Progress saving and reward systems
+    - Social features (if any)
+    - Unique gameplay elements",
+    
+    "faqs": "Create an FAQ list for casual players:
+    - Game duration and pacing
+    - How to play
+    - Progress saving
+    - Multiplayer features (if any)
+    - Updates and new content plans"
+  }
+}
+```
+3. Professional Game Project
+```json
+{
+  "targetAudience": "adults",
+  "tone": "professional",
+  "defaultPrompts": {
+    "title": "Create a title that reflects the core gameplay and theme. The title should be concise yet impactful, appealing to the target player base while highlighting the game's uniqueness.",
+    
+    "description": "Write a professional game description that:
+    - Highlights core mechanics and innovations
+    - Details technical features and visual presentation
+    - Emphasizes gameplay depth and replayability
+    - Mentions specific features that target players value",
+    
+    "features": "Detail the technical aspects and gameplay elements:
+    - Core gameplay mechanics
+    - Graphics and audio features
+    - System depth and complexity
+    - Multiplayer capabilities (if any)
+    - Customization and advanced features",
+    
+    "faqs": "Create a technical FAQ for core players:
+    - System requirements
+    - Save system and cloud sync
+    - Cross-platform support
+    - Update and DLC roadmap
+    - Community and competitive support"
+  }
+}
+```
 ## 6. 部署配置
 
 ### 6.1 环境变量

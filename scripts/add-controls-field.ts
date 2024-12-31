@@ -1,7 +1,7 @@
 import * as dotenv from "dotenv";
 dotenv.config({ path: '.env.local' });
 
-import { db } from '../db/tursoDb';
+import { db } from '../lib/db/tursoDb';
 import { sql } from 'drizzle-orm';
 
 async function addControlsField() {
