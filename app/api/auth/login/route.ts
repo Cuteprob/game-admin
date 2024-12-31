@@ -4,15 +4,14 @@ import { SignJWT } from "jose"
 import { getEnvVariable } from "@/lib/env"
 export const runtime = 'edge';
 
-const ADMIN_USERNAME = getEnvVariable("ADMIN_USERNAME")
-const ADMIN_PASSWORD = getEnvVariable("ADMIN_PASSWORD")
-const JWT_SECRET = getEnvVariable("NEXTAUTH_SECRET")
+// 使用默认值
+const ADMIN_USERNAME = getEnvVariable("ADMIN_USERNAME", "admin")
+const ADMIN_PASSWORD = getEnvVariable("ADMIN_PASSWORD", "admin")
+const JWT_SECRET = getEnvVariable("NEXTAUTH_SECRET", "your-nextauth-secret-key")
 
 export async function POST(request: Request) {
   try {
     const { username, password } = await request.json()
-    console.log("username", username)
-    console.log("password", password)
 
     // 验证用户名和密码
     if (
@@ -20,7 +19,7 @@ export async function POST(request: Request) {
       password !== ADMIN_PASSWORD
     ) {
       return NextResponse.json(
-        { error: "Username or password is incorrect" },
+        { error: "username or password is incorrect" },
         { status: 401 }
       )
     }
