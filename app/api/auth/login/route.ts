@@ -5,8 +5,8 @@ import { getEnvVariable } from "@/lib/env"
 export const runtime = 'edge';
 
 // 使用默认值
-const ADMIN_USERNAME = getEnvVariable("ADMIN_USERNAME", "admin")
-const ADMIN_PASSWORD = getEnvVariable("ADMIN_PASSWORD", "admin")
+const ADMIN_USERNAME = "admin"
+const ADMIN_PASSWORD = "admin"
 const JWT_SECRET = getEnvVariable("NEXTAUTH_SECRET", "your-nextauth-secret-key")
 
 export async function POST(request: Request) {
