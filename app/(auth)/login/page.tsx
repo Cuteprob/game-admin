@@ -1,14 +1,13 @@
 "use client"
 
-import { useState, useEffect } from "react"
-import { useRouter, useSearchParams } from "next/navigation"
+import { useState } from "react"
+import { useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
 import { toast } from "sonner"
 
 export default function LoginPage() {
-  const router = useRouter()
   const searchParams = useSearchParams()
   const [loading, setLoading] = useState(false)
   const [username, setUsername] = useState("")
@@ -26,20 +25,25 @@ export default function LoginPage() {
       })
 
       const data = await response.json()
-
+      console.log("response.ok", response.ok)
       if (response.ok) {
+        console.log("data", data)
         toast.success("Login success")
-        // 等待 toast 显示
-        await new Promise(resolve => setTimeout(resolve, 1000))
         
-        // 获取重定向 URL
-        const from = searchParams.get('from') || '/gamesBase'
-        // 强制刷新页面并跳转
-        window.location.href = from
+        // 获取重定向 URL，移除 from= 前缀
+        const from = searchParams.get('from')?.replace(/^\/+/, '') || 'gamesBase'
+        const baseUrl = window.location.origin
+        const redirectUrl = `${baseUrl}/${from}`
+        
+        console.log("重定向到:", redirectUrl)
+        
+        // 直接设置 location.replace 进行跳转
+        window.location.replace(redirectUrl)
       } else {
         toast.error(data.error || "Login failed")
       }
     } catch (error) {
+      console.error("Login error:", error)
       toast.error("Login Failed")
     } finally {
       setLoading(false)
