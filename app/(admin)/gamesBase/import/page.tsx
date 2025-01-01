@@ -109,17 +109,14 @@ export default function ImportGamesPage() {
       }
 
       // 预处理数据
-      console.log('Original data:', jsonData)
       const processedData = preprocessData(jsonData)
-      console.log('Processed data:', processedData)
       
       // 验证JSON格式
       let games
       try {
         games = JSON.parse(processedData)
       } catch (error: any) {
-        console.error('JSON parse error:', error)
-        console.error('Processed data that failed to parse:', processedData)
+   
         throw new Error(`Invalid JSON format: ${error.message || 'Unknown error'}. Please check the console for details.`)
       }
       
