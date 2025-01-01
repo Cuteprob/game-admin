@@ -1,7 +1,7 @@
 "use client"
 
-import { useState } from "react"
-import { useRouter } from "next/navigation"
+import { useState, useEffect } from "react"
+import { useRouter, useSearchParams } from "next/navigation"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Card } from "@/components/ui/card"
@@ -9,6 +9,7 @@ import { toast } from "sonner"
 
 export default function LoginPage() {
   const router = useRouter()
+  const searchParams = useSearchParams()
   const [loading, setLoading] = useState(false)
   const [username, setUsername] = useState("")
   const [password, setPassword] = useState("")
@@ -30,8 +31,11 @@ export default function LoginPage() {
         toast.success("Login success")
         // 等待 toast 显示
         await new Promise(resolve => setTimeout(resolve, 1000))
+        
+        // 获取重定向 URL
+        const from = searchParams.get('from') || '/gamesBase'
         // 强制刷新页面并跳转
-        window.location.href = "/gamesBase"
+        window.location.href = from
       } else {
         toast.error(data.error || "Login failed")
       }
