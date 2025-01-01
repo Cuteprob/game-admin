@@ -1,10 +1,6 @@
 import { NextResponse } from "next/server"
 import type { NextRequest } from "next/server"
 import { jwtVerify } from "jose"
-import { getEnvVariable } from "./lib/env"
-
-
-const JWT_SECRET = getEnvVariable("NEXTAUTH_SECRET")
 
 // 需要保护的路由
 const protectedPaths = [
@@ -15,6 +11,9 @@ const protectedPaths = [
   "/api/categories",
   "/api/projects",
 ]
+
+// 使用固定的密钥（生产环境应该使用环境变量）
+const JWT_SECRET = "VY+Qz3Qj5YFxT9Qq3Z8Ns4K2Jm6Rh8Pw7Dt5Xc9Gn1Bv4Lm2"
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl
@@ -31,10 +30,12 @@ export async function middleware(request: NextRequest) {
   const token = request.cookies.get("token")?.value
 
   if (!token) {
+    console.log("No token found, redirecting to login")
     return redirectToLogin(request)
   }
 
   try {
+    // 使用固定的密钥验证 token
     await jwtVerify(
       token,
       new TextEncoder().encode(JWT_SECRET)
