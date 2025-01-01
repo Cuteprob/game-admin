@@ -167,7 +167,9 @@ export default function ImportGamesPage() {
 
       const result = await response.json()
       toast.success(result.message)
-      router.push('/gamesBase')
+      // 清空输入数据
+      setJsonData("")
+      // 刷新页面数据
       router.refresh()
     } catch (error) {
       console.error('Import error:', error)
