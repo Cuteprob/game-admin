@@ -1,24 +1,17 @@
 "use client"
 
-import { useEffect, useState } from "react"
-import {
-  Table,
-  TableBody,
-  TableCell,
-  TableHead,
-  TableHeader,
-  TableRow,
-} from "@/components/ui/table"
-import { Button } from "@/components/ui/button"
+import { useState } from "react"
 import { Badge } from "@/components/ui/badge"
-import { Pencil, Trash2 } from "lucide-react"
-import Link from "next/link"
+import { Button } from "@/components/ui/button"
+import { toast } from "sonner"
+import { Loader2 } from "lucide-react"
+import { useRouter } from "next/navigation"
 
 interface ProjectGame {
   id: string
   gameId: string
   title: string
-  description: string | null
+  description: string
   locale: string
   isPublished: boolean
   baseVersion: number
@@ -28,90 +21,158 @@ interface ProjectGame {
 
 interface ProjectGameListProps {
   projectId: string
+  games: ProjectGame[]
+  onDataChange?: () => void
 }
 
-export function ProjectGameList({ projectId }: ProjectGameListProps) {
-  const [games, setGames] = useState<ProjectGame[]>([])
-  const [loading, setLoading] = useState(true)
+export function ProjectGameList({ projectId, games: initialGames, onDataChange }: ProjectGameListProps) {
+  const router = useRouter()
+  const [games, setGames] = useState<ProjectGame[]>(initialGames)
+  const [publishingGameId, setPublishingGameId] = useState<string | null>(null)
+  const [deletingGameId, setDeletingGameId] = useState<string | null>(null)
 
-  useEffect(() => {
-    async function fetchProjectGames() {
-      try {
-        const response = await fetch(`/api/projects/${projectId}/games`)
-        const { data } = await response.json()
-        setGames(data)
-      } catch (error) {
-        console.error('Failed to fetch project games:', error)
-      } finally {
-        setLoading(false)
+  const handlePublish = async (gameId: string) => {
+    try {
+      setPublishingGameId(gameId)
+      const response = await fetch(`/api/projects/${projectId}/games/${gameId}/publish`, {
+        method: 'POST',
+      })
+
+      if (!response.ok) {
+        throw new Error('Failed to publish game')
       }
+
+      // 更新本地状态
+      setGames(prevGames => 
+        prevGames.map(game => 
+          game.gameId === gameId 
+            ? { ...game, isPublished: true }
+            : game
+        )
+      )
+
+      toast.success('Game published successfully')
+      
+      // 如果提供了 onDataChange 回调，调用它
+      if (onDataChange) {
+        onDataChange()
+      }
+    } catch (error) {
+      console.error('Failed to publish game:', error)
+      toast.error('Failed to publish game')
+    } finally {
+      setPublishingGameId(null)
+    }
+  }
+
+  const handleDelete = async (gameId: string) => {
+    if (!confirm('Are you sure you want to delete this game?')) {
+      return
     }
 
-    fetchProjectGames()
-  }, [projectId])
+    try {
+      setDeletingGameId(gameId)
+      const response = await fetch(`/api/projects/${projectId}/games/${gameId}`, {
+        method: 'DELETE',
+      })
 
-  if (loading) {
-    return <div>Loading games...</div>
+      if (!response.ok) {
+        throw new Error('Failed to delete game')
+      }
+
+      // 更新本地状态
+      setGames(prevGames => prevGames.filter(game => game.gameId !== gameId))
+      toast.success('Game deleted successfully')
+      
+      // 如果提供了 onDataChange 回调，调用它
+      if (onDataChange) {
+        onDataChange()
+      }
+    } catch (error) {
+      console.error('Failed to delete game:', error)
+      toast.error('Failed to delete game')
+    } finally {
+      setDeletingGameId(null)
+    }
   }
 
   return (
     <div className="rounded-md border">
-      <Table>
-        <TableHeader>
-          <TableRow>
-            <TableHead>Title</TableHead>
-            <TableHead>Language</TableHead>
-            <TableHead>Status</TableHead>
-            <TableHead>Version</TableHead>
-            <TableHead>Last Updated</TableHead>
-            <TableHead className="w-[100px]">Actions</TableHead>
-          </TableRow>
-        </TableHeader>
-        <TableBody>
-          {games.length === 0 ? (
-            <TableRow>
-              <TableCell colSpan={6} className="text-center">
-                No games found. Add some games to get started.
-              </TableCell>
-            </TableRow>
-          ) : (
-            games.map((game) => (
-              <TableRow key={game.id}>
-                <TableCell>{game.title}</TableCell>
-                <TableCell>
-                  <Badge variant="outline">{game.locale}</Badge>
-                </TableCell>
-                <TableCell>
+      <table className="w-full">
+        <thead>
+          <tr className="border-b bg-muted/50">
+            <th className="p-2 text-left">Title</th>
+            <th className="p-2 text-left">Description</th>
+            <th className="p-2 text-left">Language</th>
+            <th className="p-2 text-left">Status</th>
+            <th className="p-2 text-left">Version</th>
+            <th className="p-2 text-left">Created At</th>
+            <th className="p-2 text-left">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {games.map((game) => (
+            <tr key={game.id} className="border-b">
+              <td className="p-2">{game.title}</td>
+              <td className="p-2 max-w-[300px] truncate">{game.description}</td>
+              <td className="p-2">{game.locale.toUpperCase()}</td>
+              <td className="p-2">
+                <div className="flex items-center gap-2">
                   <Badge variant={game.isPublished ? "default" : "secondary"}>
                     {game.isPublished ? "Published" : "Draft"}
                   </Badge>
-                </TableCell>
-                <TableCell>v{game.baseVersion}</TableCell>
-                <TableCell>{new Date(game.updatedAt).toLocaleDateString()}</TableCell>
-                <TableCell>
-                  <div className="flex items-center gap-2">
-                    <Link href={`/projects/${projectId}/games/${game.gameId}`}>
-                      <Button variant="ghost" size="icon">
-                        <Pencil className="h-4 w-4" />
-                      </Button>
-                    </Link>
-                    <Button 
-                      variant="ghost" 
-                      size="icon"
-                      onClick={() => {
-                        // TODO: Implement delete functionality
-                        console.log('Delete game:', game.gameId)
-                      }}
+                  {!game.isPublished && (
+                    <Button
+                      variant="outline"
+                      size="sm"
+                      onClick={() => handlePublish(game.gameId)}
+                      disabled={publishingGameId === game.gameId}
                     >
-                      <Trash2 className="h-4 w-4" />
+                      {publishingGameId === game.gameId ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Publishing...
+                        </>
+                      ) : (
+                        "Publish"
+                      )}
                     </Button>
-                  </div>
-                </TableCell>
-              </TableRow>
-            ))
-          )}
-        </TableBody>
-      </Table>
+                  )}
+                </div>
+              </td>
+              <td className="p-2">{game.baseVersion}</td>
+              <td className="p-2">{new Date(game.createdAt).toLocaleDateString()}</td>
+              <td className="p-2">
+                <div className="flex items-center gap-2">
+                  <Button 
+                    variant="outline" 
+                    size="sm"
+                    onClick={() => router.push(`/projects/${projectId}/games/${game.gameId}`)}
+                  >
+                    Edit
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="sm" 
+                    className="text-red-500 hover:text-red-700"
+                    onClick={() => handleDelete(game.gameId)}
+                    disabled={deletingGameId === game.gameId}
+                  >
+                    {deletingGameId === game.gameId ? (
+                      <>
+                        <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                        Deleting...
+                      </>
+                    ) : (
+                      "Delete"
+                    )}
+                  </Button>
+                </div>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
     </div>
   )
 } 

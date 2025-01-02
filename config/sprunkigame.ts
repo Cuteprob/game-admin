@@ -18,7 +18,7 @@ export interface Game {
   iframeUrl: string;
   image: string;
   rating: number;
-  categories: GameCategory[];  // 使用合并后的分类系统
+  categories: GameCategory[];  
   createdAt: string;
   metadata: {
     title: string;
@@ -33,18 +33,18 @@ export interface Game {
       special?: string[];
     };
   };
-  features: string[];  // 游戏特定的特性列表
+  features: string[];  
   faqs: {
     question: string;
     answer: string;
     category: 'gameplay' | 'technical' | 'features' | 'general' | 'tips' | 'audio';
   }[];
   video?: {
-    youtubeId: string;    // YouTube 视频 ID
-    clipId?: string;    // 可选的片段ID
-    clipTime?: string;  // 可选的片段时间
-    title: string;        // 视频标题
-    thumbnail: string;   // 添加封面图字段
+    youtubeId: string;    
+    clipId?: string;    
+    clipTime?: string;  
+    title: string;        
+    thumbnail: string;   
   };
 }
 

@@ -60,6 +60,11 @@ FAQs: ${JSON.stringify(body.originalContent.faqs)}
 
 Please generate the following content in ${body.locale} language following these guidelines:
 
+For Metadata:
+Generate metadata that follows these rules:
+   - Title should be around 30 characters and include SEO keywords
+   - Description should be around 130 characters and include SEO keywords
+   - No more than 2 keywords
 For Description:
 ${body.aiConfig?.prompts?.description || ''}
 
@@ -70,11 +75,14 @@ For FAQs:
 ${body.aiConfig?.prompts?.faqs || ''}
 
 Important:
-- Keep the core gameplay information accurate
+- Maintain similarity with original content below 80% to avoid duplication while preserving core meanings.
 - Adapt the tone and style to the target audience
 - Ensure cultural appropriateness for the target language
 - Maintain professional quality in translations
 - Return response in valid JSON format
+- Optimize keywords for SEO
+- Keep the content concise and engaging, and avoid using too many technical terms
+
 
 The response should be in JSON format with the following structure:
 {
@@ -98,7 +106,7 @@ The response should be in JSON format with the following structure:
       try {
         // 调用 OpenAI API
         const completion = await openai.chat.completions.create({
-          model: process.env.OPENAI_API_MODEL || "openai/gpt-4",
+          model: process.env.OPENAI_API_MODEL || "openai/gpt-4o-mini",
           messages: [
             {
               role: "system",

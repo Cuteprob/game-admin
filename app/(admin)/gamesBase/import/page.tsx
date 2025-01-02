@@ -1,234 +1,175 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from "next/navigation"
-import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
+import { DEFAULT_PROMPTS } from "@/lib/ai/config"
 import { Loader2 } from "lucide-react"
 
-// 游戏分类枚举映射
-const CATEGORY_MAP: Record<string, string> = {
-  // 游戏类型分类 (主分类)
-  RACING: "Racing Games",
-  ACTION: "Action Games",
-  SHOOTER: "Shooter Games",
-  PUZZLE: "Puzzle Games",
-  STRATEGY: "Strategy Games",
-  SPORTS: "Sports Games",
-  ADVENTURE: "Adventure Games",
-  
-  // 游戏玩法分类
-  MULTIPLAYER: "Multiplayer Games",
-  TWO_PLAYER: "2 Player Games",
-  SINGLE_PLAYER: "Single Player Games",
-  
-  // 主题分类
-  CAR: "Car Games",
-  FIGHTING: "Fighting Games",
-  STICKMAN: "Stickman Games",
-  RUNNING: "Running Games",
-  BOXING: "Boxing Games",
-  ANIMAL: "Animal Games",
-  
-  // 目标人群分类
-  BOYS: "Games for Boys",
-  GIRLS: "Games for Girls",
-  KIDS: "Kids Games",
-  
-  // 功能性分类
-  FEATURED: "Featured Games",
-  NEW: "New Games",
-  POPULAR: "Popular Games",
-  TRENDING: "Trending Games",
-  IO_GAMES: "IO Games",
-  FPS: "FPS Games",
-}
-
 export default function ImportGamesPage() {
-  const router = useRouter()
+  const [rawData, setRawData] = useState("")
   const [jsonData, setJsonData] = useState("")
-  const [importing, setImporting] = useState(false)
+  const [customPrompt, setCustomPrompt] = useState(DEFAULT_PROMPTS.GAME_IMPORT)
+  const [isGenerating, setIsGenerating] = useState(false)
+  const [isImporting, setIsImporting] = useState(false)
 
-  const preprocessData = (data: string) => {
-    try {
-      let processed = data
-
-      // 1. 替换 GameCategory 枚举引用为对应的游戏名称
-      processed = processed.replace(/GameCategory\.([\w_]+)/g, (_, category: string) => {
-        const gameName = CATEGORY_MAP[category]
-        if (!gameName) {
-          throw new Error(`Invalid game category: ${category}`)
-        }
-        return `"${gameName}"`
-      })
-      
-      // 2. 给没有引号的属性名添加引号
-      processed = processed.replace(/(\s*?{\s*?|\s*?,\s*?)(['"])?([a-zA-Z0-9_]+)(['"])?:/g, '$1"$3":')
-      
-      // 3. 处理特殊字符
-      processed = processed.replace(/\\([^"])/g, '\\\\$1') // 转义反斜杠
-      processed = processed.replace(/(?<!\\)'/g, "\\'") // 处理单引号
-      processed = processed.replace(/[\u0000-\u001F\u007F-\u009F]/g, '') // 移除控制字符
-      
-      // 4. 移除末尾的逗号
-      processed = processed.replace(/,(\s*[}\]])/g, '$1')
-      
-      // 5. 移除多余的空白字符（保留换行）
-      processed = processed.split('\n').map(line => line.trim()).join('\n')
-
-      // 7. 尝试解析和重新格式化
-      try {
-        // 先尝试作为JavaScript对象计算
-        // eslint-disable-next-line no-eval
-        const obj = eval('(' + processed + ')')
-        return JSON.stringify(obj, null, 2)
-      } catch (evalError) {
-        try {
-          // 如果eval失败，尝试直接解析JSON
-          const obj = JSON.parse(processed)
-          return JSON.stringify(obj, null, 2)
-        } catch (jsonError) {
-          console.error('Parse errors:', { evalError, jsonError })
-          // 如果两种方式都失败，返回处理后的字符串
-          return processed
-        }
-      }
-    } catch (error) {
-      console.error('Error in preprocessData:', error)
-      throw error
+  const generateGameData = async () => {
+    if (!rawData) {
+      toast.error("Please enter raw game data")
+      return
     }
-  }
 
-  const handleImport = async () => {
+    setIsGenerating(true)
     try {
-      if (!jsonData.trim()) {
-        throw new Error('Please enter some data to import')
-      }
-
-      // 预处理数据
-      const processedData = preprocessData(jsonData)
-      
-      // 验证JSON格式
-      let games
-      try {
-        games = JSON.parse(processedData)
-      } catch (error: any) {
-   
-        throw new Error(`Invalid JSON format: ${error.message || 'Unknown error'}. Please check the console for details.`)
-      }
-      
-      // 如果输入的是单个游戏对象，将其转换为数组
-      if (!Array.isArray(games)) {
-        games = [games]
-      }
-
-      // 验证和清理数据
-      games = games.map(game => {
-        // 确保所有必需字段存在
-        const requiredFields = ['title', 'description', 'iframeUrl']
-        const missingFields = requiredFields.filter(field => !game[field])
-        if (missingFields.length > 0) {
-          throw new Error(`Missing required fields: ${missingFields.join(', ')} for game: ${game.title || 'Unknown'}`)
-        }
-
-        // 清理和验证 URL
-        if (game.iframeUrl && !game.iframeUrl.startsWith('http')) {
-          throw new Error(`Invalid iframeUrl for game ${game.title}: URL must start with http or https`)
-        }
-
-        // 处理图片字段
-        if (game.image && !game.imageUrl) {
-          game.imageUrl = game.image
-          delete game.image
-        }
-
-        return game
-      })
-
-      setImporting(true)
-      const response = await fetch('/api/gamesBase/import', {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(games)
+      const response = await fetch("/api/ai/generate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ 
+          rawData, 
+          customPrompt,
+          taskType: 'GAME_IMPORT'
+        })
       })
 
       if (!response.ok) {
-        const error = await response.json()
-        throw new Error(error.error || 'Import failed')
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || "Failed to generate game data")
       }
 
-      const result = await response.json()
-      toast.success(result.message)
-      // 清空输入数据
-      setJsonData("")
-      // 刷新页面数据
-      router.refresh()
+      const { data } = await response.json()
+      setJsonData(JSON.stringify(data, null, 2))
+      toast.success("Successfully generated game data")
     } catch (error) {
-      console.error('Import error:', error)
-      toast.error(error instanceof Error ? error.message : 'Failed to import games')
+      console.error("Generation error:", error)
+      toast.error(error instanceof Error ? error.message : "Failed to generate game data")
+      
+      // 如果是网络错误，显示重试建议
+      if (error instanceof Error && (
+        error.message.includes('network') || 
+        error.message.includes('connect')
+      )) {
+        toast.error("Network error. Please check your connection and try again.", {
+          duration: 5000
+        })
+      }
     } finally {
-      setImporting(false)
+      setIsGenerating(false)
+    }
+  }
+
+  const importGames = async () => {
+    if (!jsonData) {
+      toast.error("Please generate or enter game data first")
+      return
+    }
+
+    // 验证 JSON 格式
+    let parsedData
+    try {
+      parsedData = JSON.parse(jsonData)
+      // 确保数据是数组格式
+      if (!Array.isArray(parsedData)) {
+        parsedData = [parsedData]
+      }
+    } catch (error) {
+      toast.error("Invalid JSON format. Please check the data format.")
+      return
+    }
+
+    setIsImporting(true)
+    try {
+      const response = await fetch("/api/gamesBase/import", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(parsedData)
+      })
+
+      if (!response.ok) {
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || "Failed to import games")
+      }
+
+      toast.success("Successfully imported games")
+      setRawData("")
+      setJsonData("")
+    } catch (error) {
+      console.error("Import error:", error)
+      toast.error(error instanceof Error ? error.message : "Failed to import games")
+    } finally {
+      setIsImporting(false)
     }
   }
 
   return (
-    <div className="space-y-6">
-      <div className="flex items-center justify-between">
-        <PageHeader
-          title="Import Games"
-          description="Import games from JSON data"
-        />
-        <Button
-          variant="outline"
-          onClick={() => router.push('/gamesBase')}
-        >
-          Cancel
-        </Button>
-      </div>
-
-      <Card className="p-6">
+    <div className="container mx-auto p-6 space-y-6">
+      <h1 className="text-2xl font-bold">Import Games</h1>
+      
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">
-          <div className="space-y-2">
-            <h3 className="text-lg font-medium">JSON Data</h3>
-            <p className="text-sm text-muted-foreground">
-              Paste your games data in JSON format or JavaScript object format. 
-              You can import a single game object or an array of game objects.
-              For categories, you can use GameCategory.CATEGORY_NAME format or just the category name as a string.
-            </p>
-            <p className="text-sm text-muted-foreground">
-              Available categories: {Object.values(CATEGORY_MAP).join(', ')}
-            </p>
+          <div>
+            <h2 className="text-lg font-semibold mb-2">Raw Game Data</h2>
+            <Textarea
+              placeholder="Enter raw game data here..."
+              value={rawData}
+              onChange={(e) => setRawData(e.target.value)}
+              className="h-[200px] font-mono"
+            />
           </div>
-
-          <Textarea
-            value={jsonData}
-            onChange={(e) => setJsonData(e.target.value)}
-            placeholder="Paste your JSON data here..."
-            className="font-mono min-h-[400px]"
-          />
-
-          <div className="flex justify-end">
-            <Button
-              onClick={handleImport}
-              disabled={!jsonData.trim() || importing}
-            >
-              {importing ? (
-                <>
-                  <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                  Importing...
-                </>
-              ) : (
-                'Import Games'
-              )}
-            </Button>
+          
+          <div>
+            <h2 className="text-lg font-semibold mb-2">Custom Prompt</h2>
+            <Textarea
+              placeholder="Enter custom prompt here..."
+              value={customPrompt}
+              onChange={(e) => setCustomPrompt(e.target.value)}
+              className="h-[200px] font-mono"
+            />
           </div>
+          
+          <Button 
+            onClick={generateGameData} 
+            disabled={isGenerating}
+            className="w-full"
+          >
+            {isGenerating ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Generating...
+              </>
+            ) : (
+              "Generate Game Data"
+            )}
+          </Button>
         </div>
-      </Card>
+
+        <div className="space-y-4">
+          <div>
+            <h2 className="text-lg font-semibold mb-2">Generated JSON</h2>
+            <Textarea
+              placeholder="Generated JSON will appear here..."
+              value={jsonData}
+              onChange={(e) => setJsonData(e.target.value)}
+              className="h-[440px] font-mono"
+            />
+          </div>
+          
+          <Button 
+            onClick={importGames}
+            disabled={isImporting}
+            className="w-full"
+          >
+            {isImporting ? (
+              <>
+                <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                Importing...
+              </>
+            ) : (
+              "Import Games"
+            )}
+          </Button>
+        </div>
+      </div>
     </div>
   )
 } 

@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server'
 import { db } from '@/lib/db/tursoDb'
 import { gamesBase, gameCategories, categories } from '@/lib/db/schema'
 import { nanoid } from 'nanoid'
-import { eq } from 'drizzle-orm'
+import { eq, and } from 'drizzle-orm'
 export const runtime = 'edge';
 interface ImportGameData {
   id?: string
@@ -70,23 +70,60 @@ export async function POST(request: Request) {
         // 处理图片URL
         const imageUrl = gameData.imageUrl || gameData.image || ''
         
-        // 插入游戏基础数据
-        const [game] = await tx.insert(gamesBase).values({
-          id,
-          title: gameData.title,
-          description: gameData.description,
-          iframeUrl: gameData.iframeUrl,
-          imageUrl,
-          rating: gameData.rating || 0,
-          metadata: JSON.stringify(gameData.metadata),
-          controls: JSON.stringify(gameData.controls),
-          features: JSON.stringify(gameData.features),
-          faqs: JSON.stringify(gameData.faqs),
-          video: gameData.video ? JSON.stringify(gameData.video) : null,
-          createdAt: new Date().toISOString(),
-        }).returning()
+        // 检查游戏是否已存在
+        const existingGame = await tx
+          .select()
+          .from(gamesBase)
+          .where(eq(gamesBase.id, id))
+          .limit(1)
 
-        // 插入分类关联
+        let game
+        if (existingGame.length > 0) {
+          // 更新现有游戏
+          [game] = await tx
+            .update(gamesBase)
+            .set({
+              title: gameData.title,
+              description: gameData.description,
+              iframeUrl: gameData.iframeUrl,
+              imageUrl,
+              rating: gameData.rating || 0,
+              metadata: JSON.stringify(gameData.metadata),
+              controls: JSON.stringify(gameData.controls),
+              features: JSON.stringify(gameData.features),
+              faqs: JSON.stringify(gameData.faqs),
+              video: gameData.video ? JSON.stringify(gameData.video) : null,
+              updatedAt: new Date().toISOString(),
+            })
+            .where(eq(gamesBase.id, id))
+            .returning()
+
+          // 删除现有分类关联
+          await tx
+            .delete(gameCategories)
+            .where(eq(gameCategories.gameId, id))
+        } else {
+          // 插入新游戏
+          [game] = await tx
+            .insert(gamesBase)
+            .values({
+              id,
+              title: gameData.title,
+              description: gameData.description,
+              iframeUrl: gameData.iframeUrl,
+              imageUrl,
+              rating: gameData.rating || 0,
+              metadata: JSON.stringify(gameData.metadata),
+              controls: JSON.stringify(gameData.controls),
+              features: JSON.stringify(gameData.features),
+              faqs: JSON.stringify(gameData.faqs),
+              video: gameData.video ? JSON.stringify(gameData.video) : null,
+              createdAt: new Date().toISOString(),
+            })
+            .returning()
+        }
+
+        // 插入新的分类关联
         if (categoryIds.length) {
           await tx.insert(gameCategories).values(
             categoryIds.map(categoryId => ({
@@ -94,7 +131,7 @@ export async function POST(request: Request) {
               categoryId,
               createdAt: new Date().toISOString()
             }))
-          )
+          ).onConflictDoNothing()
         }
 
         games.push(game)
