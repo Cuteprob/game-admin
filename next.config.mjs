@@ -11,7 +11,8 @@ if (process.env.NODE_ENV === 'development') {
 const nextConfig = {
   images: {
     domains: [
-      'images.shadybears.org'
+      'images.shadybears.org',
+      'img.gamepix.com'
     ],
   },
 };

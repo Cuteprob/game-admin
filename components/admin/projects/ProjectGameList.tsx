@@ -7,6 +7,41 @@ import { toast } from "sonner"
 import { Loader2 } from "lucide-react"
 import { useRouter } from "next/navigation"
 
+// 添加重试工具函数
+async function fetchWithRetry(
+  url: string, 
+  options: RequestInit, 
+  maxRetries: number = 3,
+  retryDelay: number = 1000
+): Promise<Response> {
+  let lastError: any;
+  
+  for (let i = 0; i < maxRetries; i++) {
+    try {
+      const response = await fetch(url, {
+        ...options,
+        signal: AbortSignal.timeout(5000), // 5秒超时
+      });
+      
+      if (response.ok) {
+        return response;
+      }
+      
+      lastError = new Error(`HTTP error! status: ${response.status}`);
+    } catch (error) {
+      lastError = error;
+      
+      // 如果不是最后一次重试，等待后继续
+      if (i < maxRetries - 1) {
+        await new Promise(resolve => setTimeout(resolve, retryDelay * Math.pow(2, i)));
+        continue;
+      }
+    }
+  }
+  
+  throw lastError;
+}
+
 interface ProjectGame {
   id: string
   gameId: string
@@ -34,13 +69,12 @@ export function ProjectGameList({ projectId, games: initialGames, onDataChange }
   const handlePublish = async (gameId: string) => {
     try {
       setPublishingGameId(gameId)
-      const response = await fetch(`/api/projects/${projectId}/games/${gameId}/publish`, {
-        method: 'POST',
-      })
+      const response = await fetchWithRetry(
+        `/api/projects/${projectId}/games/${gameId}/publish`,
+        { method: 'POST' }
+      );
 
-      if (!response.ok) {
-        throw new Error('Failed to publish game')
-      }
+      const data = await response.json();
 
       // 更新本地状态
       setGames(prevGames => 
@@ -72,13 +106,12 @@ export function ProjectGameList({ projectId, games: initialGames, onDataChange }
 
     try {
       setDeletingGameId(gameId)
-      const response = await fetch(`/api/projects/${projectId}/games/${gameId}`, {
-        method: 'DELETE',
-      })
+      const response = await fetchWithRetry(
+        `/api/projects/${projectId}/games/${gameId}`,
+        { method: 'DELETE' }
+      );
 
-      if (!response.ok) {
-        throw new Error('Failed to delete game')
-      }
+      const data = await response.json();
 
       // 更新本地状态
       setGames(prevGames => prevGames.filter(game => game.gameId !== gameId))

@@ -6,7 +6,7 @@ const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
   baseURL: process.env.OPENAI_API_BASE_URL,
   defaultHeaders: {
-    'HTTP-Referer': 'https://game-admin.com',
+    'HTTP-Referer': 'https://admin.shadybears.org',
     'X-Title': 'Game Admin'
   },
   defaultQuery: {
