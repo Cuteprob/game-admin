@@ -9,6 +9,9 @@ import { Loader2 } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { toast, Toaster } from "sonner"
+import { GameCategoryList } from "@/components/admin/games/GameCategoryList"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import { GameCategoryDisplay } from "@/components/admin/games/GameCategoryDisplay"
 export const runtime = 'edge';
 interface ProjectGame {
   id: string
@@ -52,12 +55,23 @@ interface Project {
 
 // 格式化JSON显示
 function JsonDisplay({ data }: { data: any }) {
+  // 安全解析 JSON 字符串
+  const parseJsonSafely = (jsonString: any) => {
+    if (typeof jsonString !== 'string') return jsonString;
+    try {
+      return JSON.parse(jsonString);
+    } catch (error) {
+      console.error('Failed to parse JSON:', error);
+      return jsonString; // 如果解析失败，返回原始字符串
+    }
+  };
+
   // 如果数据是字符串格式的JSON,先解析它
-  const formattedData = typeof data === 'string' ? JSON.parse(data) : data
+  const formattedData = parseJsonSafely(data);
   
   // 格式化FAQ项目
   const formatFaqItem = (item: any) => {
-    if (item.question && item.answer) {
+    if (item && typeof item === 'object' && item.question && item.answer) {
       return (
         <div className="space-y-1">
           <div>
@@ -79,9 +93,11 @@ function JsonDisplay({ data }: { data: any }) {
 
   // 格式化显示
   const formatValue = (value: any): string | JSX.Element => {
+    if (!value) return String(value);
+    
     if (Array.isArray(value)) {
       // 检查是否是FAQ数组
-      if (value.length > 0 && value[0].question && value[0].answer) {
+      if (value.length > 0 && value[0] && typeof value[0] === 'object' && value[0].question && value[0].answer) {
         return (
           <div className="space-y-4">
             {value.map((item, index) => (
@@ -360,148 +376,171 @@ export default function EditGamePage({
         </div>
       </div>
 
-      <div className="grid grid-cols-2 gap-6">
-        {/* 左侧：原始内容 */}
-        <Card className="p-6">
-          <div className="space-y-4">
-            <h3 className="text-lg font-medium">Original Content</h3>
-            
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Title</h4>
-              <div className="p-2 rounded bg-muted break-words">
-                {originalGame.title}
+      <Tabs defaultValue="content" className="w-full">
+        <TabsList>
+          <TabsTrigger value="content">Content</TabsTrigger>
+          <TabsTrigger value="categories">Categories</TabsTrigger>
+        </TabsList>
+
+        <TabsContent value="content">
+          <div className="grid grid-cols-2 gap-6">
+            {/* 左侧：原始内容 */}
+            <Card className="p-6">
+              <div className="space-y-4">
+                <h3 className="text-lg font-medium">Original Content</h3>
+                
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium">Title</h4>
+                  <div className="p-2 rounded bg-muted break-words">
+                    {originalGame.title}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium">Description</h4>
+                  <div className="p-2 rounded bg-muted break-words">
+                    {originalGame.description}
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium">Metadata</h4>
+                  <JsonDisplay data={originalGame.metadata} />
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium">Features</h4>
+                  <JsonDisplay data={originalGame.features} />
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium">FAQs</h4>
+                  <JsonDisplay data={originalGame.faqs} />
+                </div>
               </div>
-            </div>
+            </Card>
 
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Description</h4>
-              <div className="p-2 rounded bg-muted break-words">
-                {originalGame.description}
+            {/* 右侧：本地化内容 */}
+            <Card className="p-6">
+              <div className="space-y-4">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-lg font-medium">Localized Content</h3>
+                  <div className="flex items-center gap-2">
+                    <Button
+                      variant="outline"
+                      onClick={handleGenerateContent}
+                    >
+                      {generating ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Generating
+                        </>
+                      ) : (
+                        'Generate with AI'
+                      )}
+                    </Button>
+                    <Button
+                      onClick={handleSave}
+                      disabled={saving}
+                    >
+                      {saving ? (
+                        <>
+                          <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                          Saving
+                        </>
+                      ) : (
+                        'Save Changes'
+                      )}
+                    </Button>
+                  </div>
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium">Title</h4>
+                  <Input
+                    value={editedContent.title || ''}
+                    onChange={(e) => setEditedContent({
+                      ...editedContent,
+                      title: e.target.value
+                    })}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium">Description</h4>
+                  <Textarea
+                    value={editedContent.description || ''}
+                    onChange={(e) => setEditedContent({
+                      ...editedContent,
+                      description: e.target.value
+                    })}
+                    rows={6}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-medium">Metadata</h4>
+                    {jsonErrors.metadata && (
+                      <span className="text-sm text-destructive">{jsonErrors.metadata}</span>
+                    )}
+                  </div>
+                  <Textarea
+                    value={JSON.stringify(editedContent.metadata, null, 2)}
+                    onChange={(e) => handleJsonChange('metadata', e.target.value)}
+                    className="font-mono text-sm"
+                    rows={16}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-medium">Features</h4>
+                    {jsonErrors.features && (
+                      <span className="text-sm text-destructive">{jsonErrors.features}</span>
+                    )}
+                  </div>
+                  <Textarea
+                    value={JSON.stringify(editedContent.features, null, 2)}
+                    onChange={(e) => handleJsonChange('features', e.target.value)}
+                    className="font-mono text-sm"
+                    rows={10}
+                  />
+                </div>
+
+                <div className="space-y-2">
+                  <div className="flex items-center justify-between">
+                    <h4 className="text-sm font-medium">FAQs</h4>
+                    {jsonErrors.faqs && (
+                      <span className="text-sm text-destructive">{jsonErrors.faqs}</span>
+                    )}
+                  </div>
+                  <Textarea
+                    value={JSON.stringify(editedContent.faqs, null, 2)}
+                    onChange={(e) => handleJsonChange('faqs', e.target.value)}
+                    className="font-mono text-sm"
+                    rows={70}
+                  />
+                </div>
               </div>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Metadata</h4>
-              <JsonDisplay data={originalGame.metadata} />
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Features</h4>
-              <JsonDisplay data={originalGame.features} />
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">FAQs</h4>
-              <JsonDisplay data={originalGame.faqs} />
-            </div>
+            </Card>
           </div>
-        </Card>
+        </TabsContent>
 
-        {/* 右侧：本地化内容 */}
-        <Card className="p-6">
-          <div className="space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-lg font-medium">Localized Content</h3>
-              <div className="flex items-center gap-2">
-                <Button
-                  variant="outline"
-                  onClick={handleGenerateContent}
-                >
-                  {generating ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Generating
-                    </>
-                  ) : (
-                    'Generate with AI'
-                  )}
-                </Button>
-                <Button
-                  onClick={handleSave}
-                  disabled={saving}
-                >
-                  {saving ? (
-                    <>
-                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                      Saving
-                    </>
-                  ) : (
-                    'Save Changes'
-                  )}
-                </Button>
-              </div>
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Title</h4>
-              <Input
-                value={editedContent.title || ''}
-                onChange={(e) => setEditedContent({
-                  ...editedContent,
-                  title: e.target.value
-                })}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <h4 className="text-sm font-medium">Description</h4>
-              <Textarea
-                value={editedContent.description || ''}
-                onChange={(e) => setEditedContent({
-                  ...editedContent,
-                  description: e.target.value
-                })}
-                rows={6}
-              />
-            </div>
-
-            <div className="space-y-2">
+        <TabsContent value="categories">
+          <Card className="p-6">
+            <div className="space-y-6">
               <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium">Metadata</h4>
-                {jsonErrors.metadata && (
-                  <span className="text-sm text-destructive">{jsonErrors.metadata}</span>
-                )}
+                <h2 className="text-lg font-semibold">Categories</h2>
               </div>
-              <Textarea
-                value={JSON.stringify(editedContent.metadata, null, 2)}
-                onChange={(e) => handleJsonChange('metadata', e.target.value)}
-                className="font-mono text-sm"
-                rows={16}
+              <GameCategoryDisplay 
+                gameId={params.gameId} 
+                projectId={params.id}
               />
             </div>
-
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium">Features</h4>
-                {jsonErrors.features && (
-                  <span className="text-sm text-destructive">{jsonErrors.features}</span>
-                )}
-              </div>
-              <Textarea
-                value={JSON.stringify(editedContent.features, null, 2)}
-                onChange={(e) => handleJsonChange('features', e.target.value)}
-                className="font-mono text-sm"
-                rows={10}
-              />
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex items-center justify-between">
-                <h4 className="text-sm font-medium">FAQs</h4>
-                {jsonErrors.faqs && (
-                  <span className="text-sm text-destructive">{jsonErrors.faqs}</span>
-                )}
-              </div>
-              <Textarea
-                value={JSON.stringify(editedContent.faqs, null, 2)}
-                onChange={(e) => handleJsonChange('faqs', e.target.value)}
-                className="font-mono text-sm"
-                rows={70}
-              />
-            </div>
-          </div>
-        </Card>
-      </div>
+          </Card>
+        </TabsContent>
+      </Tabs>
     </div>
   )
 } 

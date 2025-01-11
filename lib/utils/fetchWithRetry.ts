@@ -26,7 +26,7 @@ export async function fetchWithRetry(
           throw new Error(`HTTP error! status: ${response.status}`)
         }
 
-        return response
+        return response.clone()
       } finally {
         clearTimeout(timeoutId)
       }
@@ -37,7 +37,7 @@ export async function fetchWithRetry(
       maxDelay: 5000,
       onRetry: (error, attempt) => {
         console.error(`Attempt ${attempt} failed:`, error)
-        toast.error(`连接失败,正在重试... (${attempt}/3)`)
+        toast.error(`connection failed, retrying... (${attempt}/3)`)
       }
     }
   )
@@ -49,6 +49,11 @@ export async function fetchJsonWithRetry<T>(
   options: FetchOptions = {}
 ): Promise<T> {
   const response = await fetchWithRetry(url, options)
-  return response.json()
+  try {
+    return await response.json()
+  } catch (error) {
+    console.error('Failed to parse JSON:', error)
+    throw error
+  }
 }
 

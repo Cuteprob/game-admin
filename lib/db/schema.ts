@@ -85,6 +85,42 @@ export const projects = sqliteTable('projects', {
   updatedAt: text('updated_at').default(sql`CURRENT_TIMESTAMP`)
 })
 
+// 项目特定分类表
+export const projectCategories = sqliteTable('project_categories', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  projectId: text('project_id')
+    .notNull()
+    .references(() => projects.id, { onDelete: 'cascade' }),
+  categoryId: text('category_id')
+    .notNull()
+    .references(() => categories.id, { onDelete: 'cascade' }),
+  displayName: text('display_name'),              // 项目中的显示名称，可以覆盖原始分类名
+  description: text('description'),               // 项目中的分类描述
+  sortOrder: integer('sort_order').default(0),    // 排序顺序
+  isActive: integer('is_active').default(1),      // 是否激活
+  createdAt: text('created_at')
+    .default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at')
+    .default(sql`CURRENT_TIMESTAMP`),
+}, (table) => ({
+  // 确保每个项目中的分类是唯一的
+  unq: index('project_category_unique').on(table.projectId, table.categoryId)
+}));
+
+// 项目游戏-分类关联表
+export const projectGameCategories = sqliteTable('project_game_categories', {
+  projectGameId: integer('project_game_id')
+    .notNull()
+    .references(() => projectGames.id, { onDelete: 'cascade' }),
+  projectCategoryId: integer('project_category_id')
+    .notNull()
+    .references(() => projectCategories.id, { onDelete: 'cascade' }),
+  createdAt: text('created_at')
+    .default(sql`CURRENT_TIMESTAMP`),
+}, (table) => ({
+  pk: primaryKey(table.projectGameId, table.projectCategoryId),  // 复合主键
+}));
+
 // 类型定义
 export type GameBase = typeof gamesBase.$inferSelect;
 export type NewGameBase = typeof gamesBase.$inferInsert;
@@ -97,6 +133,12 @@ export type NewGameCategory = typeof gameCategories.$inferInsert;
 
 export type ProjectGame = typeof projectGames.$inferSelect;
 export type NewProjectGame = typeof projectGames.$inferInsert;
+
+export type ProjectCategory = typeof projectCategories.$inferSelect;
+export type NewProjectCategory = typeof projectCategories.$inferInsert;
+
+export type ProjectGameCategory = typeof projectGameCategories.$inferSelect;
+export type NewProjectGameCategory = typeof projectGameCategories.$inferInsert;
 
 // 定义关系
 export const gamesBaseRelations = relations(gamesBase, ({ many }) => ({
@@ -119,9 +161,37 @@ export const categoriesRelations = relations(categories, ({ many }) => ({
 }));
 
 // 添加 projectGames 的关系定义
-export const projectGamesRelations = relations(projectGames, ({ one }) => ({
+export const projectGamesRelations = relations(projectGames, ({ one, many }) => ({
   game: one(gamesBase, {
     fields: [projectGames.gameId],
     references: [gamesBase.id],
+  }),
+  categories: many(projectGameCategories)
+}));
+
+export const projectGameCategoriesRelations = relations(projectGameCategories, ({ one }) => ({
+  projectGame: one(projectGames, {
+    fields: [projectGameCategories.projectGameId],
+    references: [projectGames.id],
+  }),
+  projectCategory: one(projectCategories, {
+    fields: [projectGameCategories.projectCategoryId],
+    references: [projectCategories.id],
   })
+}));
+
+export const projectCategoriesRelations = relations(projectCategories, ({ one, many }) => ({
+  project: one(projects, {
+    fields: [projectCategories.projectId],
+    references: [projects.id],
+  }),
+  category: one(categories, {
+    fields: [projectCategories.categoryId],
+    references: [categories.id],
+  }),
+  games: many(projectGameCategories)
+}));
+
+export const projectsRelations = relations(projects, ({ many }) => ({
+  categories: many(projectCategories)
 }));

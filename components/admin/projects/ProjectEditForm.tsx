@@ -18,6 +18,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { MultiCombobox } from "@/components/ui/multi-combobox"
 import { toast } from "sonner"
+import { ProjectCategorySelect } from "@/components/admin/projects/ProjectCategorySelect"
 
 // 支持的语言选项
 const SUPPORTED_LANGUAGES = [
@@ -88,44 +89,45 @@ interface ProjectEditFormProps {
 
 export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
   const [loading, setLoading] = useState(false)
+  const [tab, setTab] = useState("general")
 
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
       name: project.name,
-      description: project.description || '',
+      description: project.description || "",
       defaultLocale: project.defaultLocale,
-      locales: project.locales || [],
+      locales: project.locales,
       aiConfig: {
-        targetAudience: project.aiConfig?.targetAudience || '',
-        tone: project.aiConfig?.tone || '',
+        targetAudience: project.aiConfig.targetAudience,
+        tone: project.aiConfig.tone,
         defaultPrompts: {
-          title: project.aiConfig?.defaultPrompts?.title || '',
-          description: project.aiConfig?.defaultPrompts?.description || '',
-          features: project.aiConfig?.defaultPrompts?.features || '',
-          faqs: project.aiConfig?.defaultPrompts?.faqs || ''
+          title: project.aiConfig.defaultPrompts.title,
+          description: project.aiConfig.defaultPrompts.description,
+          features: project.aiConfig.defaultPrompts.features,
+          faqs: project.aiConfig.defaultPrompts.faqs,
         }
       }
-    },
+    }
   })
 
-  async function onSubmit(values: z.infer<typeof formSchema>) {
+  const onSubmit = async (data: z.infer<typeof formSchema>) => {
+    setLoading(true)
     try {
-      setLoading(true)
       const response = await fetch(`/api/projects/${project.id}`, {
         method: 'PUT',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify(values),
+        body: JSON.stringify(data),
       })
 
       if (!response.ok) {
         throw new Error('Failed to update project')
       }
 
-      toast.success('Project updated')
-      onSuccess()
+      toast.success('Project updated successfully')
+      onSuccess?.()
     } catch (error) {
       console.error('Failed to update project:', error)
       toast.error('Failed to update project')
@@ -134,16 +136,23 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
     }
   }
 
+  const handleSave = async () => {
+    if (tab === "general" || tab === "ai") {
+      form.handleSubmit(onSubmit)()
+    }
+  }
+
   return (
     <Form {...form}>
       <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-8">
-        <Tabs defaultValue="basic" className="w-full">
+        <Tabs value={tab} onValueChange={setTab}>
           <TabsList>
-            <TabsTrigger value="basic">Basic Info</TabsTrigger>
+            <TabsTrigger value="general">General</TabsTrigger>
             <TabsTrigger value="ai">AI Configuration</TabsTrigger>
+            <TabsTrigger value="categories">Categories</TabsTrigger>
           </TabsList>
 
-          <TabsContent value="basic" className="space-y-6">
+          <TabsContent value="general" className="space-y-6">
             <FormField
               control={form.control}
               name="name"
@@ -279,7 +288,7 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
                     <FormControl>
                       <Textarea
                         placeholder="Prompt for generating game titles..."
-                        className="resize-none"
+                        className="min-h-[100px] resize-vertical"
                         {...field}
                       />
                     </FormControl>
@@ -297,7 +306,7 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
                     <FormControl>
                       <Textarea
                         placeholder="Prompt for generating game descriptions..."
-                        className="resize-none"
+                        className="min-h-[200px] resize-vertical"
                         {...field}
                       />
                     </FormControl>
@@ -315,7 +324,7 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
                     <FormControl>
                       <Textarea
                         placeholder="Prompt for generating game features..."
-                        className="resize-none"
+                        className="min-h-[200px] resize-vertical"
                         {...field}
                       />
                     </FormControl>
@@ -333,7 +342,7 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
                     <FormControl>
                       <Textarea
                         placeholder="Prompt for generating game FAQs..."
-                        className="resize-none"
+                        className="min-h-[200px] resize-vertical"
                         {...field}
                       />
                     </FormControl>
@@ -343,11 +352,22 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
               />
             </div>
           </TabsContent>
+
+          <TabsContent value="categories" className="space-y-6">
+            <ProjectCategorySelect 
+              projectId={project.id} 
+              onSave={() => {
+                toast.success('Categories saved successfully')
+              }}
+            />
+          </TabsContent>
         </Tabs>
 
-        <Button type="submit" disabled={loading}>
-          {loading ? "Saving..." : "Save Changes"}
-        </Button>
+        {(tab === "general" || tab === "ai") && (
+          <Button type="submit" disabled={loading}>
+            {loading ? "Saving..." : "Save Changes"}
+          </Button>
+        )}
       </form>
     </Form>
   )

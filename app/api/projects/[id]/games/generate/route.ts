@@ -64,7 +64,7 @@ For Metadata:
 Generate metadata that follows these rules:
    - Title should be around 30 characters and include SEO keywords
    - Description should be around 130 characters and include SEO keywords
-   - No more than 2 keywords
+   - Use game title as the only keyword
 For Description:
 ${body.aiConfig?.prompts?.description || ''}
 

@@ -4,6 +4,7 @@ import { gamesBase, gameCategories, categories } from '@/lib/db/schema'
 import { nanoid } from 'nanoid'
 import { eq, and } from 'drizzle-orm'
 export const runtime = 'edge';
+
 interface ImportGameData {
   id?: string
   title: string
@@ -53,15 +54,25 @@ export async function POST(request: Request) {
       const allCategories = await tx.select().from(categories)
       const categoryMap = new Map(allCategories.map(c => [c.name.toLowerCase(), c.id]))
       
+      // 验证所有游戏的分类是否都存在
+      const invalidCategories = new Set<string>()
+      for (const gameData of body) {
+        for (const categoryName of gameData.categories) {
+          if (!categoryMap.has(categoryName.toLowerCase())) {
+            invalidCategories.add(categoryName)
+          }
+        }
+      }
+      
+      // 如果有无效分类，立即返回错误
+      if (invalidCategories.size > 0) {
+        throw new Error(`Invalid categories found: ${Array.from(invalidCategories).join(', ')}`)
+      }
+      
       for (const gameData of body) {
         // 根据分类名称获取分类ID
         const categoryIds = gameData.categories.map(categoryName => {
-          // 统一转换为小写进行比较
-          const id = categoryMap.get(categoryName.toLowerCase())
-          if (!id) {
-            throw new Error(`Category not found: ${categoryName}`)
-          }
-          return id
+          return categoryMap.get(categoryName.toLowerCase())!
         })
         
         // 生成游戏ID或使用提供的ID
@@ -125,16 +136,29 @@ export async function POST(request: Request) {
 
         // 插入新的分类关联
         if (categoryIds.length) {
+          const timestamp = new Date().toISOString()
           await tx.insert(gameCategories).values(
             categoryIds.map(categoryId => ({
               gameId: id,
               categoryId,
-              createdAt: new Date().toISOString()
+              createdAt: timestamp
             }))
           ).onConflictDoNothing()
         }
 
-        games.push(game)
+        // 获取游戏的完整信息，包括分类
+        const gameWithCategories = await tx.query.gamesBase.findFirst({
+          where: eq(gamesBase.id, id),
+          with: {
+            categories: {
+              with: {
+                category: true
+              }
+            }
+          }
+        })
+
+        games.push(gameWithCategories)
       }
 
       return games
@@ -146,6 +170,15 @@ export async function POST(request: Request) {
     })
   } catch (error) {
     console.error('Failed to import games:', error)
+    
+    // 根据错误类型返回不同的错误信息
+    if (error instanceof Error && error.message.includes('Invalid categories')) {
+      return NextResponse.json(
+        { error: error.message },
+        { status: 400 }
+      )
+    }
+    
     return NextResponse.json(
       { error: error instanceof Error ? error.message : 'Failed to import games' },
       { status: 500 }

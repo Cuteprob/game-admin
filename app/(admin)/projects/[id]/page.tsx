@@ -4,6 +4,9 @@ import { useState, useEffect } from "react"
 import { ProjectGameList } from "@/components/admin/projects/ProjectGameList"
 import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { AddGameButton } from "@/components/admin/projects/AddGameButton"
+import { Card } from "@/components/ui/card"
+import { fetchJsonWithRetry } from '@/lib/utils/fetchWithRetry'
+
 interface Project {
   id: string
   name: string
@@ -12,29 +15,23 @@ interface Project {
   locales: string[]
 }
 
-interface ProjectGame {
-  id: string
-  gameId: string
-  title: string
-  description: string
-  locale: string
-  isPublished: boolean
-  baseVersion: number
-  createdAt: string
-  updatedAt: string
+interface ApiResponse<T> {
+  code: number
+  message: string
+  data: T
 }
 
 export default function ProjectPage({ params }: { params: { id: string } }) {
   const [project, setProject] = useState<Project | null>(null)
-  const [games, setGames] = useState<ProjectGame[]>([])
   const [loading, setLoading] = useState(true)
 
   // 加载项目数据
   useEffect(() => {
     async function fetchProject() {
       try {
-        const response = await fetch(`/api/projects/${params.id}`)
-        const { data } = await response.json()
+        const { data } = await fetchJsonWithRetry<ApiResponse<Project>>(
+          `/api/projects/${params.id}`
+        )
         setProject(data)
       } catch (error) {
         console.error('Failed to fetch project:', error)
@@ -42,24 +39,6 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
     }
 
     fetchProject()
-  }, [params.id])
-
-  // 加载游戏数据
-  const loadGames = async () => {
-    try {
-      setLoading(true)
-      const response = await fetch(`/api/projects/${params.id}/games`)
-      const { data } = await response.json()
-      setGames(data)
-    } catch (error) {
-      console.error('Failed to fetch games:', error)
-    } finally {
-      setLoading(false)
-    }
-  }
-
-  useEffect(() => {
-    loadGames()
   }, [params.id])
 
   if (!project) {
@@ -76,19 +55,13 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
       <div className="flex justify-end">
         <AddGameButton 
           project={project}
-          onSuccess={loadGames}
+          onSuccess={() => {}}
         />
       </div>
 
-      {loading ? (
-        <div>Loading games...</div>
-      ) : (
-        <ProjectGameList 
-          projectId={params.id}
-          games={games}
-          onDataChange={loadGames}
-        />
-      )}
+      <ProjectGameList 
+        projectId={params.id}
+      />
     </div>
   )
 } 

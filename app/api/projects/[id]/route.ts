@@ -21,18 +21,44 @@ export async function GET(
       )
     }
 
-    // 解析JSON字段
-    const data = {
-      ...project,
-      locales: JSON.parse(project.locales),
-      aiConfig: JSON.parse(project.aiConfig)
+    // 安全地解析 JSON 字段
+    let locales = {}
+    let aiConfig = {}
+    
+    try {
+      locales = project.locales ? JSON.parse(project.locales) : {}
+    } catch (e) {
+      console.error('Failed to parse locales:', e)
+      locales = {}
     }
 
-    return NextResponse.json({ data })
+    try {
+      aiConfig = project.aiConfig ? JSON.parse(project.aiConfig) : {}
+    } catch (e) {
+      console.error('Failed to parse aiConfig:', e)
+      aiConfig = {}
+    }
+
+    // 构造响应数据
+    const data = {
+      ...project,
+      locales,
+      aiConfig
+    }
+
+    return NextResponse.json({ 
+      code: 200,
+      message: "Success",
+      data 
+    })
   } catch (error) {
     console.error('Failed to fetch project:', error)
     return NextResponse.json(
-      { error: 'Internal Server Error' },
+      { 
+        code: 500,
+        message: error instanceof Error ? error.message : 'Internal Server Error',
+        error: 'Failed to fetch project' 
+      },
       { status: 500 }
     )
   }

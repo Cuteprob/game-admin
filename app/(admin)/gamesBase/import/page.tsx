@@ -1,11 +1,20 @@
 "use client"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "@/components/ui/button"
 import { Textarea } from "@/components/ui/textarea"
 import { toast } from "sonner"
 import { DEFAULT_PROMPTS } from "@/lib/ai/config"
 import { Loader2 } from "lucide-react"
+import { Badge } from "@/components/ui/badge"
+import { ScrollArea } from "@/components/ui/scroll-area"
+import { Input } from "@/components/ui/input"
+
+interface Category {
+  id: string
+  name: string
+  description?: string
+}
 
 export default function ImportGamesPage() {
   const [rawData, setRawData] = useState("")
@@ -13,6 +22,46 @@ export default function ImportGamesPage() {
   const [customPrompt, setCustomPrompt] = useState(DEFAULT_PROMPTS.GAME_IMPORT)
   const [isGenerating, setIsGenerating] = useState(false)
   const [isImporting, setIsImporting] = useState(false)
+  const [categories, setCategories] = useState<Category[]>([])
+  const [selectedCategories, setSelectedCategories] = useState<string[]>([])
+  const [searchTerm, setSearchTerm] = useState("")
+  const [isLoadingCategories, setIsLoadingCategories] = useState(false)
+
+  // 获取所有分类
+  useEffect(() => {
+    const fetchCategories = async () => {
+      setIsLoadingCategories(true)
+      try {
+        const response = await fetch('/api/categories')
+        if (!response.ok) {
+          throw new Error('Failed to fetch categories')
+        }
+        const { data } = await response.json()
+        setCategories(data)
+      } catch (error) {
+        console.error('Error fetching categories:', error)
+        toast.error('Failed to load categories')
+      } finally {
+        setIsLoadingCategories(false)
+      }
+    }
+
+    fetchCategories()
+  }, [])
+
+  // 处理分类选择
+  const toggleCategory = (categoryId: string) => {
+    setSelectedCategories(prev => 
+      prev.includes(categoryId)
+        ? prev.filter(id => id !== categoryId)
+        : [...prev, categoryId]
+    )
+  }
+
+  // 过滤分类
+  const filteredCategories = categories.filter(category =>
+    category.name.toLowerCase().includes(searchTerm.toLowerCase())
+  )
 
   const generateGameData = async () => {
     if (!rawData) {
@@ -38,13 +87,22 @@ export default function ImportGamesPage() {
       }
 
       const { data } = await response.json()
-      setJsonData(JSON.stringify(data, null, 2))
+      
+      // 将选中的分类名称添加到生成的数据中
+      const selectedCategoryNames = selectedCategories.map(id => 
+        categories.find(c => c.id === id)?.name
+      ).filter(Boolean)
+      
+      const processedData = Array.isArray(data) 
+        ? data.map(game => ({ ...game, categories: selectedCategoryNames }))
+        : { ...data, categories: selectedCategoryNames }
+
+      setJsonData(JSON.stringify(processedData, null, 2))
       toast.success("Successfully generated game data")
     } catch (error) {
       console.error("Generation error:", error)
       toast.error(error instanceof Error ? error.message : "Failed to generate game data")
       
-      // 如果是网络错误，显示重试建议
       if (error instanceof Error && (
         error.message.includes('network') || 
         error.message.includes('connect')
@@ -64,11 +122,9 @@ export default function ImportGamesPage() {
       return
     }
 
-    // 验证 JSON 格式
     let parsedData
     try {
       parsedData = JSON.parse(jsonData)
-      // 确保数据是数组格式
       if (!Array.isArray(parsedData)) {
         parsedData = [parsedData]
       }
@@ -93,6 +149,7 @@ export default function ImportGamesPage() {
       toast.success("Successfully imported games")
       setRawData("")
       setJsonData("")
+      setSelectedCategories([])
     } catch (error) {
       console.error("Import error:", error)
       toast.error(error instanceof Error ? error.message : "Failed to import games")
@@ -125,6 +182,44 @@ export default function ImportGamesPage() {
               onChange={(e) => setCustomPrompt(e.target.value)}
               className="h-[200px] font-mono"
             />
+          </div>
+
+          <div className="space-y-2">
+            <h2 className="text-lg font-semibold">Categories</h2>
+            <Input
+              placeholder="Search categories..."
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
+              className="mb-2"
+            />
+            <ScrollArea className="h-[200px] border rounded-md p-2">
+              {isLoadingCategories ? (
+                <div className="flex items-center justify-center h-full">
+                  <Loader2 className="h-4 w-4 animate-spin" />
+                </div>
+              ) : (
+                <div className="space-y-2">
+                  {filteredCategories.map((category) => (
+                    <div
+                      key={category.id}
+                      className="flex items-center space-x-2 p-2 hover:bg-accent rounded-md cursor-pointer"
+                      onClick={() => toggleCategory(category.id)}
+                    >
+                      <Badge
+                        variant={selectedCategories.includes(category.id) ? "default" : "outline"}
+                      >
+                        {category.name}
+                      </Badge>
+                      {category.description && (
+                        <span className="text-sm text-muted-foreground">
+                          {category.description}
+                        </span>
+                      )}
+                    </div>
+                  ))}
+                </div>
+              )}
+            </ScrollArea>
           </div>
           
           <Button 
