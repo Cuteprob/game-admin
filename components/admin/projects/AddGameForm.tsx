@@ -71,6 +71,7 @@ export function AddGameForm({ project, onSuccess }: AddGameFormProps) {
         controls: game.controls,
         iframeUrl: game.iframeUrl,
         imageUrl: game.imageUrl,
+        createdAt: game.createdAt,
         rating: game.rating
       }))
 

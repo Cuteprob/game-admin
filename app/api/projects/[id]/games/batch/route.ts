@@ -103,7 +103,7 @@ export async function POST(
       rating: game.rating,
       baseVersion: versionMap.get(game.gameId) || 1,
       isPublished: 0,
-      createdAt: new Date().toISOString()
+      createdAt: game.createdAt
     }))
 
     await db.insert(projectGames).values(insertData)
