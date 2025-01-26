@@ -1,6 +1,6 @@
 import { db } from '@/lib/db/tursoDb'
-import { projects } from '@/lib/db/schema'
-import { eq } from 'drizzle-orm'
+import { projects, projectGames, projectCategories, projectGameCategories } from '@/lib/db/schema'
+import { eq, inArray } from 'drizzle-orm'
 import { nanoid } from 'nanoid'
 
 export interface Project {
@@ -24,6 +24,7 @@ export interface Project {
 }
 
 export interface CreateProjectData {
+  id: string
   name: string
   description?: string | null
   defaultLocale: string
@@ -67,10 +68,9 @@ export async function getProjects(): Promise<Project[]> {
 
 export async function createProject(data: CreateProjectData): Promise<Project> {
   const now = new Date().toISOString()
-  const id = nanoid()
 
   const record = await db.insert(projects).values({
-    id,
+    id: data.id,
     name: data.name,
     description: data.description ?? null,
     defaultLocale: data.defaultLocale,
@@ -117,5 +117,35 @@ export async function updateProject(id: string, data: UpdateProjectData): Promis
 }
 
 export async function deleteProject(id: string): Promise<void> {
-  await db.delete(projects).where(eq(projects.id, id))
+  // 使用事务确保数据一致性
+  await db.transaction(async (tx) => {
+    // 1. 获取项目所有的游戏ID
+    const projectGameIds = await tx
+      .select({ id: projectGames.id })
+      .from(projectGames)
+      .where(eq(projectGames.projectId, id))
+
+    // 2. 删除项目游戏的分类关联
+    if (projectGameIds.length > 0) {
+      const gameIds = projectGameIds.map(g => g.id)
+      await tx
+        .delete(projectGameCategories)
+        .where(inArray(projectGameCategories.projectGameId, gameIds))
+    }
+
+    // 3. 删除项目的游戏
+    await tx
+      .delete(projectGames)
+      .where(eq(projectGames.projectId, id))
+
+    // 4. 删除项目的分类
+    await tx
+      .delete(projectCategories)
+      .where(eq(projectCategories.projectId, id))
+
+    // 5. 最后删除项目本身
+    await tx
+      .delete(projects)
+      .where(eq(projects.id, id))
+  })
 }
