@@ -74,7 +74,7 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
   const [loadingCategories, setLoadingCategories] = useState<{ [key: string]: boolean }>({})
   const [currentPage, setCurrentPage] = useState(1)
   const [totalItems, setTotalItems] = useState(0)
-  const pageSize = 10
+  const pageSize = 50
   const [initialCategories, setInitialCategories] = useState<string[]>([])
 
   // 获取分页游戏列表

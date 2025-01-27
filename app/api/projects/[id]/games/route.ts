@@ -22,7 +22,7 @@ export async function GET(
   try {
     const { searchParams } = new URL(request.url)
     const page = parseInt(searchParams.get('page') || '1')
-    const pageSize = parseInt(searchParams.get('pageSize') || '10')
+    const pageSize = parseInt(searchParams.get('pageSize') || '50')
     
     // 获取总数 - 保持不变
     const [countResult] = await db
