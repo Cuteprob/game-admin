@@ -11,7 +11,7 @@ const openai = new OpenAI({
   },
   defaultQuery: {
     // OpenRouter 需要在查询参数中指定模型
-    model: process.env.OPENAI_API_MODEL || "openai/gpt-4o-mini"
+    model: process.env.OPENAI_API_MODEL || "meta-llama/llama-3.3-70b-instruct"
   }
 })
 
@@ -106,7 +106,7 @@ The response should be in JSON format with the following structure:
       try {
         // 调用 OpenAI API
         const completion = await openai.chat.completions.create({
-          model: process.env.OPENAI_API_MODEL || "openai/gpt-4o-mini",
+          model: process.env.OPENAI_API_MODEL || "meta-llama/llama-3.3-70b-instruct",
           messages: [
             {
               role: "system",

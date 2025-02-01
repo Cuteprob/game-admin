@@ -10,7 +10,7 @@ const openai = new OpenAI({
     'X-Title': 'Game Admin'
   },
   defaultQuery: {
-    model: process.env.OPENAI_API_MODEL || "openai/gpt-4o-mini"
+    model: process.env.OPENAI_API_MODEL || "meta-llama/llama-3.3-70b-instruct"
   }
 })
 
@@ -78,7 +78,7 @@ export const generateContent = async (
     console.log('Base URL:', process.env.OPENAI_API_BASE_URL)
 
     const completion = await openai.chat.completions.create({
-      model: process.env.OPENAI_API_MODEL || "openai/gpt-4o-mini",
+      model: process.env.OPENAI_API_MODEL || "meta-llama/llama-3.3-70b-instruct",
       messages: [
         { role: "system", content: systemPrompt },
         { role: "user", content: input }

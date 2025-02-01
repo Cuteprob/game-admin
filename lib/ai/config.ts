@@ -1,7 +1,7 @@
 // OpenAI client configuration
 export const openaiConfig = {
   apiKey: process.env.OPENAI_API_KEY,
-  model: process.env.OPENAI_API_MODEL || 'openai/gpt-4o-mini',
+  model: process.env.OPENAI_API_MODEL || 'meta-llama/llama-3.3-70b-instruct',
 }
 
 // AI generation task type
