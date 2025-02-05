@@ -1,7 +1,6 @@
 import { cookies } from "next/headers"
 import { NextResponse } from "next/server"
 import { SignJWT } from "jose"
-export const runtime = 'edge'
 
 // 使用固定的密钥（生产环境应该使用环境变量）
 const JWT_SECRET = "VY+Qz3Qj5YFxT9Qq3Z8Ns4K2Jm6Rh8Pw7Dt5Xc9Gn1Bv4Lm2"

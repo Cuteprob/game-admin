@@ -6,7 +6,6 @@ import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { ProjectEditForm } from "@/components/admin/projects/ProjectEditForm"
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
 import { ProjectCategoryList } from "@/components/admin/projects/ProjectCategoryList"
-export const runtime = 'edge';
 interface Project {
   id: string
   name: string

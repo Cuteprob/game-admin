@@ -4,7 +4,6 @@ import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { AddGameForm } from "@/components/admin/projects/AddGameForm"
-export const runtime = 'edge';
 interface Project {
   id: string
   name: string

@@ -6,7 +6,6 @@ import { GameForm } from "@/components/admin/games/GameForm"
 import { Card } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
 import { type GameBase } from "@/lib/db/schema"
-export const runtime = 'edge';
 interface GameWithCategories extends Omit<GameBase, 'categories'> {
   categories: Array<{
     categoryId: string

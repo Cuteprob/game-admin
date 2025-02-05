@@ -3,7 +3,7 @@ import { db } from '@/lib/db/tursoDb'
 import { gamesBase, gameCategories, categories } from '@/lib/db/schema'
 import { nanoid } from 'nanoid'
 import { eq, and } from 'drizzle-orm'
-export const runtime = 'edge';
+
 
 interface ImportGameData {
   id?: string

@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { db } from "@/lib/db/tursoDb"
 import { projectCategories, categories } from "@/lib/db/schema"
 import { eq, asc, and } from "drizzle-orm"
-export const runtime = 'edge';
+
 
 // 获取项目分类列表
 export async function GET(

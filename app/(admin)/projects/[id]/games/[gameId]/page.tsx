@@ -9,10 +9,9 @@ import { Loader2 } from "lucide-react"
 import { Textarea } from "@/components/ui/textarea"
 import { Input } from "@/components/ui/input"
 import { toast, Toaster } from "sonner"
-import { GameCategoryList } from "@/components/admin/games/GameCategoryList"
+
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { GameCategoryDisplay } from "@/components/admin/games/GameCategoryDisplay"
-export const runtime = 'edge';
 interface ProjectGame {
   id: string
   gameId: string

@@ -3,7 +3,7 @@ import { gamesBaseRepository } from '@/repositories/gamesBaseRepository';
 import { db } from '@/lib/db/tursoDb';
 import { projectGames } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
-export const runtime = 'edge';
+
 interface RouteParams {
   params: { id: string }
 }

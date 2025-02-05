@@ -2,7 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db/tursoDb';
 import { gamesBase, gameCategories, categories } from '@/lib/db/schema';
 import { desc, eq, sql } from 'drizzle-orm';
-export const runtime = 'edge';
+
 export interface GamesResponse {
   data: any[]
   total: number

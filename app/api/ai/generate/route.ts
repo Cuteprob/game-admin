@@ -1,8 +1,6 @@
 import { NextResponse } from 'next/server'
 import { generateContent } from '@/lib/ai/service'
 
-export const runtime = 'edge'
-
 export async function POST(request: Request) {
   try {
     const { rawData, customPrompt, taskType } = await request.json()

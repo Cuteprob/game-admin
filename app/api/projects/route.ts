@@ -1,6 +1,6 @@
 import { NextResponse } from 'next/server'
 import { createProject, getProjects } from '@/repositories/projectRepository'
-export const runtime = 'edge';
+
 export async function POST(request: Request) {
   try {
     const data = await request.json()

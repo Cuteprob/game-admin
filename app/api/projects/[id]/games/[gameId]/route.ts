@@ -2,7 +2,7 @@ import { NextResponse } from "next/server"
 import { db } from "@/lib/db/tursoDb"
 import { projectGames } from "@/lib/db/schema"
 import { eq, and } from "drizzle-orm"
-export const runtime = 'edge';
+
 // 获取单个项目游戏
 export async function GET(
   request: Request,
