@@ -34,6 +34,7 @@ Please follow these guidelines:
 4. Generate metadata that follows these rules:
    - Title should be around 30 characters and include SEO keywords
    - Description should be around 130 characters and include SEO keywords
+   - Keywords should be around 0-1 words
 5. Generate 8-10 relevant FAQs that:
    - Include SEO keywords naturally in both questions and answers
    - Cover common user questions about gameplay, features and technical aspects
@@ -52,6 +53,7 @@ Please follow these guidelines:
 7. Ensure all URLs are properly formatted
 8. Generate appropriate control guides based on the raw game data:
    - Extract control information from the raw data if available
+   - Keep the fullscreenTip empty if there is no information
    - For keyboard controls, include WASD/Arrow keys for movement
    - For mouse controls, specify click/drag actions
    - For touch controls, describe tap/swipe gestures
