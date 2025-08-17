@@ -6,18 +6,7 @@ import { Badge } from "@/components/ui/badge"
 import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
 import { Command as CommandPrimitive } from "cmdk"
 
-type Option = {
-  label: string
-  value: string
-}
-
-interface MultiSelectProps {
-  options: Option[]
-  selected: string[]
-  onChange: (values: string[]) => void
-  placeholder?: string
-  className?: string
-}
+import { Option, MultiSelectProps } from '@/types/ui'
 
 export function MultiSelect({
   options,

@@ -1,14 +1,7 @@
 import Link from "next/link"
 import { ChevronRight } from "lucide-react"
 
-interface BreadcrumbItem {
-  label: string
-  href: string
-}
-
-export interface BreadcrumbProps {
-  items: BreadcrumbItem[]
-}
+import { BreadcrumbItem, BreadcrumbProps } from '@/types/ui'
 
 export function Breadcrumb({ items }: BreadcrumbProps) {
   return (

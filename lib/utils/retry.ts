@@ -1,21 +1,6 @@
-interface RetryOptions {
-    maxRetries?: number
-    initialDelay?: number
-    maxDelay?: number
-    backoff?: 'exponential' | 'linear'
-    onRetry?: (error: any, attempt: number) => void | Promise<void>
-  }
-  
-  export class RetryError extends Error {
-    constructor(
-      message: string,
-      public readonly attempts: number,
-      public readonly lastError: Error
-    ) {
-      super(message)
-      this.name = 'RetryError'
-    }
-  }
+import { RetryOptions, RetryError } from '@/types/utils'
+
+export { RetryError }
   
   export async function retry<T>(
     operation: () => Promise<T>,

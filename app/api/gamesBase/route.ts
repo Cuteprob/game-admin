@@ -3,11 +3,9 @@ import { db } from '@/lib/db/tursoDb';
 import { gamesBase, gameCategories, categories } from '@/lib/db/schema';
 import { desc, eq, sql } from 'drizzle-orm';
 
-export interface GamesResponse {
-  data: any[]
-  total: number
-  message?: string
-}
+export const runtime = 'edge'
+
+import { GamesResponse } from '@/types/common'
 
 export async function GET(request: Request) {
   try {

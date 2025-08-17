@@ -3,6 +3,8 @@ import { db } from '@/lib/db/tursoDb'
 import { gamesBase, categories, projectGames } from '@/lib/db/schema'
 import { sql } from 'drizzle-orm'
 
+export const runtime = 'edge'
+
 export async function GET() {
   try {
     // Project Stats

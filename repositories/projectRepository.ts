@@ -2,43 +2,7 @@ import { db } from '@/lib/db/tursoDb'
 import { projects, projectGames, projectCategories, projectGameCategories } from '@/lib/db/schema'
 import { eq, inArray } from 'drizzle-orm'
 import { nanoid } from 'nanoid'
-
-export interface Project {
-  id: string
-  name: string
-  description: string | null
-  defaultLocale: string
-  locales: string[]
-  aiConfig: {
-    targetAudience: string
-    tone: string
-    defaultPrompts: {
-      title: string
-      description: string
-      features: string
-      faqs: string
-    }
-  }
-  createdAt: string
-  updatedAt: string
-}
-
-export interface CreateProjectData {
-  id: string
-  name: string
-  description?: string | null
-  defaultLocale: string
-  locales: string[]
-  aiConfig?: Project['aiConfig']
-}
-
-export interface UpdateProjectData {
-  name?: string
-  description?: string | null
-  defaultLocale?: string
-  locales?: string[]
-  aiConfig?: Project['aiConfig']
-}
+import { Project, CreateProjectData, UpdateProjectData } from '@/types/project'
 
 // 处理数据库记录到Project对象的转换
 function mapToProject(record: any): Project {

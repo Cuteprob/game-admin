@@ -17,6 +17,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { MultiCombobox } from "@/components/ui/multi-combobox"
+import { CategorySelector } from "./CategorySelector"
 
 // 支持的语言列表
 const SUPPORTED_LOCALES = [
@@ -41,7 +42,8 @@ const formSchema = z.object({
   }),
   locales: z.array(z.string()).min(1, {
     message: "Please select at least one language.",
-  })
+  }),
+  categories: z.array(z.string()).optional()
 })
 
 export function ProjectForm() {
@@ -55,21 +57,49 @@ export function ProjectForm() {
       name: "",
       description: "",
       defaultLocale: "",
-      locales: []
+      locales: [],
+      categories: []
     },
   })
 
   async function onSubmit(values: z.infer<typeof formSchema>) {
     setLoading(true)
     try {
-      const response = await fetch('/api/projects', {
+      // 创建项目
+      const projectResponse = await fetch('/api/projects', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify(values),
+        body: JSON.stringify({
+          id: values.id,
+          name: values.name,
+          description: values.description,
+          defaultLocale: values.defaultLocale,
+          locales: values.locales
+        }),
       })
 
-      if (!response.ok) {
+      if (!projectResponse.ok) {
         throw new Error('Failed to create project')
+      }
+
+      // 如果选择了种类，则添加项目种类
+      if (values.categories && values.categories.length > 0) {
+        const projectData = await projectResponse.json()
+        const projectId = projectData.data.id
+
+        // 批量添加项目种类
+        for (const categoryId of values.categories) {
+          await fetch(`/api/projects/${projectId}/categories`, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+              categoryId,
+              displayName: '', // 使用默认名称
+              description: '', // 使用默认描述
+              sortOrder: 0
+            }),
+          })
+        }
       }
 
       router.push('/projects')
@@ -194,6 +224,27 @@ export function ProjectForm() {
               </FormItem>
             )
           }}
+        />
+
+        <FormField
+          control={form.control}
+          name="categories"
+          render={({ field }) => (
+            <FormItem>
+              <FormLabel>Project Categories</FormLabel>
+              <FormControl>
+                <CategorySelector
+                  selectedCategories={field.value || []}
+                  onCategoriesChange={field.onChange}
+                  disabled={loading}
+                />
+              </FormControl>
+              <FormDescription>
+                Select the categories that best describe your project. You can select multiple categories.
+              </FormDescription>
+              <FormMessage />
+            </FormItem>
+          )}
         />
 
         <Button type="submit" disabled={loading}>

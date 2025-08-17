@@ -3,6 +3,8 @@ import { db } from "@/lib/db/tursoDb"
 import { projectGameCategories, projectCategories, projectGames } from "@/lib/db/schema"
 import { eq, and } from "drizzle-orm"
 
+export const runtime = 'edge'
+
 
 
 export async function POST(

@@ -4,63 +4,25 @@ import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
-import { Loader2, Pencil } from "lucide-react"
+import { Loader2, Pencil, Star } from "lucide-react"
 import { useRouter } from "next/navigation"
-import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { ScrollArea } from "@/components/ui/scroll-area"
+import { Switch } from "@/components/ui/switch"
 import { fetchJsonWithRetry } from '@/lib/utils/fetchWithRetry'
-
-interface Category {
-  id: string
-  name: string
-  description: string | null
-}
-
-interface ProjectCategory {
-  id: number
-  projectId: string
-  categoryId: string
-  displayName: string
-  description: string | null
-  sortOrder: number
-  isActive: number
-  category: Category
-}
-
-interface ProjectGame {
-  id: string
-  gameId: string
-  title: string
-  description: string
-  locale: string
-  isPublished: boolean
-  baseVersion: number
-  createdAt: string
-  updatedAt: string
-  effectiveCategories: ProjectCategory[]
-}
-
-interface ProjectGameListProps {
-  projectId: string
-  onDataChange?: () => void
-}
-
-interface PaginatedResponse<T> {
-  data: {
-    items: T[];
-    total: number;
-    page: number;
-    pageSize: number;
-  };
-  code: number;
-  message: string;
-}
-
-interface CategoryResponse {
-  data: ProjectCategory[];
-}
+import { 
+  ProjectCategory, 
+  CategoryResponse 
+} from '@/types/category'
+import { 
+  ProjectGame, 
+  ProjectGameListProps 
+} from '@/types/game'
+import { 
+  PaginatedResponse 
+} from '@/types/common'
 
 export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProps) {
   const router = useRouter()
@@ -72,6 +34,7 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
   const [selectedCategories, setSelectedCategories] = useState<string[]>([])
   const [loading, setLoading] = useState(false)
   const [loadingCategories, setLoadingCategories] = useState<{ [key: string]: boolean }>({})
+  const [settingMainGame, setSettingMainGame] = useState<string | null>(null)
   const [currentPage, setCurrentPage] = useState(1)
   const [totalItems, setTotalItems] = useState(0)
   const pageSize = 50
@@ -179,8 +142,8 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
       if (game) {
         // 使用 effectiveCategories 设置选中状态
         const currentCategories = game.effectiveCategories
-          .filter(cat => cat.isActive)
-          .map(cat => cat.categoryId)
+          ?.filter(cat => cat.isActive)
+          .map(cat => cat.categoryId) || []
         setSelectedCategories(currentCategories)
         // 保存初始状态用于比较
         setInitialCategories(currentCategories)
@@ -285,6 +248,57 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
     }
   }
 
+  // 设置/取消主游戏
+  const handleSetMainGame = async (gameId: string, isMain: boolean) => {
+    try {
+      setSettingMainGame(gameId)
+      
+      // 先获取当前游戏数据
+      const currentGame = games.find(g => g.gameId === gameId)
+      if (!currentGame) {
+        throw new Error('Game not found')
+      }
+
+      await fetchJsonWithRetry(
+        `/api/projects/${projectId}/games/${gameId}`,
+        {
+          method: 'PUT',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ 
+            title: currentGame.title,
+            metadata: currentGame.metadata,
+            content: currentGame.content,
+            isPublished: currentGame.isPublished,
+            isMain: isMain,
+            locale: currentGame.locale,
+            baseVersion: currentGame.baseVersion
+          })
+        }
+      )
+
+      // 更新本地状态
+      setGames(prevGames => 
+        prevGames.map(game => 
+          game.gameId === gameId 
+            ? { ...game, isMain }
+            : game
+        )
+      )
+
+      toast.success(isMain ? 'Game set as main' : 'Game removed from main')
+      
+      // 如果提供了 onDataChange 回调，调用它
+      if (onDataChange) {
+        onDataChange()
+      }
+    } catch (error) {
+      console.error('Failed to set main game:', error)
+      toast.error('Failed to set main game')
+    } finally {
+      setSettingMainGame(null)
+    }
+  }
+
   // 数组比较函数
   const areArraysEqual = (arr1: string[], arr2: string[]): boolean => {
     if (arr1.length !== arr2.length) return false
@@ -302,6 +316,7 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
               <th className="p-2 text-left">Language</th>
               <th className="p-2 text-left">Categories</th>
               <th className="p-2 text-left">Status</th>
+              <th className="p-2 text-left">Main Game</th>
               <th className="p-2 text-left">Version</th>
               <th className="p-2 text-left">Created At</th>
               <th className="p-2 text-left">Actions</th>
@@ -310,7 +325,7 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
           <tbody>
             {loading ? (
               <tr>
-                <td colSpan={8} className="p-4 text-center">
+                <td colSpan={9} className="p-4 text-center">
                   <div className="flex items-center justify-center">
                     <Loader2 className="h-6 w-6 animate-spin mr-2" />
                     Loading...
@@ -333,7 +348,7 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
                           </div>
                         ) : (
                           game.effectiveCategories
-                            .filter(cat => cat.isActive)
+                            ?.filter(cat => cat.isActive)
                             .map((category) => (
                               <Badge key={category.id} variant="secondary">
                                 {category.displayName || category.category.name}
@@ -372,6 +387,21 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
                             "Publish"
                           )}
                         </Button>
+                      )}
+                    </div>
+                  </td>
+                  <td className="p-2">
+                    <div className="flex items-center gap-2">
+                      {game.isMain && (
+                        <Star className="h-4 w-4 text-yellow-500 fill-current" />
+                      )}
+                      <Switch
+                        checked={game.isMain}
+                        onCheckedChange={(checked) => handleSetMainGame(game.gameId, checked)}
+                        disabled={settingMainGame === game.gameId}
+                      />
+                      {settingMainGame === game.gameId && (
+                        <Loader2 className="h-4 w-4 animate-spin" />
                       )}
                     </div>
                   </td>

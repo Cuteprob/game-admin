@@ -12,18 +12,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { cn } from "@/lib/utils"
 
-export type Option = {
-  value: string
-  label: string
-}
-
-interface MultiComboboxProps {
-  options: Option[]
-  selected: string[]
-  onChange: (values: string[]) => void
-  placeholder?: string
-  freeform?: boolean
-}
+import { Option, MultiComboboxProps } from '@/types/ui'
 
 export function MultiCombobox({
   options,

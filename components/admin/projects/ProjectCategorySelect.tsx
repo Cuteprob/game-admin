@@ -6,30 +6,7 @@ import { Loader2 } from "lucide-react"
 import { Label } from "@/components/ui/label"
 import { Checkbox } from "@/components/ui/checkbox"
 import { Button } from "@/components/ui/button"
-
-interface Category {
-  id: string
-  name: string
-  description: string | null
-}
-
-interface ProjectCategory {
-  id: number
-  projectId: string
-  categoryId: string
-  displayName: string
-  description: string | null
-  sortOrder: number
-  isActive: boolean
-  category: Category
-  createdAt: string
-  updatedAt: string
-}
-
-interface ProjectCategorySelectProps {
-  projectId: string
-  onSave?: () => void
-}
+import { Category, ProjectCategory, ProjectCategorySelectProps } from '@/types/category'
 
 export function ProjectCategorySelect({ projectId, onSave }: ProjectCategorySelectProps) {
   const [categories, setCategories] = useState<Category[]>([])

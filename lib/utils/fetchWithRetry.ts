@@ -1,9 +1,6 @@
-import { retry, RetryError } from './retry'
+import { retry } from './retry'
 import { toast } from 'sonner'
-
-interface FetchOptions extends RequestInit {
-  timeout?: number
-}
+import { FetchOptions } from '@/types/utils'
 
 export async function fetchWithRetry(
   url: string,

@@ -1,5 +1,7 @@
 "use client"
 
+export const runtime = 'edge'
+
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { PageHeader } from "@/components/admin/shared/PageHeader"
@@ -12,21 +14,11 @@ import { toast, Toaster } from "sonner"
 
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { GameCategoryDisplay } from "@/components/admin/games/GameCategoryDisplay"
-interface ProjectGame {
-  id: string
-  gameId: string
-  title: string
-  description: string
-  locale: string
-  metadata: any
-  features: any
-  faqs: any
-  isPublished: boolean
-  baseVersion: number
-  createdAt: string
-  updatedAt: string
-}
+import { ContentPreview } from "@/components/admin/shared/ContentPreview"
+import { ProjectGame } from "@/types/game"
+import { Project } from "@/types/project"
 
+// Local interface for this page
 interface Game {
   id: string
   title: string
@@ -34,22 +26,7 @@ interface Game {
   metadata: any
   features: any
   faqs: any
-}
-
-interface Project {
-  id: string
-  title: string
-  description: string
-  aiConfig: {
-    targetAudience: string
-    tone: string
-    defaultPrompts: {
-      title: string
-      description: string
-      features: string
-      faqs: string
-    }
-  }
+  content?: string
 }
 
 // 格式化JSON显示
@@ -309,13 +286,13 @@ export default function EditGamePage({
             faqs: originalGame.faqs
           },
           aiConfig: {
-            tone: project.aiConfig.tone,
-            targetAudience: project.aiConfig.targetAudience,
+            tone: project.aiConfig?.tone || 'professional',
+            targetAudience: project.aiConfig?.targetAudience || 'general',
             prompts: {
-              title: project.aiConfig.defaultPrompts.title,
-              description: project.aiConfig.defaultPrompts.description,
-              features: project.aiConfig.defaultPrompts.features,
-              faqs: project.aiConfig.defaultPrompts.faqs
+              title: project.aiConfig?.defaultPrompts?.title || '',
+              description: project.aiConfig?.defaultPrompts?.description || '',
+              features: project.aiConfig?.defaultPrompts?.features || '',
+              faqs: project.aiConfig?.defaultPrompts?.faqs || ''
             }
           }
         })
@@ -415,6 +392,13 @@ export default function EditGamePage({
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium">FAQs</h4>
                   <JsonDisplay data={originalGame.faqs} />
+                </div>
+
+                <div className="space-y-2">
+                  <h4 className="text-sm font-medium">Content</h4>
+                  <div className="p-2 rounded bg-muted break-words whitespace-pre-wrap">
+                    {originalGame.content || 'No content available'}
+                  </div>
                 </div>
               </div>
             </Card>
@@ -521,6 +505,16 @@ export default function EditGamePage({
                     rows={70}
                   />
                 </div>
+
+                <ContentPreview
+                  content={editedContent.content || ''}
+                  onChange={(content) => setEditedContent({
+                    ...editedContent,
+                    content
+                  })}
+                  title="Content (Markdown)"
+                  placeholder="Enter markdown content for the game..."
+                />
               </div>
             </Card>
           </div>

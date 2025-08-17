@@ -7,12 +7,7 @@ import { Plus } from "lucide-react"
 import { CategoryList } from "@/components/admin/categories/CategoryList"
 import { toast } from "sonner"
 import { CategoryDialog } from "@/components/admin/categories/CategoryDialog"
-interface Category {
-  id: string
-  name: string
-  description: string | null
-  createdAt: string
-}
+import { Category } from "@/types/category"
 
 export default function CategoriesPage() {
   const [categories, setCategories] = useState<Category[]>([])

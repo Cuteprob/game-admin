@@ -5,44 +5,13 @@ import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card"
-import { type GameBase } from "@/lib/db/schema"
 import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import { MultiCombobox } from "@/components/ui/multi-combobox"
+import { ContentPreview } from "@/components/admin/shared/ContentPreview"
+import { GameFormComponentProps, GameFormDataComplete } from "@/types/game"
 
-interface GameFormProps {
-  game?: Partial<GameBase> & {
-    categories?: string[]
-  }
-  onSubmit?: (data: Partial<GameBase> & {
-    categories: string[]
-  }) => Promise<void>
-}
-
-interface FormData {
-  id: string
-  title: string
-  description: string
-  iframeUrl: string
-  imageUrl: string
-  rating: number
-  categories: string[]
-  metadata: string
-  controls: string
-  features: string
-  faqs: string
-  video: string
-  createdAt: string
-}
-
-function isValidJSON(str: string) {
-  try {
-    JSON.parse(str)
-    return true
-  } catch (e) {
-    return false
-  }
-}
+type GameFormProps = GameFormComponentProps
 
 export function GameForm({ game, onSubmit }: GameFormProps) {
   const router = useRouter()
@@ -50,10 +19,9 @@ export function GameForm({ game, onSubmit }: GameFormProps) {
   const [errors, setErrors] = useState<Record<string, string>>({})
   const [categories, setCategories] = useState<Array<{ id: string; name: string }>>([])
   
-  const [formData, setFormData] = useState<FormData>({
+  const [formData, setFormData] = useState<GameFormDataComplete>({
     id: game?.id || '',
     title: game?.title || '',
-    description: game?.description || '',
     iframeUrl: game?.iframeUrl || '',
     imageUrl: game?.imageUrl || '',
     rating: game?.rating || 0,
@@ -63,18 +31,12 @@ export function GameForm({ game, onSubmit }: GameFormProps) {
       description: "",
       keywords: []
     }, null, 2),
-    controls: game?.controls || JSON.stringify({
-      movement: [],
-      actions: [],
-      special: []
-    }, null, 2),
-    features: game?.features || '[]',
-    faqs: game?.faqs || '[]',
     video: game?.video || JSON.stringify({
       youtubeId: "",
       title: "",
       thumbnail: ""
     }, null, 2),
+    content: game?.content || '',
     createdAt: game?.createdAt || new Date().toISOString()
   })
 
@@ -100,14 +62,16 @@ export function GameForm({ game, onSubmit }: GameFormProps) {
         ...game,
         rating: game.rating || 0,
         categories: game.categories || [],
-        video: game.video || prevData.video
+        metadata: game.metadata || prevData.metadata,
+        video: game.video || prevData.video,
+        content: game.content || prevData.content
       }))
     }
   }, [game])
 
-  const formatJSON = (field: 'metadata' | 'controls' | 'features' | 'faqs' | 'video') => {
+  const formatJSON = (field: 'metadata' | 'video') => {
     try {
-      const formatted = JSON.stringify(JSON.parse(formData[field]), null, 2)
+      const formatted = JSON.stringify(JSON.parse(formData[field] || '{}'), null, 2)
       setFormData({ ...formData, [field]: formatted })
       setErrors({ ...errors, [field]: '' })
     } catch (e) {
@@ -174,23 +138,11 @@ export function GameForm({ game, onSubmit }: GameFormProps) {
               <Label htmlFor="title" className="text-sm font-medium">Title</Label>
               <Input
                 id="title"
-                placeholder="e.g., Sprunki Phase 1"
+                placeholder="Enter game title..."
                 value={formData.title}
                 onChange={(e) => setFormData({ ...formData, title: e.target.value })}
                 required
                 className="bg-background/50"
-              />
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="description" className="text-sm font-medium">Description</Label>
-              <Textarea
-                id="description"
-                placeholder="Describe your game..."
-                value={formData.description}
-                onChange={(e) => setFormData({ ...formData, description: e.target.value })}
-                required
-                className="min-h-[120px] bg-background/50 resize-none"
               />
             </div>
 
@@ -295,71 +247,25 @@ export function GameForm({ game, onSubmit }: GameFormProps) {
             </div>
 
             <div className="grid gap-2">
-              <Label htmlFor="controls" className="text-sm font-medium">Controls (JSON)</Label>
+              <Label htmlFor="video" className="text-sm font-medium">Video Configuration (JSON)</Label>
               <Textarea
-                id="controls"
-                value={formData.controls}
-                onChange={(e) => setFormData({ ...formData, controls: e.target.value })}
-                onBlur={() => formatJSON('controls')}
-                className="font-mono text-sm min-h-[200px] bg-background/50"
-              />
-              {errors.controls && (
-                <p className="text-sm text-destructive">{errors.controls}</p>
-              )}
-            </div>
-
-            <div className="grid gap-2">
-              <Label htmlFor="features" className="text-sm font-medium">Features (JSON)</Label>
-              <Textarea
-                id="features"
-                value={formData.features}
-                onChange={(e) => setFormData({ ...formData, features: e.target.value })}
-                onBlur={() => formatJSON('features')}
+                id="video"
+                value={formData.video}
+                onChange={(e) => setFormData({ ...formData, video: e.target.value })}
+                onBlur={() => formatJSON('video')}
                 className="font-mono text-sm min-h-[150px] bg-background/50"
               />
-              {errors.features && (
-                <p className="text-sm text-destructive">{errors.features}</p>
+              {errors.video && (
+                <p className="text-sm text-destructive">{errors.video}</p>
               )}
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="faqs" className="text-sm font-medium">FAQs (JSON)</Label>
-              <Textarea
-                id="faqs"
-                value={formData.faqs}
-                onChange={(e) => setFormData({ ...formData, faqs: e.target.value })}
-                onBlur={() => formatJSON('faqs')}
-                className="font-mono text-sm min-h-[150px] bg-background/50"
-              />
-              {errors.faqs && (
-                <p className="text-sm text-destructive">{errors.faqs}</p>
-              )}
-            </div>
-          </div>
-        </CardContent>
-      </Card>
-
-      {/* Video Settings */}
-      <Card className="border-border/40 shadow-sm">
-        <CardHeader className="space-y-1">
-          <CardTitle className="text-xl font-semibold">Video Settings</CardTitle>
-          <CardDescription className="text-sm text-muted-foreground">
-            Configure video information for the game
-          </CardDescription>
-        </CardHeader>
-        <CardContent className="space-y-6 pt-4">
-          <div className="grid gap-2">
-            <Label htmlFor="video" className="text-sm font-medium">Video Configuration (JSON)</Label>
-            <Textarea
-              id="video"
-              value={formData.video}
-              onChange={(e) => setFormData({ ...formData, video: e.target.value })}
-              onBlur={() => formatJSON('video')}
-              className="font-mono text-sm min-h-[150px] bg-background/50"
+            <ContentPreview
+              content={formData.content}
+              onChange={(content) => setFormData({ ...formData, content })}
+              title="Content (Markdown)"
+              placeholder="Enter markdown content for the game..."
             />
-            {errors.video && (
-              <p className="text-sm text-destructive">{errors.video}</p>
-            )}
           </div>
         </CardContent>
       </Card>

@@ -16,20 +16,22 @@ async function importGames() {
       description: `${name} collection`,
     }));
 
-    const gameValues = games.map(game => ({
-      id: game.id,
-      title: game.title,
-      description: game.description,
-      iframeUrl: game.iframeUrl,
-      imageUrl: game.image,
-      rating: game.rating,
-      createdAt: game.createdAt,
-      metadata: JSON.stringify(game.metadata),
-      controls: JSON.stringify(game.controls),
-      features: JSON.stringify(game.features),
-      faqs: JSON.stringify(game.faqs),
-      video: game.video ? JSON.stringify(game.video) : null,
-    }));
+    const gameValues = games.map(game => {
+      const gameData = {
+        id: game.id,
+        title: game.title,
+        iframeUrl: game.iframeUrl,
+        imageUrl: game.image, // 使用image字段而不是imageUrl
+        rating: game.rating || 0,
+        createdAt: game.createdAt || new Date().toISOString(),
+        metadata: JSON.stringify(game.metadata),
+        video: game.video ? JSON.stringify(game.video) : null,
+        content: game.content || '',
+        version: 1, // 使用默认版本号
+        updatedAt: new Date().toISOString()
+      };
+      return gameData;
+    });
 
     const categoryRelations = games.flatMap(game => 
       game.categories.map(category => ({

@@ -1,24 +1,13 @@
 "use client"
 
+export const runtime = 'edge'
+
 import { useEffect, useState } from "react"
 import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { GameForm } from "@/components/admin/games/GameForm"
 import { Card } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
-import { type GameBase } from "@/lib/db/schema"
-interface GameWithCategories extends Omit<GameBase, 'categories'> {
-  categories: Array<{
-    categoryId: string
-    category: {
-      id: string
-      name: string
-    }
-  }>
-}
-
-interface GameFormData extends Partial<GameBase> {
-  categories: string[]
-}
+import { GameWithCategories, GameFormDataWithCategories } from "@/types/game"
 
 export default function EditGamePage({ params }: { params: { id: string } }) {
   const router = useRouter()
@@ -49,7 +38,7 @@ export default function EditGamePage({ params }: { params: { id: string } }) {
     fetchGame()
   }, [params.id])
 
-  const handleSubmit = async (data: GameFormData) => {
+  const handleSubmit = async (data: GameFormDataWithCategories) => {
     try {
       const response = await fetch(`/api/gamesBase/${params.id}`, {
         method: 'PUT',
@@ -76,7 +65,7 @@ export default function EditGamePage({ params }: { params: { id: string } }) {
   }
 
   // 准备传递给表单的游戏数据，包括正确格式的分类ID列表
-  const formGame: GameFormData = {
+  const formGame: GameFormDataWithCategories = {
     ...game,
     categories: game.categories.map(c => c.categoryId)
   }

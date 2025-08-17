@@ -1,40 +1,17 @@
 "use client"
 
-import { useState, useEffect } from "react"
+import { useState, useEffect, useCallback } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
-
-interface Category {
-  id: string
-  name: string
-  description: string | null
-}
-
-interface GameCategory {
-  id: number
-  gameId: string
-  categoryId: string
-  displayName: string
-  description: string | null
-  sortOrder: number
-  isActive: boolean
-  category: Category
-  createdAt: string
-  updatedAt: string
-}
-
-interface GameCategoryDisplayProps {
-  gameId: string
-  projectId: string
-}
+import { GameCategory, GameCategoryDisplayProps } from "@/types/category"
 
 export function GameCategoryDisplay({ gameId, projectId }: GameCategoryDisplayProps) {
   const [categories, setCategories] = useState<GameCategory[]>([])
   const [loading, setLoading] = useState(true)
 
   // 获取游戏分类列表
-  const fetchCategories = async () => {
+  const fetchCategories = useCallback(async () => {
     try {
       const response = await fetch(`/api/projects/${projectId}/games/${gameId}/categories`)
       const data = await response.json()
@@ -49,11 +26,11 @@ export function GameCategoryDisplay({ gameId, projectId }: GameCategoryDisplayPr
     } finally {
       setLoading(false)
     }
-  }
+  }, [gameId, projectId])
 
   useEffect(() => {
     fetchCategories()
-  }, [gameId, projectId])
+  }, [gameId, projectId, fetchCategories])
 
   if (loading) {
     return <div className="flex items-center justify-center p-4">

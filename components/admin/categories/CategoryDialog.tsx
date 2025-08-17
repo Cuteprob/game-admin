@@ -22,25 +22,13 @@ import {
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Loader2 } from "lucide-react"
-
-interface Category {
-  id: string
-  name: string
-  description: string | null
-  createdAt: string
-}
+import { Category, CategoryDialogProps } from '@/types/category'
 
 const formSchema = z.object({
+  id: z.string().min(1, "ID is required").regex(/^[a-zA-Z0-9_-]+$/, "ID can only contain letters, numbers, underscores, and hyphens"),
   name: z.string().min(1, "Name is required"),
   description: z.string().optional(),
 })
-
-interface CategoryDialogProps {
-  open: boolean
-  onOpenChange: (open: boolean) => void
-  category: Category | null
-  onSave: (data: Partial<Category>) => Promise<void>
-}
 
 export function CategoryDialog({
   open,
@@ -53,6 +41,7 @@ export function CategoryDialog({
   const form = useForm<z.infer<typeof formSchema>>({
     resolver: zodResolver(formSchema),
     defaultValues: {
+      id: "",
       name: "",
       description: "",
     },
@@ -61,11 +50,13 @@ export function CategoryDialog({
   useEffect(() => {
     if (category) {
       form.reset({
+        id: category.id,
         name: category.name,
         description: category.description || "",
       })
     } else {
       form.reset({
+        id: "",
         name: "",
         description: "",
       })
@@ -98,6 +89,23 @@ export function CategoryDialog({
         </DialogHeader>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-4">
+            <FormField
+              control={form.control}
+              name="id"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>ID</FormLabel>
+                  <FormControl>
+                    <Input 
+                      placeholder="Enter category ID (e.g., MUSIC, HOT, NEW)" 
+                      {...field} 
+                      disabled={!!category} // 编辑时不允许修改ID
+                    />
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="name"

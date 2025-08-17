@@ -3,44 +3,9 @@ import { db } from '@/lib/db/tursoDb'
 import { gamesBase, gameCategories, categories } from '@/lib/db/schema'
 import { nanoid } from 'nanoid'
 import { eq, and } from 'drizzle-orm'
+import { ImportGameData } from '@/types/game'
 
-
-interface ImportGameData {
-  id?: string
-  title: string
-  description: string
-  iframeUrl: string
-  imageUrl: string
-  image?: string
-  rating?: number
-  categories: string[]
-  metadata: {
-    title: string
-    description: string
-    keywords: string[]
-  }
-  controls: {
-    fullscreenTip: string
-    guide: {
-      movement: string[]
-      actions: string[]
-      special?: string[]
-    }
-  }
-  features: string[]
-  faqs: {
-    question: string
-    answer: string
-    category: 'gameplay' | 'technical' | 'features' | 'general' | 'tips' | 'audio'
-  }[]
-  video?: {
-    youtubeId: string
-    clipId?: string
-    clipTime?: string
-    title: string
-    thumbnail: string
-  }
-}
+export const runtime = 'edge'
 
 export async function POST(request: Request) {
   try {
@@ -81,6 +46,9 @@ export async function POST(request: Request) {
         // 处理图片URL
         const imageUrl = gameData.imageUrl || gameData.image || ''
         
+        // 处理内容字段
+        const contentToStore = gameData.content
+        
         // 检查游戏是否已存在
         const existingGame = await tx
           .select()
@@ -95,14 +63,11 @@ export async function POST(request: Request) {
             .update(gamesBase)
             .set({
               title: gameData.title,
-              description: gameData.description,
               iframeUrl: gameData.iframeUrl,
               imageUrl,
               rating: gameData.rating || 0,
+              content: contentToStore,
               metadata: JSON.stringify(gameData.metadata),
-              controls: JSON.stringify(gameData.controls),
-              features: JSON.stringify(gameData.features),
-              faqs: JSON.stringify(gameData.faqs),
               video: gameData.video ? JSON.stringify(gameData.video) : null,
               updatedAt: new Date().toISOString(),
             })
@@ -120,14 +85,11 @@ export async function POST(request: Request) {
             .values({
               id,
               title: gameData.title,
-              description: gameData.description,
               iframeUrl: gameData.iframeUrl,
               imageUrl,
               rating: gameData.rating || 0,
               metadata: JSON.stringify(gameData.metadata),
-              controls: JSON.stringify(gameData.controls),
-              features: JSON.stringify(gameData.features),
-              faqs: JSON.stringify(gameData.faqs),
+              content: contentToStore,
               video: gameData.video ? JSON.stringify(gameData.video) : null,
               createdAt: new Date().toISOString(),
             })

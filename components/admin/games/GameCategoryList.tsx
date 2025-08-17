@@ -24,30 +24,7 @@ import {
 } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
 import { Textarea } from "@/components/ui/textarea"
-
-interface Category {
-  id: string
-  name: string
-  description: string | null
-}
-
-interface GameCategory {
-  id: number
-  gameId: string
-  categoryId: string
-  displayName: string
-  description: string | null
-  sortOrder: number
-  isActive: boolean
-  category: Category
-  createdAt: string
-  updatedAt: string
-}
-
-interface GameCategoryListProps {
-  gameId: string
-  projectId: string
-}
+import { Category, GameCategory, GameCategoryListProps } from "@/types/category"
 
 export function GameCategoryList({ gameId, projectId }: GameCategoryListProps) {
   const [categories, setCategories] = useState<GameCategory[]>([])
@@ -290,7 +267,7 @@ export function GameCategoryList({ gameId, projectId }: GameCategoryListProps) {
                 <TableCell>
                   <div className="flex items-center gap-2">
                     <Switch
-                      checked={category.isActive}
+                      checked={Boolean(category.isActive)}
                       onCheckedChange={() => handleToggleActive(category)}
                       disabled={updating === category.id}
                     />

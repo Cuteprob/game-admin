@@ -3,22 +3,7 @@
 import { useState } from "react"
 import { cn } from "@/lib/utils"
 
-export interface RatingProps {
-  initialRating?: number;
-  totalVotes?: number;
-  onRate?: (rating: number) => void;
-  className?: string;
-  size?: "sm" | "md" | "lg";
-  isReadOnly?: boolean;
-  showReviewSystem?: boolean;
-}
-
-interface ReviewFormData {
-  name: string;
-  email: string;
-  comment: string;
-  rating: number;
-}
+import { RatingProps, ReviewFormData } from '@/types/ui'
 
 export function Rating({ 
   initialRating = 4.8, 

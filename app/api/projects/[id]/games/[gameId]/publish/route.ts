@@ -5,6 +5,8 @@ import { cookies } from "next/headers"
 import { jwtVerify } from "jose"
 import { and, eq } from "drizzle-orm"
 
+export const runtime = 'edge'
+
 const JWT_SECRET = "VY+Qz3Qj5YFxT9Qq3Z8Ns4K2Jm6Rh8Pw7Dt5Xc9Gn1Bv4Lm2"
 
 export async function POST(

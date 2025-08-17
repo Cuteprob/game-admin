@@ -3,6 +3,16 @@ import { eq, and } from 'drizzle-orm';
 import { projectGames } from '@/lib/db/schema';
 import type { Game, GameCategory } from '@/config/sprunkigame';
 
+// 安全的JSON解析函数
+const safeJsonParse = (str: string | null): any => {
+  if (!str) return {};
+  try {
+    return JSON.parse(str);
+  } catch {
+    return {};
+  }
+};
+
 // 获取项目中特定分类的游戏
 export const getProjectGamesByCategory = async (
   categoryName: GameCategory
@@ -40,17 +50,23 @@ export const getProjectGamesByCategory = async (
     .map(result => ({
       id: result.gameId,
       title: result.title,
-      description: result.description,
+      description: '', // 默认空字符串，因为description字段已被移除
       iframeUrl: result.game!.iframeUrl,
       image: result.game!.imageUrl,
       rating: result.game!.rating ?? 0,
       createdAt: result.game!.createdAt,
       categories: result.game!.categories.map(c => c.category.name as GameCategory),
-      metadata: JSON.parse(result.metadata),
-      features: JSON.parse(result.features),
-      faqs: JSON.parse(result.faqs),
-      controls: JSON.parse(result.metadata).controls,
-      video: result.game!.video ? JSON.parse(result.game!.video) : undefined
+      metadata: safeJsonParse(result.metadata),
+      features: [], // 默认空数组，因为features字段已被移除
+      faqs: [], // 默认空数组，因为faqs字段已被移除
+      controls: {
+        fullscreenTip: '',
+        guide: {
+          movement: [],
+          actions: []
+        }
+      }, // 默认controls对象，因为controls字段已被移除
+      video: result.game!.video ? safeJsonParse(result.game!.video) : undefined
     }));
 };
 
@@ -65,17 +81,14 @@ export const getProjectGamesByCategory = async (
       columns: {
         gameId: true,
         title: true,
-        description: true,
         metadata: true,
-        features: true,
-        faqs: true,
+        content: true,
       },
       with: {
         game: {
           columns: {
             iframeUrl: true,
             imageUrl: true,
-            controls: true,
             rating: true,
             video: true,
             createdAt: true,
@@ -93,21 +106,27 @@ export const getProjectGamesByCategory = async (
   
     if (!result || !result.game) return null;
 
-
     return {
       id: result.gameId,
       title: result.title,
-      description: result.description,
+      description: '', // 默认空字符串，因为description字段已被移除
       iframeUrl: result.game.iframeUrl,
       image: result.game.imageUrl,
       rating: result.game.rating ?? 0,
       createdAt: result.game.createdAt,
       categories: result.game.categories.map(c => c.category.name as GameCategory),
-      metadata: JSON.parse(result.metadata),
-      features: JSON.parse(result.features),
-      faqs: JSON.parse(result.faqs),
-      controls: JSON.parse(result.game.controls),
-      video: result.game.video ? JSON.parse(result.game.video) : undefined
+      metadata: safeJsonParse(result.metadata),
+      features: [], // 默认空数组，因为features字段已被移除
+      faqs: [], // 默认空数组，因为faqs字段已被移除
+      content: result.content || '',
+      controls: {
+        fullscreenTip: '',
+        guide: {
+          movement: [],
+          actions: []
+        }
+      }, // 默认controls对象，因为controls字段已被移除
+      video: result.game.video ? safeJsonParse(result.game.video) : undefined
     };
   };
 
@@ -142,17 +161,22 @@ export const getProjectGamesByCategory = async (
     return results.map(result => ({
       id: result.gameId,
       title: result.title,
-      description: result.description,
+      description: '', // 默认空字符串，因为description字段已被移除
       iframeUrl: result.game!.iframeUrl,
       image: result.game!.imageUrl,
       rating: result.game!.rating ?? 0,
       createdAt: result.game!.createdAt,
       categories: result.game!.categories.map(c => c.category.name as GameCategory),
-      metadata: JSON.parse(result.metadata),
-      features: JSON.parse(result.features),
-      faqs: JSON.parse(result.faqs),
-      controls: JSON.parse(result.metadata).controls,
-      video: result.game!.video ? JSON.parse(result.game!.video) : undefined
+      metadata: safeJsonParse(result.metadata),
+      features: [], // 默认空数组，因为features字段已被移除
+      faqs: [], // 默认空数组，因为faqs字段已被移除
+      controls: {
+        fullscreenTip: '',
+        guide: {
+          movement: [],
+          actions: []
+        }
+      }, // 默认controls对象，因为controls字段已被移除
+      video: result.game!.video ? safeJsonParse(result.game!.video) : undefined
     }));
   };
-  

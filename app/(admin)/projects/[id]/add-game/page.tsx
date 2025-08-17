@@ -1,16 +1,12 @@
 "use client"
 
+export const runtime = 'edge'
+
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { AddGameForm } from "@/components/admin/projects/AddGameForm"
-interface Project {
-  id: string
-  name: string
-  description: string | null
-  defaultLocale: string
-  locales: string[]
-}
+import { Project } from "@/types/project"
 
 export default function AddGamePage({ params }: { params: { id: string } }) {
   const router = useRouter()

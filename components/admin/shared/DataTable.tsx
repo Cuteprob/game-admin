@@ -14,16 +14,16 @@ import {
   getCoreRowModel,
   useReactTable,
 } from "@tanstack/react-table"
+import { DataTableProps } from "@/types/repository"
 
-interface DataTableProps<TData, TValue> {
+interface LocalDataTableProps<TData, TValue> extends Omit<DataTableProps<TData, TValue>, 'columns'> {
   columns: ColumnDef<TData, TValue>[]
-  data: TData[]
 }
 
 export function DataTable<TData, TValue>({
   columns,
   data,
-}: DataTableProps<TData, TValue>) {
+}: LocalDataTableProps<TData, TValue>) {
   const table = useReactTable({
     data,
     columns,

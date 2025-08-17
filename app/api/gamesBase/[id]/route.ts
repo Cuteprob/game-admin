@@ -4,9 +4,9 @@ import { db } from '@/lib/db/tursoDb';
 import { projectGames } from '@/lib/db/schema';
 import { eq } from 'drizzle-orm';
 
-interface RouteParams {
-  params: { id: string }
-}
+export const runtime = 'edge'
+
+import { RouteParams } from '@/types/common'
 
 export async function GET(request: Request, { params }: RouteParams) {
   try {

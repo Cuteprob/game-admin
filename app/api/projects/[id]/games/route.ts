@@ -1,17 +1,15 @@
 import { NextResponse } from "next/server"
 import { db } from "@/lib/db/tursoDb"
-import { eq, desc, sql, and } from "drizzle-orm"
+import { eq, desc, sql } from "drizzle-orm"
 import { 
   projectGames as projectGamesTable, 
-  type ProjectGame, 
   type GameBase, 
   type NewProjectGame,
   gamesBase,
-  gameCategories,
-  categories,
-  projectCategories,
-  projectGameCategories
+  projectCategories
 } from "@/lib/db/schema"
+
+export const runtime = 'edge'
 
 
 
@@ -131,7 +129,7 @@ export async function POST(
 ) {
   try {
     const body = await request.json()
-    const { gameId, locale, title, description } = body
+    const { gameId, locale, title } = body
 
     // 检查游戏是否已经在项目中
     const existingGame = await db.query.projectGames.findFirst({
@@ -167,11 +165,8 @@ export async function POST(
       gameId,
       locale,
       title,
-      description,
       metadata: baseGame.metadata,
-      controls: baseGame.controls,
-      features: baseGame.features,
-      faqs: baseGame.faqs,
+      content: baseGame.content,
       baseVersion: baseGame.version ?? 1,
       isPublished: 0
     }

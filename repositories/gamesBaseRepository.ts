@@ -1,21 +1,10 @@
 import { db } from '@/lib/db/tursoDb';
-import { eq, and, or, like, desc, sql, inArray } from 'drizzle-orm';
+import { eq, or, like, desc, sql, inArray } from 'drizzle-orm';
 import { 
   gamesBase, 
   gameCategories,
-  type GameBase,
-  type NewGameBase
 } from '@/lib/db/schema';
-
-interface GetGamesOptions {
-  page?: number;
-  limit?: number;
-  categoryId?: string;
-}
-
-interface CreateGameInput extends NewGameBase {
-  categories?: string[];  // 分类ID数组
-}
+import { GetGamesOptions, CreateGameInput } from "@/types/repository"
 
 export const gamesBaseRepository = {
   // 获取游戏列表
@@ -160,8 +149,7 @@ export const gamesBaseRepository = {
       limit,
       offset: (page - 1) * limit,
       where: or(
-        like(gamesBase.title, `%${query}%`),
-        like(gamesBase.description, `%${query}%`)
+        like(gamesBase.title, `%${query}%`)
       ),
       with: {
         categories: {

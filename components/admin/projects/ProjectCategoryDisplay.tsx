@@ -4,29 +4,7 @@ import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Loader2 } from "lucide-react"
 import { toast } from "sonner"
-
-interface Category {
-  id: string
-  name: string
-  description: string | null
-}
-
-interface ProjectCategory {
-  id: number
-  projectId: string
-  categoryId: string
-  displayName: string
-  description: string | null
-  sortOrder: number
-  isActive: boolean
-  category: Category
-  createdAt: string
-  updatedAt: string
-}
-
-interface ProjectCategoryDisplayProps {
-  projectId: string
-}
+import { ProjectCategory, ProjectCategoryDisplayProps } from "@/types/category"
 
 export function ProjectCategoryDisplay({ projectId }: ProjectCategoryDisplayProps) {
   const [categories, setCategories] = useState<ProjectCategory[]>([])

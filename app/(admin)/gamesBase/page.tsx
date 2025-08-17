@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button"
 import { GameList } from "@/components/admin/games/GameList"
 import { Plus, Upload } from "lucide-react"
 import { useEffect, useState } from "react"
-import { GamesResponse } from "@/app/api/gamesBase/route"
+import { GamesResponse } from "@/types/common"
 
 export default function GamesBasePage() {
   const router = useRouter()

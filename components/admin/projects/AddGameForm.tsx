@@ -16,15 +16,8 @@ import {
 import { toast } from "sonner"
 import { GameSelect } from "@/components/admin/games/GameSelect"
 import { Card } from "@/components/ui/card"
-import { Game } from "@/repositories/gameRepository"
-
-interface Project {
-  id: string
-  name: string
-  description: string | null
-  defaultLocale: string
-  locales: string[]
-}
+import { Game } from '@/config/sprunkigame';
+import { Project, AddGameFormProps } from '@/types/project'
 
 const formSchema = z.object({
   locale: z.string({
@@ -32,11 +25,6 @@ const formSchema = z.object({
   }),
   gameIds: z.array(z.string()).min(1, "Please select at least one game"),
 })
-
-interface AddGameFormProps {
-  project: Project
-  onSuccess: () => void
-}
 
 export function AddGameForm({ project, onSuccess }: AddGameFormProps) {
   const [loading, setLoading] = useState(false)
@@ -70,7 +58,7 @@ export function AddGameForm({ project, onSuccess }: AddGameFormProps) {
         faqs: game.faqs,
         controls: game.controls,
         iframeUrl: game.iframeUrl,
-        imageUrl: game.imageUrl,
+        imageUrl: game.image,
         createdAt: game.createdAt,
         rating: game.rating
       }))

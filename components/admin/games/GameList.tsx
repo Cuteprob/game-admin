@@ -2,15 +2,14 @@
 
 import { DataTable } from "@/components/admin/shared/DataTable"
 import { type ColumnDef } from "@tanstack/react-table"
-import { GameBase } from "@/lib/db/schema"
 import { Button } from "@/components/ui/button"
 import Link from "next/link"
-import Image from "next/image"
+// Removed Next.js Image import - using regular img tag for Cloudflare Pages
 import { Input } from "@/components/ui/input"
 import { useEffect, useState } from "react"
-import { Badge } from "@/components/ui/badge"
 import { StarIcon, ExternalLinkIcon, Loader2 } from "lucide-react"
 import { toast } from "sonner"
+import { GameWithCategories, GameListComponentProps } from "@/types/game"
 
 // 添加重试工具函数
 async function fetchWithRetry<T>(
@@ -100,19 +99,7 @@ async function fetchWithRetry<T>(
   }
 }
 
-interface GameWithCategories extends GameBase {
-  categories: Array<{
-    categoryId: string
-    category: {
-      id: string
-      name: string
-    }
-  }>
-}
-
-interface GameListProps {
-  onDataChange?: (total: number) => void
-}
+type GameListProps = GameListComponentProps
 
 export function GameList({ onDataChange }: GameListProps) {
   const [games, setGames] = useState<GameWithCategories[]>([])
@@ -153,14 +140,17 @@ export function GameList({ onDataChange }: GameListProps) {
       cell: ({ row }) => {
         return (
           <div className="relative w-20 h-20 shrink-0 overflow-hidden">
-            <Image
+            <img
               src={row.original.imageUrl}
               alt={row.original.title}
-              width={80}
-              height={80}
-              className="object-cover rounded-md"
-              sizes="80px"
+              className="w-full h-full object-cover rounded-md"
               loading="lazy"
+              onError={(e) => {
+                // 图片加载失败时显示默认图片
+                const target = e.target as HTMLImageElement;
+                target.src = '/placeholder-game.svg'; // 默认的游戏占位图片
+                target.onerror = null; // 防止无限循环
+              }}
             />
           </div>
         )
@@ -170,27 +160,8 @@ export function GameList({ onDataChange }: GameListProps) {
       accessorKey: "title",
       header: "Title",
       cell: ({ row }) => {
-        const game = row.original
-        return (
-          <div className="space-y-1">
-            <div className="font-medium">{game.title}</div>
-            <div className="flex flex-wrap gap-1">
-              {game.categories.map(({ category }) => (
-                <Badge key={category.id} variant="secondary" className="text-xs">
-                  {category.name}
-                </Badge>
-              ))}
-            </div>
-          </div>
-        )
-      }
-    },
-    {
-      accessorKey: "description",
-      header: "Description",
-      cell: ({ row }) => {
-        const description = row.original.description
-        return <div className="max-w-[300px] truncate">{description}</div>
+        const title = row.original.title
+        return <div className="font-medium">{title}</div>
       },
     },
     {

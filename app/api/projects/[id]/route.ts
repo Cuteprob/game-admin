@@ -4,6 +4,8 @@ import { projects } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
 import { nanoid } from 'nanoid'
 
+export const runtime = 'edge'
+
 // GET /api/projects/[id]
 export async function GET(
   request: Request,

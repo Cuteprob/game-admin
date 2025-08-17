@@ -1,22 +1,18 @@
 "use client"
 
 import * as React from "react"
-import { Check, Loader2, X } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { Loader2, X } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
-import Image from "next/image"
-import { Game } from "@/repositories/gameRepository"
+// Removed Next.js Image import - using regular img tag for Cloudflare Pages
+import { Game } from '@/config/sprunkigame';
 import { ScrollArea } from "@/components/ui/scroll-area"
 import { Badge } from "@/components/ui/badge"
-import { Command, CommandGroup, CommandItem } from "@/components/ui/command"
-import { Command as CommandPrimitive } from "cmdk"
+import { GameSelectComponentProps } from "@/types/game"
 
-interface GameSelectProps {
-  projectId: string
+type GameSelectProps = GameSelectComponentProps & {
   onSelect: (games: Game[]) => void
   selectedGames?: Game[]
-  trigger?: React.ReactNode
 }
 
 export function GameSelect({ 
@@ -40,10 +36,10 @@ export function GameSelect({
       if (!response.ok) {
         throw new Error('Failed to load games')
       }
-      const { data } = await response.json()
+      const data = await response.json()
       // 按创建日期从新到旧排序
       const sortedGames = (data || []).sort((a: Game, b: Game) => 
-        new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+        new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
       )
       setGames(sortedGames)
     } catch (error) {
@@ -74,7 +70,7 @@ export function GameSelect({
         const { data } = await response.json()
         // 按创建日期从新到旧排序
         const sortedGames = (data || []).sort((a: Game, b: Game) => 
-          new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime()
+          new Date(b.createdAt || '').getTime() - new Date(a.createdAt || '').getTime()
         )
         setGames(sortedGames)
       } catch (error) {
@@ -190,11 +186,10 @@ export function GameSelect({
                       >
                         <div className="flex items-start gap-3 w-full pr-6">
                           <div className="relative h-16 w-24 flex-shrink-0 overflow-hidden rounded">
-                            <Image
-                              src={game.imageUrl}
+                            <img
+                              src={game.image}
                               alt={game.title}
-                              fill
-                              className="object-cover transition-transform hover:scale-105"
+                              className="w-8 h-8 rounded object-cover"
                             />
                           </div>
                           <div className="flex flex-col flex-1 min-w-0 py-1">

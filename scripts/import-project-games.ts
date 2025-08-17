@@ -11,26 +11,13 @@ async function importProjectGames() {
     console.log('Preparing project game data...');
     
     const projectGameValues = games.map(game => {
-      // 确保 controls 是有效的 JSON 字符串
-      const controls = {
-        fullscreenTip: game.controls.fullscreenTip,
-        guide: {
-          movement: game.controls.guide.movement,
-          actions: game.controls.guide.actions,
-          special: game.controls.guide.special
-        }
-      };
-
       return {
         projectId: 'sprunkiphase4-app',
         gameId: game.id,
         locale: 'en',
         title: game.title,
-        description: game.description,
         metadata: JSON.stringify(game.metadata),
-        controls: JSON.stringify(controls),  // 使用处理过的 controls
-        features: JSON.stringify(game.features),
-        faqs: JSON.stringify(game.faqs),
+        content: game.content || '',
         baseVersion: 1,
         isPublished: 1,
       };

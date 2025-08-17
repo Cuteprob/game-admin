@@ -12,45 +12,17 @@ import {
   ListChecks,
   AlertCircle
 } from "lucide-react"
+import { ExtendedDashboardStats } from "@/types/repository"
 
-interface DashboardStats {
-  // Project Stats
-  totalProjects: number
-  projectGamesCount: {
-    projectId: string
-    count: number
-    languages: string[]
-    published: number
-    unpublished: number
-  }[]
-  
-  // Base Game Stats
-  totalGames: number
-  totalCategories: number
-  recentGames: {
-    id: string
-    title: string
-    createdAt: string
-  }[]
-  
-  // AI Task Stats
-  pendingTasks: number
-  completedTasks: number
-  failedTasks: number
-  recentTasks: {
-    id: string
-    projectId: string
-    status: string
-    createdAt: string
-  }[]
-}
+// Interface definitions moved to /types/repository.ts
 
 export default function DashboardPage() {
-  const [stats, setStats] = useState<DashboardStats>({
+  const [stats, setStats] = useState<ExtendedDashboardStats>({
     totalProjects: 0,
     projectGamesCount: [],
     totalGames: 0,
     totalCategories: 0,
+    recentProjects: [],
     recentGames: [],
     pendingTasks: 0,
     completedTasks: 0,

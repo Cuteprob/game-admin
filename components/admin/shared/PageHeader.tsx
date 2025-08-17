@@ -1,8 +1,4 @@
-interface PageHeaderProps {
-  title: string
-  description?: string
-  children?: React.ReactNode
-}
+import { PageHeaderProps } from '@/types/ui'
 
 export function PageHeader({ title, description, children }: PageHeaderProps) {
   return (

@@ -13,16 +13,13 @@ import { relations } from 'drizzle-orm';
 export const gamesBase = sqliteTable('games_base', {
   id: text('id').primaryKey(),                    // 游戏唯一标识符
   title: text('title').notNull(),                 // 游戏标题
-  description: text('description').notNull(),      // 游戏描述
   iframeUrl: text('iframe_url').notNull(),        // 游戏iframe地址
   imageUrl: text('image_url').notNull(),          // 游戏图片URL
   rating: real('rating').default(0),              // 游戏评分
   createdAt: text('created_at').notNull(),        // 创建时间
   metadata: text('metadata').notNull(),           // JSON as text
-  controls: text('controls').notNull(),           // JSON as text
-  features: text('features').notNull(),           // JSON as text
-  faqs: text('faqs').notNull(),                  // JSON as text
   video: text('video'),                          // JSON as text
+  content: text('content'),                      // Markdown content as text
   version: integer('version').default(1),         // 版本号
   updatedAt: text('updated_at')
     .default(sql`CURRENT_TIMESTAMP`),            // 更新时间
@@ -60,13 +57,11 @@ export const projectGames = sqliteTable('project_games', {
     .references(() => gamesBase.id),
   locale: text('locale').notNull(),
   title: text('title').notNull(),
-  description: text('description').notNull(),
   metadata: text('metadata').notNull(),
-  controls: text('controls').notNull(),
-  features: text('features').notNull(),
-  faqs: text('faqs').notNull(),
+  content: text('content'),                      // Markdown content as text
   baseVersion: integer('base_version').notNull(),
   isPublished: integer('is_published').default(0),
+  isMain: integer('is_main').default(0),         // 是否为主游戏
   createdAt: text('created_at')
     .default(sql`CURRENT_TIMESTAMP`),
 }, (table) => ({

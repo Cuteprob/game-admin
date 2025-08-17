@@ -4,6 +4,8 @@ import {
   updateCategory,
   deleteCategory
 } from '@/repositories/categoryRepository'
+
+export const runtime = 'edge'
 // 获取单个分类
 export async function GET(
   request: Request,

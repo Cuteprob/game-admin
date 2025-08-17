@@ -3,6 +3,8 @@ import { db } from "@/lib/db/tursoDb"
 import { projectGames } from "@/lib/db/schema"
 import { eq, and } from "drizzle-orm"
 
+export const runtime = 'edge'
+
 // 获取单个项目游戏
 export async function GET(
   request: Request,
@@ -27,8 +29,7 @@ export async function GET(
     const data = {
       ...projectGame,
       metadata: projectGame.metadata ? JSON.parse(projectGame.metadata) : null,
-      features: projectGame.features ? JSON.parse(projectGame.features) : null,
-      faqs: projectGame.faqs ? JSON.parse(projectGame.faqs) : null,
+      content: projectGame.content,
     }
 
     return NextResponse.json({ data })
@@ -48,20 +49,18 @@ export async function PUT(
 ) {
   try {
     const body = await request.json()
-    const { title, description, metadata, features, faqs, isPublished } = body
+    const { title, metadata, content, isPublished, isMain } = body
 
     // 序列化JSON字段
     const updateData: typeof projectGames.$inferInsert = {
       title,
-      description,
       metadata: metadata ? JSON.stringify(metadata) : '',
-      features: features ? JSON.stringify(features) : '',
-      faqs: faqs ? JSON.stringify(faqs) : '',
+      content: content || null,
       isPublished: isPublished ? 1 : 0,
+      isMain: isMain ? 1 : 0,
       projectId: params.id,
       gameId: params.gameId,
       locale: body.locale,
-      controls: body.controls || '',
       baseVersion: body.baseVersion || 1
     }
 
@@ -87,8 +86,7 @@ export async function PUT(
     const data = {
       ...updated,
       metadata: updated.metadata ? JSON.parse(updated.metadata) : null,
-      features: updated.features ? JSON.parse(updated.features) : null,
-      faqs: updated.faqs ? JSON.parse(updated.faqs) : null,
+      content: updated.content,
     }
 
     return NextResponse.json({ data })

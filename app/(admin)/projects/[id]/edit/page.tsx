@@ -1,29 +1,12 @@
 "use client"
 
+export const runtime = 'edge'
+
 import { useEffect, useState } from "react"
 import { useRouter } from "next/navigation"
 import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { ProjectEditForm } from "@/components/admin/projects/ProjectEditForm"
-import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs"
-import { ProjectCategoryList } from "@/components/admin/projects/ProjectCategoryList"
-interface Project {
-  id: string
-  name: string
-  description: string | null
-  defaultLocale: string
-  locales: string[]
-  aiConfig: {
-    targetAudience: string
-    tone: string
-    seoKeywords: string[]
-    defaultPrompts: {
-      title: string
-      description: string
-      features: string
-      faqs: string
-    }
-  }
-}
+import { Project } from "@/types/project"
 
 export default function EditProjectPage({ params }: { params: { id: string } }) {
   const router = useRouter()

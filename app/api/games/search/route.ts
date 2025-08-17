@@ -1,6 +1,8 @@
 import { NextResponse } from 'next/server'
 import { searchGames } from '@/repositories/gameRepository'
 
+export const runtime = 'edge'
+
 export async function GET(
   request: Request,
 ) {

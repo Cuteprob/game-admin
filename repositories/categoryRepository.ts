@@ -1,7 +1,6 @@
 import { db } from '@/lib/db/tursoDb'
 import { categories, type Category, type NewCategory } from '@/lib/db/schema'
 import { eq } from 'drizzle-orm'
-import { nanoid } from 'nanoid'
 
 // 获取所有分类
 export async function getCategories(): Promise<Category[]> {
@@ -14,11 +13,10 @@ export async function getCategory(id: string): Promise<Category | null> {
   return result[0] || null
 }
 
-// 创建分类
-export async function createCategory(data: Omit<NewCategory, 'id' | 'createdAt'>): Promise<Category> {
-  const id = nanoid()
+// 创建分类 - 用户需要提供ID
+export async function createCategory(data: Omit<NewCategory, 'createdAt'>): Promise<Category> {
   const [category] = await db.insert(categories).values({
-    id,
+    id: data.id,
     name: data.name,
     description: data.description,
   }).returning()
@@ -26,7 +24,7 @@ export async function createCategory(data: Omit<NewCategory, 'id' | 'createdAt'>
 }
 
 // 更新分类
-export async function updateCategory(id: string, data: Partial<NewCategory>): Promise<Category | null> {
+export async function updateCategory(id: string, data: Partial<Omit<NewCategory, 'id' | 'createdAt'>>): Promise<Category | null> {
   const [category] = await db.update(categories)
     .set(data)
     .where(eq(categories.id, id))

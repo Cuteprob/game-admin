@@ -1,6 +1,8 @@
 import { NextResponse } from "next/server"
 import { OpenAI } from "openai"
 
+export const runtime = 'edge'
+
 // 初始化 OpenAI 客户端
 const openai = new OpenAI({
   apiKey: process.env.OPENAI_API_KEY,
@@ -11,31 +13,11 @@ const openai = new OpenAI({
   },
   defaultQuery: {
     // OpenRouter 需要在查询参数中指定模型
-    model: process.env.OPENAI_API_MODEL || "meta-llama/llama-3.3-70b-instruct"
+    model: process.env.OPENAI_API_MODEL || "openai/gpt-oss-120b"
   }
 })
 
-interface GenerateRequest {
-  gameId: string
-  mode: 'ai'
-  locale: string
-  originalContent: {
-    description: string
-    metadata: any
-    features: any
-    faqs: any
-  }
-  aiConfig?: {
-    tone?: string
-    targetAudience?: string
-    prompts?: {
-      title: string
-      description: string
-      features: string
-      faqs: string
-    }
-  }
-}
+import { GenerateRequest } from '@/types/ai'
 
 export async function POST(
   request: Request,
@@ -106,7 +88,7 @@ The response should be in JSON format with the following structure:
       try {
         // 调用 OpenAI API
         const completion = await openai.chat.completions.create({
-          model: process.env.OPENAI_API_MODEL || "meta-llama/llama-3.3-70b-instruct",
+          model: process.env.OPENAI_API_MODEL || "openai/gpt-oss-120b",
           messages: [
             {
               role: "system",

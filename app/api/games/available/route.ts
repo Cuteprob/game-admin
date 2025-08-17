@@ -1,42 +1,32 @@
 import { NextResponse } from 'next/server'
 import { getAvailableGames } from '@/repositories/gameRepository'
-export async function GET(
-  request: Request,
-) {
+import { NextRequest } from 'next/server'
+
+export const runtime = 'edge'
+
+export async function GET(request: NextRequest) {
   try {
-    const { searchParams } = new URL(request.url)
-    const projectId = searchParams.get('projectId')
+    const { searchParams } = new URL(request.url);
+    const projectId = searchParams.get('projectId');
 
     if (!projectId) {
-      return NextResponse.json(
-        { error: 'Project ID is required' },
-        { status: 400 }
-      )
+      return NextResponse.json({ error: 'Project ID is required' }, { status: 400 });
     }
 
-    const games = await getAvailableGames(projectId)
+    const games = await getAvailableGames(projectId);
     
-    // 验证返回的数据
+    // 过滤掉无效的游戏
     const validGames = games.filter(game => {
-      const isValid = game && game.id && game.title && game.description
+      const isValid = game && game.id && game.title
       if (!isValid) {
-        console.error('Invalid game data:', game)
+        console.warn('Invalid game found:', game);
       }
-      return isValid
-    })
+      return isValid;
+    });
 
-    return NextResponse.json({ 
-      data: validGames,
-      total: validGames.length
-    })
+    return NextResponse.json(validGames);
   } catch (error) {
-    console.error('Failed to fetch available games:', error)
-    return NextResponse.json(
-      { 
-        error: 'Failed to fetch available games',
-        details: error instanceof Error ? error.message : 'Unknown error'
-      },
-      { status: 500 }
-    )
+    console.error('Failed to fetch available games:', error);
+    return NextResponse.json({ error: 'Failed to fetch available games' }, { status: 500 });
   }
 } 

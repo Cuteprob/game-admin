@@ -2,10 +2,11 @@ import { NextResponse } from 'next/server';
 import { 
   getCategories, 
   getCategory,
-  createCategory,
-  updateCategory,
-  deleteCategory
+  createCategory
 } from '@/repositories/categoryRepository'
+
+export const runtime = 'edge'
+
 // 获取所有分类
 export async function GET() {
   try {
@@ -24,6 +25,33 @@ export async function GET() {
 export async function POST(request: Request) {
   try {
     const body = await request.json()
+    
+    // 验证必需字段
+    if (!body.id || !body.name) {
+      return NextResponse.json(
+        { error: 'Category ID and name are required' },
+        { status: 400 }
+      )
+    }
+    
+    // 验证ID格式（只允许字母、数字、下划线、连字符）
+    const idRegex = /^[a-zA-Z0-9_-]+$/
+    if (!idRegex.test(body.id)) {
+      return NextResponse.json(
+        { error: 'Category ID can only contain letters, numbers, underscores, and hyphens' },
+        { status: 400 }
+      )
+    }
+    
+    // 检查ID是否已存在
+    const existingCategory = await getCategory(body.id)
+    if (existingCategory) {
+      return NextResponse.json(
+        { error: 'Category ID already exists' },
+        { status: 409 }
+      )
+    }
+    
     const category = await createCategory(body)
     return NextResponse.json({ data: category })
   } catch (error) {

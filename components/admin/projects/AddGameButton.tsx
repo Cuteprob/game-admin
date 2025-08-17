@@ -9,27 +9,15 @@ import {
   DialogTitle,
 } from "@/components/ui/dialog"
 import { AddGameForm } from "@/components/admin/projects/AddGameForm"
+import { Project, AddGameButtonProps } from '@/types/project'
 
-interface Project {
-  id: string
-  name: string
-  description: string | null
-  defaultLocale: string
-  locales: string[]
-}
-
-interface AddGameButtonProps {
-  project: Project
-  onSuccess?: () => void
-}
-
-export function AddGameButton({ project, onSuccess }: AddGameButtonProps) {
+export function AddGameButton({ project, onSuccess, variant = "default", size = "default", children }: AddGameButtonProps) {
   const [open, setOpen] = useState(false)
 
   return (
     <>
-      <Button onClick={() => setOpen(true)}>
-        Add Game
+      <Button onClick={() => setOpen(true)} variant={variant} size={size}>
+        {children || "Add Game"}
       </Button>
 
       <Dialog open={open} onOpenChange={setOpen}>

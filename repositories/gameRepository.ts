@@ -1,47 +1,19 @@
 import { db } from '@/lib/db/tursoDb'
 import { gamesBase, projectGames } from '@/lib/db/schema'
 import { eq, notInArray, sql } from 'drizzle-orm'
-
-export interface Game {
-  id: string
-  title: string
-  description: string
-  imageUrl: string
-  iframeUrl: string
-  metadata: any
-  controls: any
-  features: any
-  faqs: any
-  rating: number
-  createdAt: string
-  updatedAt: string
-}
+import type { Game } from '@/config/sprunkigame';
 
 // 安全的JSON解析函数
-function safeJsonParse(str: string, fallback: any = {}, fieldName: string = '') {
-  if (!str) return fallback
+function safeJsonParse(value: string | null, defaultValue: any, fieldName: string): any {
+  if (!value) {
+    return defaultValue;
+  }
   
   try {
-    // 如果输入已经是对象，直接返回
-    if (typeof str === 'object') {
-      return str
-    }
-
-    // 尝试解析JSON字符串
-    return JSON.parse(str)
-  } catch (firstError) {
-    try {
-      // 如果JSON解析失败，尝试作为JavaScript对象计算
-      // 注意：这是一个不安全的操作，仅用于开发环境
-      // eslint-disable-next-line no-eval
-      const result = eval('(' + str + ')')
-      console.warn(`Using eval for ${fieldName}. Please fix the data format.`)
-      return result
-    } catch (error) {
-      console.error(`Parse error for field ${fieldName}:`, error)
-      console.error('Original value:', str)
-      return fallback
-    }
+    return JSON.parse(value);
+  } catch (error) {
+    console.warn(`Failed to parse JSON for field ${fieldName}:`, value);
+    return defaultValue;
   }
 }
 
@@ -53,7 +25,7 @@ function mapToGame(record: any): Game {
   }
 
   // 确保所有必需字段都存在
-  const requiredFields = ['id', 'title', 'description', 'imageUrl', 'iframeUrl']
+  const requiredFields = ['id', 'title', 'imageUrl', 'iframeUrl']
   for (const field of requiredFields) {
     if (!record[field]) {
       console.error(`Missing required field: ${field}`, record)
@@ -65,21 +37,29 @@ function mapToGame(record: any): Game {
     const game = {
       id: record.id,
       title: record.title,
-      description: record.description,
+      description: '', // 默认空字符串，因为description字段已被移除
       imageUrl: record.imageUrl,
+      image: record.imageUrl, // 添加image字段以匹配Game接口
       iframeUrl: record.iframeUrl,
       rating: record.rating || 0,
       createdAt: record.createdAt,
       updatedAt: record.updatedAt,
+      categories: [], // 默认空数组，因为categories需要单独查询
       metadata: safeJsonParse(record.metadata, {}, 'metadata'),
-      controls: safeJsonParse(record.controls, {}, 'controls'),
-      features: safeJsonParse(record.features, {}, 'features'),
-      faqs: safeJsonParse(record.faqs, [], 'faqs'),
+      controls: {
+        fullscreenTip: '',
+        guide: {
+          movement: [],
+          actions: []
+        }
+      }, // 默认controls对象，因为controls字段已被移除
+      features: [], // 默认空数组，因为features字段已被移除
+      faqs: [], // 默认空数组，因为faqs字段已被移除
     }
 
     // 开发环境下，输出警告如果发现非JSON格式的数据
     if (process.env.NODE_ENV === 'development') {
-      ['metadata', 'controls', 'features', 'faqs'].forEach(field => {
+      ['metadata'].forEach(field => {
         if (typeof record[field] === 'string' && !record[field].startsWith('{') && !record[field].startsWith('[')) {
           console.warn(`Field ${field} is not in proper JSON format. Please update the database.`)
         }

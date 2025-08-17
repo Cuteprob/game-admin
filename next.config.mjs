@@ -9,12 +9,7 @@ if (process.env.NODE_ENV === 'development') {
 
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  images: {
-    domains: [
-      'images.shadybears.org',
-      'img.gamepix.com'
-    ],
-  },
+  // Removed images config since we're using regular img tags for Cloudflare Pages
 };
 
 export default nextConfig;

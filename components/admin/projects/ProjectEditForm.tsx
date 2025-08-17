@@ -18,7 +18,7 @@ import { Textarea } from "@/components/ui/textarea"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import { MultiCombobox } from "@/components/ui/multi-combobox"
 import { toast } from "sonner"
-import { ProjectCategorySelect } from "@/components/admin/projects/ProjectCategorySelect"
+import { ProjectCategoryList } from "@/components/admin/projects/ProjectCategoryList"
 
 // 支持的语言选项
 const SUPPORTED_LANGUAGES = [
@@ -44,24 +44,7 @@ const TONES = [
   { label: 'Friendly', value: 'friendly' },
   { label: 'Enthusiastic', value: 'enthusiastic' },
 ]
-
-interface Project {
-  id: string
-  name: string
-  description: string | null
-  defaultLocale: string
-  locales: string[]
-  aiConfig: {
-    targetAudience: string
-    tone: string
-    defaultPrompts: {
-      title: string
-      description: string
-      features: string
-      faqs: string
-    }
-  }
-}
+import { Project, ProjectEditFormProps } from '@/types/project'
 
 const formSchema = z.object({
   name: z.string().min(1, "Name is required"),
@@ -82,11 +65,6 @@ const formSchema = z.object({
   }),
 })
 
-interface ProjectEditFormProps {
-  project: Project
-  onSuccess: () => void
-}
-
 export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
   const [loading, setLoading] = useState(false)
   const [tab, setTab] = useState("general")
@@ -99,13 +77,13 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
       defaultLocale: project.defaultLocale,
       locales: project.locales,
       aiConfig: {
-        targetAudience: project.aiConfig.targetAudience,
-        tone: project.aiConfig.tone,
+        targetAudience: project.aiConfig?.targetAudience || "",
+        tone: project.aiConfig?.tone || "",
         defaultPrompts: {
-          title: project.aiConfig.defaultPrompts.title,
-          description: project.aiConfig.defaultPrompts.description,
-          features: project.aiConfig.defaultPrompts.features,
-          faqs: project.aiConfig.defaultPrompts.faqs,
+          title: project.aiConfig?.defaultPrompts.title || "",
+          description: project.aiConfig?.defaultPrompts.description || "",
+          features: project.aiConfig?.defaultPrompts.features || "",
+          faqs: project.aiConfig?.defaultPrompts.faqs || "",
         }
       }
     }
@@ -354,12 +332,7 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
           </TabsContent>
 
           <TabsContent value="categories" className="space-y-6">
-            <ProjectCategorySelect 
-              projectId={project.id} 
-              onSave={() => {
-                toast.success('Categories saved successfully')
-              }}
-            />
+            <ProjectCategoryList projectId={project.id} />
           </TabsContent>
         </Tabs>
 

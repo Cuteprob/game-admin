@@ -10,20 +10,7 @@ import {
   TableRow,
 } from "@/components/ui/table"
 import { Button } from "@/components/ui/button"
-
-interface Category {
-  id: string
-  name: string
-  description: string | null
-  createdAt: string
-}
-
-interface CategoryListProps {
-  categories: Category[]
-  loading: boolean
-  onEdit: (category: Category) => void
-  onDelete: (id: string) => void
-}
+import { Category, CategoryListProps } from '@/types/category'
 
 export function CategoryList({
   categories,
@@ -54,7 +41,7 @@ export function CategoryList({
           <TableRow key={category.id}>
             <TableCell>{category.name}</TableCell>
             <TableCell>{category.description}</TableCell>
-            <TableCell>{new Date(category.createdAt).toLocaleDateString()}</TableCell>
+            <TableCell>{new Date(category.createdAt || "").toLocaleDateString()}</TableCell>
             <TableCell>
               <div className="flex items-center gap-2">
                 <Button
