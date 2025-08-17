@@ -19,3 +19,6 @@ export * from './ai'
 
 // UI组件相关类型
 export * from './ui'
+
+// 评论相关类型
+export * from './comment'

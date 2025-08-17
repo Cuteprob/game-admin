@@ -13,7 +13,7 @@ const openai = new OpenAI({
   },
   defaultQuery: {
     // OpenRouter 需要在查询参数中指定模型
-    model: process.env.OPENAI_API_MODEL || "openai/gpt-oss-120b"
+    model: process.env.OPENAI_API_MODEL || ""
   }
 })
 
@@ -35,10 +35,7 @@ Target Audience: ${body.aiConfig?.targetAudience || 'general'}
 Tone: ${body.aiConfig?.tone || 'professional'}
 
 Original Content:
-Description: ${body.originalContent.description}
 Metadata: ${JSON.stringify(body.originalContent.metadata)}
-Features: ${JSON.stringify(body.originalContent.features)}
-FAQs: ${JSON.stringify(body.originalContent.faqs)}
 
 Please generate the following content in ${body.locale} language following these guidelines:
 
@@ -49,12 +46,6 @@ Generate metadata that follows these rules:
    - Use game title as the only keyword
 For Description:
 ${body.aiConfig?.prompts?.description || ''}
-
-For Features:
-${body.aiConfig?.prompts?.features || ''}
-
-For FAQs:
-${body.aiConfig?.prompts?.faqs || ''}
 
 Important:
 - Maintain similarity with original content below 80% to avoid duplication while preserving core meanings.
@@ -68,10 +59,7 @@ Important:
 
 The response should be in JSON format with the following structure:
 {
-  "description": "...",
-  "metadata": { "title": "...", "description": "...", "keywords": [...] },
-  "features": [...],
-  "faqs": [{ "question": "...", "answer": "..." }]
+  "metadata": { "title": "...", "description": "...", "keywords": [...] }
 }
 `
 
@@ -95,20 +83,11 @@ The response should be in JSON format with the following structure:
               content: `You are a professional game content writer skilled in localization and cultural adaptation.
 Your task is to generate game content in JSON format with the following structure:
 {
-  "description": "Game description in target language",
   "metadata": {
     "title": "Game title in target language",
     "description": "Short description in target language",
     "keywords": ["keyword1", "keyword2", ...]
-  },
-  "features": ["feature1", "feature2", ...],
-  "faqs": [
-    {
-      "question": "Question in target language",
-      "answer": "Answer in target language"
-    },
-    ...
-  ]
+  }
 }`
             },
             {

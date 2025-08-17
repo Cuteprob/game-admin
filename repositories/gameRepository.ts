@@ -46,6 +46,7 @@ function mapToGame(record: any): Game {
       updatedAt: record.updatedAt,
       categories: [], // 默认空数组，因为categories需要单独查询
       metadata: safeJsonParse(record.metadata, {}, 'metadata'),
+      content: record.content, // 添加content字段
       controls: {
         fullscreenTip: '',
         guide: {

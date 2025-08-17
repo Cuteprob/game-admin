@@ -101,8 +101,6 @@ export async function GET(
     }))
 
     return NextResponse.json({
-      code: 200,
-      message: "Success",
       data: {
         items: processedItems,
         total: countResult.count,
@@ -113,11 +111,7 @@ export async function GET(
   } catch (error) {
     console.error('Failed to fetch games:', error)
     return NextResponse.json(
-      {
-        code: 500,
-        message: "Failed to fetch games",
-        error: error instanceof Error ? error.message : "Unknown error"
-      },
+      { error: "Failed to fetch games" },
       { status: 500 }
     )
   }
@@ -167,7 +161,7 @@ export async function POST(
       title,
       metadata: baseGame.metadata,
       content: baseGame.content,
-      baseVersion: baseGame.version ?? 1,
+      baseVersion: 1,
       isPublished: 0
     }
 

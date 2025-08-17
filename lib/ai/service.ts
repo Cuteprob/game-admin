@@ -280,9 +280,7 @@ export const generateContent = async (
           parsedContent.imageUrl = processedUrl
         }
       }
-      if (parsedContent.video?.thumbnail) {
-        parsedContent.video.thumbnail = processImageUrl(parsedContent.video.thumbnail)
-      }
+      // video字段已被移除
 
       console.log('Successfully processed content')
       return parsedContent

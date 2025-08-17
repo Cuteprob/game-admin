@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { toast } from "sonner"
-import { Loader2, Pencil, Star } from "lucide-react"
+import { Loader2, Pencil, Star, BarChart3 } from "lucide-react"
 import { useRouter } from "next/navigation"
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { Label } from "@/components/ui/label"
@@ -312,7 +312,6 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
           <thead>
             <tr className="border-b bg-muted/50">
               <th className="p-2 text-left">Title</th>
-              <th className="p-2 text-left">Description</th>
               <th className="p-2 text-left">Language</th>
               <th className="p-2 text-left">Categories</th>
               <th className="p-2 text-left">Status</th>
@@ -336,7 +335,6 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
               games.map((game: ProjectGame) => (
                 <tr key={game.id} className="border-b">
                   <td className="p-2">{game.title}</td>
-                  <td className="p-2 max-w-[300px] truncate">{game.description}</td>
                   <td className="p-2">{game.locale.toUpperCase()}</td>
                   <td className="p-2">
                     <div className="flex items-center gap-2">
@@ -415,6 +413,15 @@ export function ProjectGameList({ projectId, onDataChange }: ProjectGameListProp
                         onClick={() => router.push(`/projects/${projectId}/games/${game.gameId}`)}
                       >
                         Edit
+                      </Button>
+                      <Button 
+                        variant="outline" 
+                        size="sm"
+                        onClick={() => router.push(`/projects/${projectId}/ratings?gameId=${game.gameId}&locale=${game.locale}`)}
+                        className="text-blue-600 hover:text-blue-800"
+                      >
+                        <BarChart3 className="mr-1 h-4 w-4" />
+                        Rating
                       </Button>
                       <Button 
                         variant="outline" 

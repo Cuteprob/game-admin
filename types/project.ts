@@ -9,8 +9,6 @@ export interface AIConfig {
   defaultPrompts: {
     title: string
     description: string
-    features: string
-    faqs: string
   }
 }
 

@@ -18,9 +18,7 @@ export const gamesBase = sqliteTable('games_base', {
   rating: real('rating').default(0),              // 游戏评分
   createdAt: text('created_at').notNull(),        // 创建时间
   metadata: text('metadata').notNull(),           // JSON as text
-  video: text('video'),                          // JSON as text
   content: text('content'),                      // Markdown content as text
-  version: integer('version').default(1),         // 版本号
   updatedAt: text('updated_at')
     .default(sql`CURRENT_TIMESTAMP`),            // 更新时间
 });
@@ -188,5 +186,94 @@ export const projectCategoriesRelations = relations(projectCategories, ({ one, m
 }));
 
 export const projectsRelations = relations(projects, ({ many }) => ({
-  categories: many(projectCategories)
+  categories: many(projectCategories),
+  comments: many(gameComments),
+  ratings: many(gameRatings)
+}));
+
+// 游戏评论表
+export const gameComments = sqliteTable('game_comments', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  content: text('content').notNull(),                          // 评论内容
+  nickname: text('nickname').notNull(),                        // 用户昵称
+  email: text('email'),                                        // 邮箱(可选)
+  gameId: text('game_id')
+    .notNull()
+    .references(() => gamesBase.id, { onDelete: 'cascade' }),
+  projectId: text('project_id')
+    .notNull()
+    .references(() => projects.id, { onDelete: 'cascade' }),
+  locale: text('locale').notNull(),                            // 语言环境
+  ratingScore: integer('rating_score'),                        // 用户评分(0-5)
+  status: text('status').notNull().default('pending'),         // 审核状态
+  helpfulVotes: integer('helpful_votes').default(0),           // 有用投票数
+  createdAt: text('created_at')
+    .notNull()
+    .default(sql`CURRENT_TIMESTAMP`),
+  updatedAt: text('updated_at')
+    .default(sql`CURRENT_TIMESTAMP`),
+  moderatedAt: text('moderated_at'),                           // 审核时间
+}, (table) => ({
+  gameProjectIdx: index('idx_game_comments_game_project').on(table.gameId, table.projectId),
+  statusIdx: index('idx_game_comments_status').on(table.status),
+  createdAtIdx: index('idx_game_comments_created_at').on(table.createdAt),
+}));
+
+// 游戏评分汇总表
+export const gameRatings = sqliteTable('game_ratings', {
+  id: integer('id').primaryKey({ autoIncrement: true }),
+  gameId: text('game_id')
+    .notNull()
+    .references(() => gamesBase.id, { onDelete: 'cascade' }),
+  projectId: text('project_id')
+    .notNull()
+    .references(() => projects.id, { onDelete: 'cascade' }),
+  locale: text('locale').notNull(),                            // 语言环境
+  averageRating: real('average_rating').default(0),           // 平均评分
+  totalRatings: integer('total_ratings').default(0),          // 总评分数
+  ratingDistribution: text('rating_distribution')
+    .default('{"1":0,"2":0,"3":0,"4":0,"5":0}'),              // JSON格式的评分分布
+  updatedAt: text('updated_at')
+    .default(sql`CURRENT_TIMESTAMP`),
+}, (table) => ({
+  uniqueIdx: index('idx_game_ratings_unique').on(table.gameId, table.projectId, table.locale),
+  gameIdx: index('idx_game_ratings_game').on(table.gameId),
+  projectIdx: index('idx_game_ratings_project').on(table.projectId),
+}));
+
+// 类型定义
+export type GameComment = typeof gameComments.$inferSelect;
+export type NewGameComment = typeof gameComments.$inferInsert;
+
+export type GameRating = typeof gameRatings.$inferSelect;
+export type NewGameRating = typeof gameRatings.$inferInsert;
+
+// 扩展现有的关系定义
+export const gameCommentsRelations = relations(gameComments, ({ one }) => ({
+  game: one(gamesBase, {
+    fields: [gameComments.gameId],
+    references: [gamesBase.id],
+  }),
+  project: one(projects, {
+    fields: [gameComments.projectId],
+    references: [projects.id],
+  }),
+}));
+
+export const gameRatingsRelations = relations(gameRatings, ({ one }) => ({
+  game: one(gamesBase, {
+    fields: [gameRatings.gameId],
+    references: [gamesBase.id],
+  }),
+  project: one(projects, {
+    fields: [gameRatings.projectId],
+    references: [projects.id],
+  }),
+}));
+
+// 扩展现有的游戏基础数据关系
+export const gamesBaseRelationsExtended = relations(gamesBase, ({ many }) => ({
+  categories: many(gameCategories),
+  comments: many(gameComments),
+  ratings: many(gameRatings)
 }));

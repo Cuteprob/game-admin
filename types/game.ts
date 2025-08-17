@@ -11,25 +11,14 @@ export interface GameMetadata {
   keywords: string[]
 }
 
-// 游戏控制接口
-export interface GameControls {
-  fullscreenTip: string
-  guide: {
-    movement: string[]
-    actions: string[]
-    special?: string[]
-  }
-}
+
 
 // 项目游戏接口
 export interface ProjectGame {
   id: string
   gameId: string
   title: string
-  description: string
   metadata: any
-  features: any | null
-  faqs: any | null
   content: string | null
   locale: string
   isPublished: boolean
@@ -44,7 +33,6 @@ export interface ProjectGame {
 export interface ImportGameData {
   id?: string
   title: string
-  description: string
   iframeUrl: string
   imageUrl: string
   image?: string
@@ -52,20 +40,6 @@ export interface ImportGameData {
   categories: string[]
   metadata: GameMetadata
   content?: string
-  controls?: GameControls
-  features: string[]
-  faqs: {
-    question: string
-    answer: string
-    category: 'gameplay' | 'technical' | 'features' | 'general' | 'tips' | 'audio'
-  }[]
-  video?: {
-    youtubeId: string
-    clipId?: string
-    clipTime?: string
-    title: string
-    thumbnail: string
-  }
 }
 
 // 游戏表单数据接口
@@ -75,11 +49,9 @@ export interface GameFormData {
   iframeUrl: string
   imageUrl: string
   rating: number
-  description: string
   categories: string[]
   metadata: GameMetadata
   content?: string
-  features: string[]
 }
 
 // 游戏表单完整数据接口（包含JSON字符串字段）
@@ -91,7 +63,6 @@ export interface GameFormDataComplete {
   rating: number
   categories: string[]
   metadata: string | undefined
-  video: string | undefined
   content: string
   createdAt: string
 }
@@ -130,13 +101,10 @@ export interface ProjectGameListProps {
 export interface GameWithCategories {
   id: string
   title: string
-  description: string
   iframeUrl: string
   imageUrl: string
   rating: number
   metadata: any
-  features: any
-  faqs: any
   content?: string
   createdAt: string
   updatedAt: string

@@ -1,1 +1,0 @@
-ALTER TABLE `project_games` ADD `is_main` integer DEFAULT 0;

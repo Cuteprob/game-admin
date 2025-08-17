@@ -22,10 +22,7 @@ import { Project } from "@/types/project"
 interface Game {
   id: string
   title: string
-  description: string
   metadata: any
-  features: any
-  faqs: any
   content?: string
 }
 
@@ -280,19 +277,14 @@ export default function EditGamePage({
           mode: 'ai',
           locale: projectGame.locale,
           originalContent: {
-            description: originalGame.description,
-            metadata: originalGame.metadata,
-            features: originalGame.features,
-            faqs: originalGame.faqs
+            metadata: originalGame.metadata
           },
           aiConfig: {
             tone: project.aiConfig?.tone || 'professional',
             targetAudience: project.aiConfig?.targetAudience || 'general',
             prompts: {
               title: project.aiConfig?.defaultPrompts?.title || '',
-              description: project.aiConfig?.defaultPrompts?.description || '',
-              features: project.aiConfig?.defaultPrompts?.features || '',
-              faqs: project.aiConfig?.defaultPrompts?.faqs || ''
+              description: project.aiConfig?.defaultPrompts?.description || ''
             }
           }
         })
@@ -372,27 +364,16 @@ export default function EditGamePage({
                   </div>
                 </div>
 
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium">Description</h4>
-                  <div className="p-2 rounded bg-muted break-words">
-                    {originalGame.description}
-                  </div>
-                </div>
+
 
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium">Metadata</h4>
                   <JsonDisplay data={originalGame.metadata} />
                 </div>
 
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium">Features</h4>
-                  <JsonDisplay data={originalGame.features} />
-                </div>
 
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium">FAQs</h4>
-                  <JsonDisplay data={originalGame.faqs} />
-                </div>
+
+
 
                 <div className="space-y-2">
                   <h4 className="text-sm font-medium">Content</h4>
@@ -449,17 +430,7 @@ export default function EditGamePage({
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <h4 className="text-sm font-medium">Description</h4>
-                  <Textarea
-                    value={editedContent.description || ''}
-                    onChange={(e) => setEditedContent({
-                      ...editedContent,
-                      description: e.target.value
-                    })}
-                    rows={6}
-                  />
-                </div>
+
 
                 <div className="space-y-2">
                   <div className="flex items-center justify-between">
@@ -476,35 +447,9 @@ export default function EditGamePage({
                   />
                 </div>
 
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-medium">Features</h4>
-                    {jsonErrors.features && (
-                      <span className="text-sm text-destructive">{jsonErrors.features}</span>
-                    )}
-                  </div>
-                  <Textarea
-                    value={JSON.stringify(editedContent.features, null, 2)}
-                    onChange={(e) => handleJsonChange('features', e.target.value)}
-                    className="font-mono text-sm"
-                    rows={10}
-                  />
-                </div>
 
-                <div className="space-y-2">
-                  <div className="flex items-center justify-between">
-                    <h4 className="text-sm font-medium">FAQs</h4>
-                    {jsonErrors.faqs && (
-                      <span className="text-sm text-destructive">{jsonErrors.faqs}</span>
-                    )}
-                  </div>
-                  <Textarea
-                    value={JSON.stringify(editedContent.faqs, null, 2)}
-                    onChange={(e) => handleJsonChange('faqs', e.target.value)}
-                    className="font-mono text-sm"
-                    rows={70}
-                  />
-                </div>
+
+
 
                 <ContentPreview
                   content={editedContent.content || ''}

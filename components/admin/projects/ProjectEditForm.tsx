@@ -59,8 +59,6 @@ const formSchema = z.object({
     defaultPrompts: z.object({
       title: z.string(),
       description: z.string(),
-      features: z.string(),
-      faqs: z.string(),
     }),
   }),
 })
@@ -82,8 +80,6 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
         defaultPrompts: {
           title: project.aiConfig?.defaultPrompts.title || "",
           description: project.aiConfig?.defaultPrompts.description || "",
-          features: project.aiConfig?.defaultPrompts.features || "",
-          faqs: project.aiConfig?.defaultPrompts.faqs || "",
         }
       }
     }
@@ -293,41 +289,9 @@ export function ProjectEditForm({ project, onSuccess }: ProjectEditFormProps) {
                 )}
               />
 
-              <FormField
-                control={form.control}
-                name="aiConfig.defaultPrompts.features"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>Features Generation</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Prompt for generating game features..."
-                        className="min-h-[200px] resize-vertical"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
 
-              <FormField
-                control={form.control}
-                name="aiConfig.defaultPrompts.faqs"
-                render={({ field }) => (
-                  <FormItem>
-                    <FormLabel>FAQs Generation</FormLabel>
-                    <FormControl>
-                      <Textarea
-                        placeholder="Prompt for generating game FAQs..."
-                        className="min-h-[200px] resize-vertical"
-                        {...field}
-                      />
-                    </FormControl>
-                    <FormMessage />
-                  </FormItem>
-                )}
-              />
+
+
             </div>
           </TabsContent>
 

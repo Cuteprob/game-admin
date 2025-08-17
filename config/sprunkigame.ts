@@ -14,7 +14,6 @@ export enum GameCategory {
 export interface Game {
   id: string;
   title: string;
-  description?: string;
   iframeUrl: string;
   image: string;
   rating?: number;
@@ -25,28 +24,7 @@ export interface Game {
     description: string;
     keywords: string[];
   };
-  controls?: {
-    fullscreenTip: string;
-    guide: {
-      movement: string[];
-      actions: string[];
-      special?: string[];
-    };
-  };
-  features?: string[];  
-  faqs?: {
-    question: string;
-    answer: string;
-    category: 'gameplay' | 'technical' | 'features' | 'general' | 'tips' | 'audio';
-  }[];
   content?: string;  // Markdown content
-  video?: {
-    youtubeId: string;    
-    clipId?: string;    
-    clipTime?: string;  
-    title: string;        
-    thumbnail: string;   
-  };
 }
 
 export const games: Game[] = [

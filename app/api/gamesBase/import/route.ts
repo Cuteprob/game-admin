@@ -68,7 +68,6 @@ export async function POST(request: Request) {
               rating: gameData.rating || 0,
               content: contentToStore,
               metadata: JSON.stringify(gameData.metadata),
-              video: gameData.video ? JSON.stringify(gameData.video) : null,
               updatedAt: new Date().toISOString(),
             })
             .where(eq(gamesBase.id, id))
@@ -90,7 +89,6 @@ export async function POST(request: Request) {
               rating: gameData.rating || 0,
               metadata: JSON.stringify(gameData.metadata),
               content: contentToStore,
-              video: gameData.video ? JSON.stringify(gameData.video) : null,
               createdAt: new Date().toISOString(),
             })
             .returning()

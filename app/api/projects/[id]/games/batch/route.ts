@@ -73,21 +73,8 @@ export async function POST(
       )
     }
 
-    // 获取原始游戏的版本号
-    const gameVersions = await db
-      .select({
-        id: gamesBase.id,
-        version: gamesBase.version
-      })
-      .from(gamesBase)
-      .where(
-        inArray(
-          gamesBase.id,
-          body.map(game => game.gameId)
-        )
-      )
-
-    const versionMap = new Map(gameVersions.map(g => [g.id, g.version]))
+    // 由于移除了 version 字段，统一使用默认版本号 1
+    const defaultVersion = 1
 
     // 批量插入游戏
     const insertData = body.map(game => ({
@@ -95,15 +82,9 @@ export async function POST(
       gameId: game.gameId,
       locale: game.locale,
       title: game.title,
-      description: game.description,
       metadata: JSON.stringify(game.metadata),
-      features: JSON.stringify(game.features),
-      faqs: JSON.stringify(game.faqs),
-      controls: JSON.stringify(game.controls),
-      iframeUrl: game.iframeUrl,
-      imageUrl: game.imageUrl,
-      rating: game.rating,
-      baseVersion: versionMap.get(game.gameId) || 1,
+      content: game.content,
+      baseVersion: defaultVersion,
       isPublished: 0,
       createdAt: game.createdAt
     }))

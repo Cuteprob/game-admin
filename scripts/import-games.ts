@@ -25,9 +25,7 @@ async function importGames() {
         rating: game.rating || 0,
         createdAt: game.createdAt || new Date().toISOString(),
         metadata: JSON.stringify(game.metadata),
-        video: game.video ? JSON.stringify(game.video) : null,
         content: game.content || '',
-        version: 1, // 使用默认版本号
         updatedAt: new Date().toISOString()
       };
       return gameData;

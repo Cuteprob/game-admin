@@ -48,19 +48,11 @@ export async function GET(
       aiConfig
     }
 
-    return NextResponse.json({ 
-      code: 200,
-      message: "Success",
-      data 
-    })
+    return NextResponse.json({ data })
   } catch (error) {
     console.error('Failed to fetch project:', error)
     return NextResponse.json(
-      { 
-        code: 500,
-        message: error instanceof Error ? error.message : 'Internal Server Error',
-        error: 'Failed to fetch project' 
-      },
+      { error: 'Failed to fetch project' },
       { status: 500 }
     )
   }
@@ -93,9 +85,7 @@ export async function PUT(
         tone: '',
         defaultPrompts: {
           title: '',
-          description: '',
-          features: '',
-          faqs: ''
+          description: ''
         }
       }),
       updatedAt: new Date().toISOString()
@@ -142,9 +132,7 @@ export async function POST(request: Request) {
         tone: '',
         defaultPrompts: {
           title: '',
-          description: '',
-          features: '',
-          faqs: ''
+          description: ''
         }
       }),
       createdAt: new Date().toISOString(),

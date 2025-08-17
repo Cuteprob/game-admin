@@ -3,7 +3,7 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { cn } from "@/lib/utils"
 import { Button } from "@/components/ui/button"
-import { HomeIcon, FolderIcon, GamepadIcon, ListIcon } from "lucide-react"
+import { HomeIcon, FolderIcon, GamepadIcon, ListIcon, MessageSquareIcon } from "lucide-react"
 
 const mainNav = [
   {
@@ -25,6 +25,11 @@ const mainNav = [
     title: "Categories",
     href: "/categories",
     icon: ListIcon
+  },
+  {
+    title: "Comments",
+    href: "/comments",
+    icon: MessageSquareIcon
   }
 ]
 

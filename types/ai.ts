@@ -8,10 +8,7 @@ export interface GenerateRequest {
   mode: 'ai'
   locale: string
   originalContent: {
-    description: string
     metadata: any
-    features: any
-    faqs: any
   }
   aiConfig?: {
     tone?: string
@@ -19,8 +16,6 @@ export interface GenerateRequest {
     prompts?: {
       title: string
       description: string
-      features: string
-      faqs: string
     }
   }
 }

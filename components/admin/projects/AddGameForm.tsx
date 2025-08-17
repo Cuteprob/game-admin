@@ -52,13 +52,8 @@ export function AddGameForm({ project, onSuccess }: AddGameFormProps) {
         gameId: game.id,
         locale: values.locale,
         title: game.title,
-        description: game.description,
         metadata: game.metadata,
-        features: game.features,
-        faqs: game.faqs,
-        controls: game.controls,
-        iframeUrl: game.iframeUrl,
-        imageUrl: game.image,
+        content: game.content,
         createdAt: game.createdAt,
         rating: game.rating
       }))

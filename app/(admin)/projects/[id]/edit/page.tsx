@@ -27,9 +27,7 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
               seoKeywords: [],
               defaultPrompts: {
                 title: '',
-                description: '',
-                features: '',
-                faqs: ''
+                description: ''
               }
             }
         

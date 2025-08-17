@@ -7,9 +7,11 @@ const protectedPaths = [
   "/gamesBase",
   "/categories",
   "/projects",
+  "/comments",
   "/api/gamesBase",
   "/api/categories",
   "/api/projects",
+  "/api/admin",
 ]
 
 // 使用固定的密钥（生产环境应该使用环境变量）
@@ -61,10 +63,12 @@ export const config = {
      * - /gamesBase 相关路由
      * - /categories 相关路由
      * - /api 相关路由
+     * - /comments 相关路由
      */
     "/gamesBase/:path*",
     "/categories/:path*",
     "/api/:path*",
     "/projects/:path*",
+    "/comments/:path*",
   ],
 } 

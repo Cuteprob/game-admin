@@ -31,11 +31,6 @@ export function GameForm({ game, onSubmit }: GameFormProps) {
       description: "",
       keywords: []
     }, null, 2),
-    video: game?.video || JSON.stringify({
-      youtubeId: "",
-      title: "",
-      thumbnail: ""
-    }, null, 2),
     content: game?.content || '',
     createdAt: game?.createdAt || new Date().toISOString()
   })
@@ -63,13 +58,12 @@ export function GameForm({ game, onSubmit }: GameFormProps) {
         rating: game.rating || 0,
         categories: game.categories || [],
         metadata: game.metadata || prevData.metadata,
-        video: game.video || prevData.video,
         content: game.content || prevData.content
       }))
     }
   }, [game])
 
-  const formatJSON = (field: 'metadata' | 'video') => {
+  const formatJSON = (field: 'metadata') => {
     try {
       const formatted = JSON.stringify(JSON.parse(formData[field] || '{}'), null, 2)
       setFormData({ ...formData, [field]: formatted })
@@ -246,19 +240,7 @@ export function GameForm({ game, onSubmit }: GameFormProps) {
               )}
             </div>
 
-            <div className="grid gap-2">
-              <Label htmlFor="video" className="text-sm font-medium">Video Configuration (JSON)</Label>
-              <Textarea
-                id="video"
-                value={formData.video}
-                onChange={(e) => setFormData({ ...formData, video: e.target.value })}
-                onBlur={() => formatJSON('video')}
-                className="font-mono text-sm min-h-[150px] bg-background/50"
-              />
-              {errors.video && (
-                <p className="text-sm text-destructive">{errors.video}</p>
-              )}
-            </div>
+
 
             <ContentPreview
               content={formData.content}

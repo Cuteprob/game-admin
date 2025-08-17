@@ -196,9 +196,7 @@ export function GameSelect({
                             <span className="font-medium truncate text-sm">
                               {game.title}
                             </span>
-                            <span className="text-xs text-muted-foreground line-clamp-2 mt-0.5">
-                              {game.description}
-                            </span>
+
                           </div>
                         </div>
                       </div>

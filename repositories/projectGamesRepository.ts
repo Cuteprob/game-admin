@@ -30,7 +30,6 @@ export const getProjectGamesByCategory = async (
           imageUrl: true,
           rating: true,
           createdAt: true,
-          video: true,
         },
         with: {
           categories: {
@@ -50,23 +49,14 @@ export const getProjectGamesByCategory = async (
     .map(result => ({
       id: result.gameId,
       title: result.title,
-      description: '', // 默认空字符串，因为description字段已被移除
       iframeUrl: result.game!.iframeUrl,
       image: result.game!.imageUrl,
       rating: result.game!.rating ?? 0,
       createdAt: result.game!.createdAt,
       categories: result.game!.categories.map(c => c.category.name as GameCategory),
       metadata: safeJsonParse(result.metadata),
-      features: [], // 默认空数组，因为features字段已被移除
-      faqs: [], // 默认空数组，因为faqs字段已被移除
-      controls: {
-        fullscreenTip: '',
-        guide: {
-          movement: [],
-          actions: []
-        }
-      }, // 默认controls对象，因为controls字段已被移除
-      video: result.game!.video ? safeJsonParse(result.game!.video) : undefined
+      content: result.content || ''
+      // video字段已被移除
     }));
 };
 
@@ -90,7 +80,6 @@ export const getProjectGamesByCategory = async (
             iframeUrl: true,
             imageUrl: true,
             rating: true,
-            video: true,
             createdAt: true,
           },
           with: {
@@ -109,24 +98,14 @@ export const getProjectGamesByCategory = async (
     return {
       id: result.gameId,
       title: result.title,
-      description: '', // 默认空字符串，因为description字段已被移除
       iframeUrl: result.game.iframeUrl,
       image: result.game.imageUrl,
       rating: result.game.rating ?? 0,
       createdAt: result.game.createdAt,
       categories: result.game.categories.map(c => c.category.name as GameCategory),
       metadata: safeJsonParse(result.metadata),
-      features: [], // 默认空数组，因为features字段已被移除
-      faqs: [], // 默认空数组，因为faqs字段已被移除
-      content: result.content || '',
-      controls: {
-        fullscreenTip: '',
-        guide: {
-          movement: [],
-          actions: []
-        }
-      }, // 默认controls对象，因为controls字段已被移除
-      video: result.game.video ? safeJsonParse(result.game.video) : undefined
+      content: result.content || ''
+      // video字段已被移除
     };
   };
 
@@ -145,7 +124,6 @@ export const getProjectGamesByCategory = async (
             imageUrl: true,
             rating: true,
             createdAt: true,
-            video: true,
           },
           with: {
             categories: {
@@ -161,22 +139,13 @@ export const getProjectGamesByCategory = async (
     return results.map(result => ({
       id: result.gameId,
       title: result.title,
-      description: '', // 默认空字符串，因为description字段已被移除
       iframeUrl: result.game!.iframeUrl,
       image: result.game!.imageUrl,
       rating: result.game!.rating ?? 0,
       createdAt: result.game!.createdAt,
       categories: result.game!.categories.map(c => c.category.name as GameCategory),
       metadata: safeJsonParse(result.metadata),
-      features: [], // 默认空数组，因为features字段已被移除
-      faqs: [], // 默认空数组，因为faqs字段已被移除
-      controls: {
-        fullscreenTip: '',
-        guide: {
-          movement: [],
-          actions: []
-        }
-      }, // 默认controls对象，因为controls字段已被移除
-      video: result.game!.video ? safeJsonParse(result.game!.video) : undefined
+      content: result.content || ''
+      // video字段已被移除
     }));
   };
