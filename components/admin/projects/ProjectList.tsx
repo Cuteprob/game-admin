@@ -8,27 +8,17 @@ import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { useEffect, useState } from "react"
 import { Badge } from "@/components/ui/badge"
-import { CalendarIcon } from "lucide-react"
-
-interface Project {
-  id: string
-  name: string
-  description: string | null
-  defaultLocale: string
-  locales: string[]
-  createdAt: string
-  updatedAt: string
-}
-
-// 在 columns 定义前声明类型
-type ProjectListProps = {
-  onDelete: (id: string) => void
-}
+import { CalendarIcon, Tags } from "lucide-react"
+import { AddGameButton } from "@/components/admin/projects/AddGameButton"
+import { ProjectCategorySelect } from "@/components/admin/projects/ProjectCategorySelect"
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
+import { Project, ProjectListProps } from '@/types/project'
 
 export function ProjectList() {
   const [projects, setProjects] = useState<Project[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
+  const [editingCategoriesProjectId, setEditingCategoriesProjectId] = useState<string | null>(null)
 
   useEffect(() => {
     async function fetchProjects() {
@@ -142,6 +132,25 @@ export function ProjectList() {
                 Games
               </Button>
             </Link>
+            <AddGameButton 
+              project={project}
+              variant="outline"
+              size="sm"
+              onSuccess={() => {
+                // 刷新项目列表
+                window.location.reload()
+              }}
+            >
+              Add Game
+            </AddGameButton>
+            <Button 
+              variant="outline" 
+              size="sm"
+              onClick={() => setEditingCategoriesProjectId(project.id)}
+            >
+              <Tags className="w-4 h-4 mr-1" />
+              Categories
+            </Button>
             <Link href={`/projects/${project.id}/edit`}>
               <Button variant="outline" size="sm">
                 Edit
@@ -194,6 +203,29 @@ export function ProjectList() {
           </div>
         )}
       </div>
+
+      {/* Categories编辑对话框 */}
+      <Dialog 
+        open={editingCategoriesProjectId !== null} 
+        onOpenChange={(open) => !open && setEditingCategoriesProjectId(null)}
+      >
+        <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
+          <DialogHeader>
+            <DialogTitle>Edit Project Categories</DialogTitle>
+          </DialogHeader>
+          <div className="overflow-y-auto">
+            {editingCategoriesProjectId && (
+              <ProjectCategorySelect 
+                projectId={editingCategoriesProjectId}
+                onSave={() => {
+                  setEditingCategoriesProjectId(null)
+                  // 可以选择刷新项目列表以显示更新后的信息
+                }}
+              />
+            )}
+          </div>
+        </DialogContent>
+      </Dialog>
     </div>
   )
 }
