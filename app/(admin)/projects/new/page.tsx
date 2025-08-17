@@ -8,11 +8,18 @@ export const metadata = {
 }
 
 export default function NewProjectPage() {
+  const breadcrumbs = [
+    { label: "Dashboard", href: "/" },
+    { label: "Projects", href: "/projects" },
+    { label: "Create Project", href: "/projects/new" }
+  ]
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <PageHeader 
         title="Create Project" 
         description="Create a new game project and configure its languages"
+        breadcrumbs={breadcrumbs}
       />
       
       <Card>

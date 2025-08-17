@@ -82,12 +82,18 @@ export default function CategoriesPage() {
     }
   }
 
+  const breadcrumbs = [
+    { label: "Dashboard", href: "/" },
+    { label: "Categories", href: "/categories" }
+  ]
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
         <PageHeader
           title="Categories"
           description="Manage game categories"
+          breadcrumbs={breadcrumbs}
         />
         <Button onClick={() => {
           setSelectedCategory(null)

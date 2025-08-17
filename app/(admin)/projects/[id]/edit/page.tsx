@@ -55,11 +55,19 @@ export default function EditProjectPage({ params }: { params: { id: string } }) 
     return <div>Project not found</div>
   }
 
+  const breadcrumbs = [
+    { label: "Dashboard", href: "/" },
+    { label: "Projects", href: "/projects" },
+    { label: project.name, href: `/projects/${project.id}` },
+    { label: "Edit", href: `/projects/${project.id}/edit` }
+  ]
+
   return (
     <div className="space-y-6">
       <PageHeader 
         title={`Edit ${project.name}`}
         description="Update project settings and AI configuration."
+        breadcrumbs={breadcrumbs}
       />
       
       <ProjectEditForm 

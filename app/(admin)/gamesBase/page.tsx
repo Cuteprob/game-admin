@@ -24,6 +24,11 @@ export default function GamesBasePage() {
       })
   }, [])
 
+  const breadcrumbs = [
+    { label: "Dashboard", href: "/" },
+    { label: "Games Base", href: "/gamesBase" }
+  ]
+
   return (
     <div className="space-y-6">
       <div className="flex items-center justify-between">
@@ -31,6 +36,7 @@ export default function GamesBasePage() {
           <PageHeader
             title="Games Base"
             description="Manage original game data"
+            breadcrumbs={breadcrumbs}
           />
           <p className="text-sm text-muted-foreground mt-1">
             Total Games: {totalGames}

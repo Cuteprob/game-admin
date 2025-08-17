@@ -11,6 +11,7 @@ import { ScrollArea } from "@/components/ui/scroll-area"
 import { Input } from "@/components/ui/input"
 import { Card, CardContent } from "@/components/ui/card"
 import { Category } from "@/types/category"
+import { PageHeader } from "@/components/admin/shared/PageHeader"
 
 export default function ImportGamesPage() {
   const [rawData, setRawData] = useState("")
@@ -396,9 +397,19 @@ export default function ImportGamesPage() {
     })
   }
 
+  const breadcrumbs = [
+    { label: "Dashboard", href: "/" },
+    { label: "Games Base", href: "/gamesBase" },
+    { label: "Import Games", href: "/gamesBase/import" }
+  ]
+
   return (
     <div className="container mx-auto p-6 space-y-6">
-      <h1 className="text-2xl font-bold">Import Games</h1>
+      <PageHeader
+        title="Import Games"
+        description="Import games from raw data using AI generation"
+        breadcrumbs={breadcrumbs}
+      />
       
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
         <div className="space-y-4">

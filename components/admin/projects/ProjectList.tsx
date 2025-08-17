@@ -8,14 +8,19 @@ import Link from "next/link"
 import { Input } from "@/components/ui/input"
 import { useEffect, useState } from "react"
 import { Badge } from "@/components/ui/badge"
-import { CalendarIcon, Tags } from "lucide-react"
+import { CalendarIcon, Tags, Gamepad2, FolderOpen } from "lucide-react"
 import { AddGameButton } from "@/components/admin/projects/AddGameButton"
 import { ProjectCategorySelect } from "@/components/admin/projects/ProjectCategorySelect"
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog"
 import { Project, ProjectListProps } from '@/types/project'
 
+interface ProjectWithStats extends Project {
+  gamesCount?: number
+  categoriesCount?: number
+}
+
 export function ProjectList() {
-  const [projects, setProjects] = useState<Project[]>([])
+  const [projects, setProjects] = useState<ProjectWithStats[]>([])
   const [loading, setLoading] = useState(true)
   const [search, setSearch] = useState("")
   const [editingCategoriesProjectId, setEditingCategoriesProjectId] = useState<string | null>(null)
@@ -25,7 +30,39 @@ export function ProjectList() {
       try {
         const response = await fetch('/api/projects')
         const data = await response.json()
-        setProjects(data.data || [])
+        const projectsData = data.data || []
+        
+        // 为每个项目获取统计信息
+        const projectsWithStats = await Promise.all(
+          projectsData.map(async (project: Project) => {
+            try {
+              // 获取游戏数量
+              const gamesResponse = await fetch(`/api/projects/${project.id}/games?pageSize=1`)
+              const gamesData = await gamesResponse.json()
+              const gamesCount = gamesData.data?.total || 0
+
+              // 获取分类数量
+              const categoriesResponse = await fetch(`/api/projects/${project.id}/categories`)
+              const categoriesData = await categoriesResponse.json()
+              const categoriesCount = categoriesData.data?.length || 0
+
+              return {
+                ...project,
+                gamesCount,
+                categoriesCount
+              }
+            } catch (error) {
+              console.error(`Failed to fetch stats for project ${project.id}:`, error)
+              return {
+                ...project,
+                gamesCount: 0,
+                categoriesCount: 0
+              }
+            }
+          })
+        )
+        
+        setProjects(projectsWithStats)
       } catch (error) {
         console.error('Failed to fetch projects:', error)
         setProjects([])
@@ -63,7 +100,21 @@ export function ProjectList() {
     }
   }
 
-  const columns: ColumnDef<Project>[] = [
+  const columns: ColumnDef<ProjectWithStats>[] = [
+    {
+      accessorKey: "id",
+      header: "Project ID",
+      cell: ({ row }) => {
+        const project = row.original
+        return (
+          <div className="font-mono text-sm">
+            <Badge variant="outline" className="font-mono">
+              {project.id}
+            </Badge>
+          </div>
+        )
+      }
+    },
     {
       accessorKey: "name",
       header: "Name",
@@ -77,6 +128,29 @@ export function ProjectList() {
                 {project.description}
               </div>
             )}
+          </div>
+        )
+      }
+    },
+    {
+      accessorKey: "stats",
+      header: "Stats",
+      cell: ({ row }) => {
+        const project = row.original
+        return (
+          <div className="flex flex-col gap-1">
+            <div className="flex items-center gap-1">
+              <Gamepad2 className="w-3 h-3" />
+              <Badge variant="secondary" className="text-xs">
+                {project.gamesCount || 0} games
+              </Badge>
+            </div>
+            <div className="flex items-center gap-1">
+              <Tags className="w-3 h-3" />
+              <Badge variant="outline" className="text-xs">
+                {project.categoriesCount || 0} categories
+              </Badge>
+            </div>
           </div>
         )
       }

@@ -24,6 +24,7 @@ export interface PageHeaderProps {
   title: string
   description?: string
   children?: React.ReactNode
+  breadcrumbs?: BreadcrumbItem[]
 }
 
 // 内容预览Props

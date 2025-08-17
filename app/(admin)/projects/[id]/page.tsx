@@ -32,11 +32,18 @@ export default function ProjectPage({ params }: { params: { id: string } }) {
     return <div>Loading project...</div>
   }
 
+  const breadcrumbs = [
+    { label: "Dashboard", href: "/" },
+    { label: "Projects", href: "/projects" },
+    { label: project.name, href: `/projects/${project.id}` }
+  ]
+
   return (
     <div className="container mx-auto p-6 space-y-6">
       <PageHeader
         title={project.name}
         description={project.description || "No description"}
+        breadcrumbs={breadcrumbs}
       />
 
       <div className="flex justify-end">
