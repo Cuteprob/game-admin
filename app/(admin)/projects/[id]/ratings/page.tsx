@@ -161,20 +161,15 @@ export default function ProjectRatingsPage() {
     return game?.rating
   }
 
-  const parseRatingDistribution = (distributionJson?: string): RatingDistribution | undefined => {
-    if (!distributionJson) return undefined
+  const getRatingDistribution = (rating?: GameRating): RatingDistribution | undefined => {
+    if (!rating) return undefined
     
-    try {
-      const parsed = JSON.parse(distributionJson)
-      return {
-        1: parsed['1'] || 0,
-        2: parsed['2'] || 0,
-        3: parsed['3'] || 0,
-        4: parsed['4'] || 0,
-        5: parsed['5'] || 0
-      }
-    } catch {
-      return undefined
+    return {
+      1: rating.rating1Count || 0,
+      2: rating.rating2Count || 0,
+      3: rating.rating3Count || 0,
+      4: rating.rating4Count || 0,
+      5: rating.rating5Count || 0
     }
   }
 
@@ -254,7 +249,7 @@ export default function ProjectRatingsPage() {
           <RatingDisplay
             rating={getCurrentRating()?.averageRating || 0}
             totalRatings={getCurrentRating()?.totalRatings || 0}
-            distribution={parseRatingDistribution(getCurrentRating()?.ratingDistribution)}
+            distribution={getRatingDistribution(getCurrentRating())}
             showDetails={true}
           />
 

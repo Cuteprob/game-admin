@@ -60,7 +60,11 @@ export interface GameRating {
   locale: string
   averageRating: number
   totalRatings: number
-  ratingDistribution: string // JSON字符串
+  rating1Count: number
+  rating2Count: number
+  rating3Count: number
+  rating4Count: number
+  rating5Count: number
   updatedAt?: string | null
 }
 

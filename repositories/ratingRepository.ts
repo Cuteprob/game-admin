@@ -7,6 +7,24 @@ import type {
   RatingDistribution
 } from '@/types/comment'
 
+// 将数据库记录转换为 GameRating 接口
+function dbToGameRating(dbRecord: any): GameRating {
+  return {
+    id: dbRecord.id,
+    gameId: dbRecord.gameId,
+    projectId: dbRecord.projectId,
+    locale: dbRecord.locale,
+    averageRating: dbRecord.averageRating || 0,
+    totalRatings: dbRecord.totalRatings || 0,
+    rating1Count: dbRecord.rating1Count || 0,
+    rating2Count: dbRecord.rating2Count || 0,
+    rating3Count: dbRecord.rating3Count || 0,
+    rating4Count: dbRecord.rating4Count || 0,
+    rating5Count: dbRecord.rating5Count || 0,
+    updatedAt: dbRecord.updatedAt
+  }
+}
+
 // 创建或更新游戏评分
 export async function upsertGameRating(data: UpsertRatingData): Promise<GameRating> {
   const { gameId, projectId, locale, averageRating, totalRatings, ratingDistribution } = data
@@ -30,7 +48,11 @@ export async function upsertGameRating(data: UpsertRatingData): Promise<GameRati
     locale,
     averageRating,
     totalRatings,
-    ratingDistribution: JSON.stringify(ratingDistribution),
+    rating1Count: ratingDistribution[1],
+    rating2Count: ratingDistribution[2],
+    rating3Count: ratingDistribution[3],
+    rating4Count: ratingDistribution[4],
+    rating5Count: ratingDistribution[5],
     updatedAt: sql`CURRENT_TIMESTAMP`
   }
 
@@ -42,7 +64,7 @@ export async function upsertGameRating(data: UpsertRatingData): Promise<GameRati
       .where(eq(gameRatings.id, existing[0].id))
       .returning()
     
-    return updated as GameRating
+    return dbToGameRating(updated)
   } else {
     // 创建新记录
     const [created] = await db
@@ -50,7 +72,7 @@ export async function upsertGameRating(data: UpsertRatingData): Promise<GameRati
       .values(ratingData)
       .returning()
     
-    return created as GameRating
+    return dbToGameRating(created)
   }
 }
 
@@ -71,7 +93,7 @@ export async function getGameRating(
       )
     )
 
-  return rating ? (rating as GameRating) : null
+  return rating ? dbToGameRating(rating) : null
 }
 
 // 获取项目中所有游戏的评分
@@ -93,7 +115,11 @@ export async function getProjectGameRatings(
       locale: gameRatings.locale,
       averageRating: gameRatings.averageRating,
       totalRatings: gameRatings.totalRatings,
-      ratingDistribution: gameRatings.ratingDistribution,
+      rating1Count: gameRatings.rating1Count,
+      rating2Count: gameRatings.rating2Count,
+      rating3Count: gameRatings.rating3Count,
+      rating4Count: gameRatings.rating4Count,
+      rating5Count: gameRatings.rating5Count,
       updatedAt: gameRatings.updatedAt,
       game: {
         id: gamesBase.id,
@@ -128,6 +154,15 @@ export async function deleteGameRating(
   } catch {
     return false
   }
+}
+
+// 当评论评分发生变化时同步到 game_ratings 表
+export async function syncCommentRatingToGameRatings(
+  gameId: string,
+  projectId: string,
+  locale: string
+): Promise<GameRating | null> {
+  return await recalculateGameRating(gameId, projectId, locale)
 }
 
 // 基于评论重新计算游戏评分

@@ -33,18 +33,14 @@ export function RatingManagement({
       setAverageRating(currentRating.averageRating)
       setTotalRatings(currentRating.totalRatings)
       
-      try {
-        const dist = JSON.parse(currentRating.ratingDistribution)
-        setDistribution({
-          1: dist['1'] || 0,
-          2: dist['2'] || 0,
-          3: dist['3'] || 0,
-          4: dist['4'] || 0,
-          5: dist['5'] || 0
-        })
-      } catch {
-        setDistribution({ 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 })
-      }
+      // 直接从 currentRating 获取评分分布数据
+      setDistribution({
+        1: currentRating.rating1Count || 0,
+        2: currentRating.rating2Count || 0,
+        3: currentRating.rating3Count || 0,
+        4: currentRating.rating4Count || 0,
+        5: currentRating.rating5Count || 0
+      })
     }
   }, [currentRating])
 
@@ -95,18 +91,14 @@ export function RatingManagement({
         setAverageRating(result.data.averageRating)
         setTotalRatings(result.data.totalRatings)
         
-        try {
-          const dist = JSON.parse(result.data.ratingDistribution)
-          setDistribution({
-            1: dist['1'] || 0,
-            2: dist['2'] || 0,
-            3: dist['3'] || 0,
-            4: dist['4'] || 0,
-            5: dist['5'] || 0
-          })
-        } catch {
-          setDistribution({ 1: 0, 2: 0, 3: 0, 4: 0, 5: 0 })
-        }
+        // 直接从返回的数据获取评分分布
+        setDistribution({
+          1: result.data.rating1Count || 0,
+          2: result.data.rating2Count || 0,
+          3: result.data.rating3Count || 0,
+          4: result.data.rating4Count || 0,
+          5: result.data.rating5Count || 0
+        })
       }
       
       toast.success('Rating recalculated from comments')
@@ -266,7 +258,8 @@ export function RatingManagement({
         <div className="text-sm text-muted-foreground">
           <p>• You can manually set the rating data or recalculate from approved comments</p>
           <p>• Rating distribution will automatically update total ratings and average</p>
-          <p>• Recalculate option will override manual settings with data from comments</p>
+          <p>• This rating data is independent from comment ratings and will be used as the authoritative source</p>
+          <p>• Recalculate option will sync with comment ratings but maintains independence afterward</p>
         </div>
       </CardContent>
     </Card>
