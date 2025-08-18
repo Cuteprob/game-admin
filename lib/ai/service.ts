@@ -102,7 +102,7 @@ async function getAvailableModel(openai: OpenAI, preferredModel: string): Promis
   }
   
   // 如果所有测试都失败，但我们在生产环境中，使用首选模型作为最后尝试
-  if (process.env.NODE_ENV === 'production') {
+  if (process.env.NODE_ENV !== 'development' && process.env.NODE_ENV !== 'test') {
     console.log(`⚠️ All model tests failed, but using preferred model ${preferredModel} in production`)
     return preferredModel
   }
