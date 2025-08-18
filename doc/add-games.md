@@ -57,6 +57,27 @@ You can also play the extra management games in Bunny Market.
 - [Bunny Market Unblocked](/games/bunny-market-unblocked)
 - [Bunny Farm](/games/bunny-farm)
 
+# NO.3
+id:bunny-farm
+title:Bunny Farm
+iframeUrl:https://bunnymarket.app/bunny-farm/index.html
+imageUrl:https://bunnymarket.app/bunny-farm/bunny-farm.jpg
+content:
+Do you want a farm of your own? Want to experience the joy of planting? How about interacting with animal villagers, trading, and building friendships? Welcome to Bunny Farm!
+
+Sowing, watering, harvesting – the little bunny will handle it all for you. All you need to do is choose what to plant, click the 'Start Working' button, and then wait. The crops you harvest can be sold to the shop, or maybe... something else? In the game, you can also unlock new land, change farm decorations, and chat with passing animals to increase your friendship level.
+
+Start managing your farm now!
+Bunny Farm is an idle game where you play as an adventurous bunny on a quest to discover a magical island! Start by chopping trees for wood, then build a wooden bridge to explore the island and gather a variety of resources. Trade your findings at the market to earn coins. As the island expands, don't worry—cute animal friends will come to help! Use your coins to upgrade both yourself and your animal friends. Are you ready to run the Bunny Market and turn it into a thriving success?
+
+How to play Bunny Farm?
+Use WASD, the arrow keys, or the joystick to move.
+
+Bunny Farm can be played on your computer and mobile devices like phones and tablets.
+
+
+
+
 
 
 
