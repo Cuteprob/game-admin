@@ -26,7 +26,16 @@ yarn-debug.log*
 yarn-error.log*
 
 # local env files
+.env
+.env.local
+.env.development
+.env.test
+.env.production
 .env*.local
+.env*.development
+.env*.test
+.env*.production
+
 
 # vercel
 .vercel
@@ -36,6 +45,9 @@ yarn-error.log*
 next-env.d.ts
 
 # wrangler files
+.wrangler/
 .wrangler.toml
 .dev.vars
+wrangler.toml.local
+wrangler.toml.*.local
 
