@@ -33,16 +33,23 @@ const createOpenAIClient = () => {
 // 使用验证过的4个模型作为备用列表
 const FALLBACK_MODELS = VERIFIED_MODEL_LIST
 
-// 获取可用的模型
+// 获取可用的模型 - 优化 Edge Runtime 兼容性
 async function getAvailableModel(openai: OpenAI, preferredModel: string): Promise<string> {
   console.log(`Testing preferred model: ${preferredModel}`)
+  
+  // 在生产环境中，跳过模型测试直接使用首选模型
+  // 因为 Edge Runtime 中的测试请求可能会失败，但实际使用时可能正常
+  if (process.env.NODE_ENV === 'production') {
+    console.log(`🚀 Production mode: Using preferred model ${preferredModel} without testing`)
+    return preferredModel
+  }
   
   // 首先测试首选模型
   try {
     const testResponse = await openai.chat.completions.create({
       model: preferredModel,
       messages: [{ role: 'user', content: 'Hello' }],
-      max_tokens: 10,
+      max_tokens: 5,
       temperature: 0
     })
     
@@ -72,7 +79,7 @@ async function getAvailableModel(openai: OpenAI, preferredModel: string): Promis
   
   console.log('Fallback models:', { envFallbacks, totalFallbacks: allFallbacks.length })
   
-  // 测试备用模型
+  // 在开发环境中测试备用模型
   for (const fallbackModel of allFallbacks) {
     if (fallbackModel === preferredModel) continue // 跳过已测试的首选模型
     
@@ -81,7 +88,7 @@ async function getAvailableModel(openai: OpenAI, preferredModel: string): Promis
       const testResponse = await openai.chat.completions.create({
         model: fallbackModel,
         messages: [{ role: 'user', content: 'Hello' }],
-        max_tokens: 10,
+        max_tokens: 5,
         temperature: 0
       })
       
@@ -92,6 +99,12 @@ async function getAvailableModel(openai: OpenAI, preferredModel: string): Promis
     } catch (error) {
       console.log(`❌ Fallback model ${fallbackModel} failed:`, error instanceof Error ? error.message : 'Unknown error')
     }
+  }
+  
+  // 如果所有测试都失败，但我们在生产环境中，使用首选模型作为最后尝试
+  if (process.env.NODE_ENV === 'production') {
+    console.log(`⚠️ All model tests failed, but using preferred model ${preferredModel} in production`)
+    return preferredModel
   }
   
   throw new Error('No available models found. Please check your API configuration and model availability.')
@@ -295,6 +308,12 @@ export const generateContent = async (
           throw new Error('AI service quota exceeded. Please check your API limits.')
         } else if (error.message.includes('timeout')) {
           throw new Error('AI service request timed out. Please try again.')
+        } else if (error.message.includes('No available models found')) {
+          throw new Error('AI service temporarily unavailable. Please try again in a moment.')
+        } else if (error.message.includes('Invalid request')) {
+          throw new Error('Invalid AI request. Please check your input data.')
+        } else if (error.message.includes('Unauthorized')) {
+          throw new Error('AI service authentication failed. Please check API configuration.')
         }
       }
       

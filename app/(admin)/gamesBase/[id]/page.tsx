@@ -9,7 +9,11 @@ import { Card } from "@/components/ui/card"
 import { useRouter } from "next/navigation"
 import { GameWithCategories, GameFormDataWithCategories } from "@/types/game"
 
-export default function EditGamePage({ params }: { params: { id: string } }) {
+interface PageProps {
+  params: { id: string }
+}
+
+export default function EditGamePage({ params }: PageProps) {
   const router = useRouter()
   const [game, setGame] = useState<GameWithCategories | null>(null)
   const [loading, setLoading] = useState(true)
