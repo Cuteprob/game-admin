@@ -242,7 +242,7 @@ DO NOT change any characters, hyphens, underscores, or formatting in URLs.
 If the raw data has "bunny-farm", keep it as "bunny-farm", NOT "bunny_farm".
 
 ⚠️ **CRITICAL RULE - INTERNAL LINK FORMAT** ⚠️
-For internal game page links, use the format /games/{gameId} where {gameId} is the exact game ID from the raw data.
+For internal game page links, use the format /{gameId} where {gameId} is the exact game ID from the raw data.
 DO NOT use hardcoded domains like "game-domain.org" or "game.org".
 Use relative paths that work across different project domains.
 
@@ -283,11 +283,11 @@ Please follow these guidelines:
 
 ## How To Play [Game Name] Online?
 
-[Game Name] is playable at [Game Name](/games/{gameId}) - no download, no sign-up, just pure browser-based fun. It's mobile-friendly and 100% free. [Add more information about the game, 20-30 words, naturally incorporate keywords]
+[Game Name] is playable at [Game Name](/{gameId}) - no download, no sign-up, just pure browser-based fun. It's mobile-friendly and 100% free. [Add more information about the game, 20-30 words, naturally incorporate keywords]
 
 ### Steps-By-Step To Play [Game Name] Online:
 
-1. **Visit [Game Name] page** - Navigate to [Game Name](/games/{gameId}), no app needed.
+1. **Visit [Game Name] page** - Navigate to [Game Name](/{gameId}), no app needed.
 2. **Start playing** - [Describe specific game operation based on provided information, 3-5 steps, especially how to move or how to take action, clearly describe gameplay, naturally incorporate keywords]
 
 ### Tips & Tricks for [Game Name]
@@ -303,8 +303,8 @@ Please follow these guidelines:
 
 If you enjoy **[Game Name]**, you might also like:
 
-- [Game Name1](/games/{gameId1}) - Brief introduction
-- [Game Name2](/games/{gameId2}) - Brief introduction
+- [Game Name1](/{gameId1}) - Brief introduction
+- [Game Name2](/{gameId2}) - Brief introduction
 
 ---
 
@@ -330,7 +330,7 @@ A: [Answer with keywords naturally incorporated]
 
 ## Ready To Play [Game Name]?
 
-Play [Game Name] Online now at **[Game Name](/games/{gameId})** - [A call to action sentence containing keywords]
+Play [Game Name] Online now at **[Game Name](/{gameId})** - [A call to action sentence containing keywords]
 
 **Important Notes:**
 - Use consistent game name formatting: [Game Name] for titles, [game name] for lowercase references
@@ -340,7 +340,7 @@ Play [Game Name] Online now at **[Game Name](/games/{gameId})** - [A call to act
 - Use proper markdown formatting for headers, lists, and emphasis
 - **CRITICAL: NEVER modify the original imageUrl, iframeUrl, or any URLs from the raw data - use them exactly as provided**
 - **CRITICAL: ONLY use information from the provided raw game data - do not invent or assume game features**
-- **CRITICAL: Use folder structure for internal links** - Use /games/{gameId} format for game page links, where {gameId} should be replaced with the actual game ID from the raw data
+- **CRITICAL: Use folder structure for internal links** - Use /{gameId} format for game page links, where {gameId} should be replaced with the actual game ID from the raw data
 
 ⚠️ **CRITICAL RULE - CONTENT FORMAT** ⚠️
 The "content" field MUST be a simple string containing the markdown content. 
