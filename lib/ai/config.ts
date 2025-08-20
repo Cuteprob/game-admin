@@ -195,7 +195,7 @@ export const ALTERNATIVE_PROMPTS = {
 
 CRITICAL RULES:
 1. Copy imageUrl and iframeUrl EXACTLY as provided - do not modify any characters
-2. Use relative paths for internal links: /games/{gameId}
+2. Use relative paths for internal links: /gameId
 3. Generate actual content when you see [instructions] - do not repeat the instruction text
 4. Base all content on the provided raw data only - do not invent information
 
@@ -265,7 +265,7 @@ Please follow these guidelines:
 3. Ensure all URLs are properly formatted
 4. Generate content in markdown format following this exact structure:
 
-## Short Game Description   [Create a catchy, engaging short description of the game in exactly 10 words or less. Example: "Welcome to Scrandle – The Ultimate Food Comparison Game"]
+## [Create a catchy, engaging short description of the game in exactly 10 words or less. Example: "Welcome to Scrandle – The Ultimate Food Comparison Game"]
 
 [Generate a longer game description in 15-20 words that expands on the short description]
 
@@ -283,11 +283,11 @@ Please follow these guidelines:
 
 ## How To Play [Game Name] Online?
 
-[Game Name] is playable at [Game Name](/{gameId}) - no download, no sign-up, just pure browser-based fun. It's mobile-friendly and 100% free. [Add more information about the game, 20-30 words, naturally incorporate keywords]
+[Game Name] is playable at **[Game Name](/gameId)**  - no download, no sign-up, just pure browser-based fun. It's mobile-friendly and 100% free. [Add more information about the game, 20-30 words, naturally incorporate keywords]
 
 ### Steps-By-Step To Play [Game Name] Online:
 
-1. **Visit [Game Name] page** - Navigate to [Game Name](/{gameId}), no app needed.
+1. **Visit [Game Name] page** - Navigate to **[Game Name](/gameId)** , no app needed.
 2. **Start playing** - [Describe specific game operation based on provided information, 3-5 steps, especially how to move or how to take action, clearly describe gameplay, naturally incorporate keywords]
 
 ### Tips & Tricks for [Game Name]
@@ -303,8 +303,8 @@ Please follow these guidelines:
 
 If you enjoy **[Game Name]**, you might also like:
 
-- [Game Name1](/{gameId1}) - Brief introduction
-- [Game Name2](/{gameId2}) - Brief introduction
+- **[Game Name](/gameId)**  - Brief introduction
+- **[Game Name](/gameId)**  - Brief introduction
 
 ---
 
@@ -330,7 +330,7 @@ A: [Answer with keywords naturally incorporated]
 
 ## Ready To Play [Game Name]?
 
-Play [Game Name] Online now at **[Game Name](/{gameId})** - [A call to action sentence containing keywords]
+Play [Game Name] Online now at **[Game Name](/gameId)** - [A call to action sentence containing keywords]
 
 **Important Notes:**
 - Use consistent game name formatting: [Game Name] for titles, [game name] for lowercase references
@@ -340,7 +340,7 @@ Play [Game Name] Online now at **[Game Name](/{gameId})** - [A call to action se
 - Use proper markdown formatting for headers, lists, and emphasis
 - **CRITICAL: NEVER modify the original imageUrl, iframeUrl, or any URLs from the raw data - use them exactly as provided**
 - **CRITICAL: ONLY use information from the provided raw game data - do not invent or assume game features**
-- **CRITICAL: Use folder structure for internal links** - Use /{gameId} format for game page links, where {gameId} should be replaced with the actual game ID from the raw data
+- **CRITICAL: Use folder structure for internal links** - Use /gameId format for game page links, where {gameId} should be replaced with the actual game ID from the raw data
 
 ⚠️ **CRITICAL RULE - CONTENT FORMAT** ⚠️
 The "content" field MUST be a simple string containing the markdown content. 

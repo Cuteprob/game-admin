@@ -133,16 +133,10 @@ Kitten Never Dies is an online puzzle game that we hand picked for Lagged.com. T
 
 EXTRA GAMES
 You can also play the extra games in Bunny Market.
-- [Tropical Merge](/tropical-merge)
-- [Catch The Goose](/catch-the-goose)
-- [Sugar Heroes](/sugar-heroes)
+
+- [Catch The Goose](/catch-the-goose) 
 - [Kitty Scramble](/kitty-scramble)
 - [Candy Riddles](/candy-riddles-free-match-3-puzzle)
-- [Monkey Mart](/monkey-mart)
-- [Bunny Market](/bunny-market)
-- [Bunny Farm](/bunny-farm)
-- [Bunny Market Unblocked](/bunny-market-unblocked)
-- [Kitten Never Dies](/kitten-never-dies)
 
 # NO.6
 id:tropical-merge
@@ -164,11 +158,16 @@ Earn amulets and level up to unlock more areas and expand your island. The more 
 Complete quests
 Merging and discovering new items is a ton of fun, and many are part of quests that will reward you for building new items. There are so many quests to keep you hooked and daily quests to keep you coming back for a fresh challenge!
 
+EXTRA GAMES
+You can also play the extra games in Bunny Market.
+- [Catch The Goose](/catch-the-goose)
+- [The Mergest Kingdom](/the-mergest-kingdom)
+- [Candy Riddles](/candy-riddles-free-match-3-puzzle)
 # NO.7
 id:catch-the-goose
 title:Catch The Goose
 iframeUrl:https://bunnymarket.app/catch-the-goose/index.html
-imageUrl:https://bunnymarket.app/catch-the-goose/catch-the-goose.png
+imageUrl:https://bunnymarket.app/catch-the-goose/catch-the-goose.jpg
 content:
 
 Catch The Goose is a puzzle elimination mini-game. Players can tap identical items to automatically send them to the bottom slot - when three matching items gather, they get eliminated. When players successfully clear all items arranged in the grid, they get to "catch" a mischievous goose. Its addictive simplicity, stress-relieving design, and playful art style have made it a cultural phenomenon.
@@ -183,6 +182,13 @@ How to play:
 1. Tap three identical items to eliminate them.
 2. Complete all eliminations to capture the goose.
 3. Use power-ups (e.g., Add Slot or Shuffle) for tricky levels.
+
+EXTRA GAMES
+You can also play the extra games in Bunny Market.
+- [Kitty Scramble](/kitty-scramble)
+- [Monkey Mart](/monkey-mart)
+- [Bunny Market Unblocked](/bunny-market-unblocked)
+- [Kitten Never Dies](/kitten-never-dies)
 
 # NO.8
 id:sugar-heroes
@@ -206,6 +212,12 @@ You’ll need to clear levels by accumulating points from your matches to win. A
 
 One of the game’s magic tricks is the lollipop – swap it with any piece on the grid to remove all the same-colored elements, clearing the board in a flash! Get ready to match, strategize, and enjoy the sweet adventure of Sugar Heroes.
 
+EXTRA GAMES
+You can also play the extra games in Bunny Market.
+- [Catch The Goose](/catch-the-goose)
+- [Candy Riddles](/candy-riddles-free-match-3-puzzle)
+- [The Mergest Kingdom](/the-mergest-kingdom)
+
 # NO.9
 id:kitty-scramble
 title:Kitty Scramble
@@ -226,6 +238,12 @@ You can also find extra words in the puzzle that aren't part of the target list.
 
 There are two types of power ups: one to reveal a letter that is part of one of the target words, and another to shuffle the board.
 
+EXTRA GAMES
+You can also play the extra games in Bunny Market.
+- [Monkey Mart](/monkey-mart)
+- [Kitten Never Dies](/kitten-never-dies)
+- [The Mergest Kingdom](/the-mergest-kingdom)
+
 # NO.10
 id:candy-riddles-free-match-3-puzzle
 title:Candy Riddles Free Match 3 Puzzle
@@ -243,6 +261,13 @@ Candy Riddles is similar to Candy Crush but with its own unique style of gamepla
 Candy Riddles Levels
 
 As you move through the levels as a candy-matching machine, you'll unlock new items and challenges that keep the gameplay fresh. These can be collectible elements like honey or special sweets for matching longer chains of candy. For example, in level 3, matching five sweets will give you a rainbow cake! This eliminates all of the matched colors, creating a tasty avalanche of treats. There's much more to discover at each level, so give the game a try!
+
+EXTRA GAMES
+You can also play the extra games in Bunny Market.
+
+- [Sugar Heroes](/sugar-heroes)
+- [Kitty Scramble](/kitty-scramble)
+- [Kitten Never Dies](/kitten-never-dies)
 
 # NO.11
 id:monkey-mart
@@ -283,6 +308,12 @@ Why is Monkey Mart popular?
 The Monkey Mart game is suitable for players who love lightness and not too much stress.
 Can be played anytime, anywhere on both phones and computers.
 Continuously updated with many new features, ensuring no boredom.
+
+EXTRA GAMES
+You can also play the extra games in Bunny Market.
+- [Bunny Farm](/bunny-farm)
+- [Bunny Market Unblocked](/bunny-market-unblocked)
+- [The Mergest Kingdom](/the-mergest-kingdom)
 
 
 
