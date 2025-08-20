@@ -42,7 +42,6 @@ function JsonDisplay({ data }: { data: any }) {
   // 如果数据是字符串格式的JSON,先解析它
   const formattedData = parseJsonSafely(data);
   
-  // 格式化FAQ项目
   const formatFaqItem = (item: any) => {
     if (item && typeof item === 'object' && item.question && item.answer) {
       return (
