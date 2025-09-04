@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title id="game-title">Bloodmoney</title>
+    <style>
+        body, html {
+            margin: 0;
+            padding: 0;
+            background: #000;
+            overflow: hidden;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        #game-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+        
+        #game-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+            background: #000;
+            transition: opacity 0.3s ease;
+        }
+        
+        /* Simple loading overlay */
+        #loading-overlay {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            color: #fff;
+            z-index: 10;
+            transition: opacity 0.3s ease;
+        }
+        
+        #loading-overlay.hidden {
+            opacity: 0;
+            pointer-events: none;
+        }
+        
+        .spinner {
+            width: 40px;
+            height: 40px;
+            border: 3px solid #333;
+            border-top: 3px solid #fff;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 15px;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        .loading-text {
+            font-size: 16px;
+            text-align: center;
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .loading-text {
+                font-size: 14px;
+                padding: 0 20px;
+            }
+            
+            .spinner {
+                width: 35px;
+                height: 35px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .spinner {
+                width: 30px;
+                height: 30px;
+            }
+            
+            .loading-text {
+                font-size: 12px;
+            }
+        }
+        
+        /* Landscape orientation for mobile */
+        @media (orientation: landscape) and (max-height: 500px) {
+            #loading-overlay {
+                flex-direction: row;
+            }
+            
+            .spinner {
+                margin-right: 15px;
+                margin-bottom: 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="game-container">
+        <!-- Simple loading overlay -->
+        <div id="loading-overlay">
+            <div class="spinner"></div>
+            <div class="loading-text">Loading game...</div>
+        </div>
+        
+        <!-- Game iframe -->
+        <iframe id="game-frame" 
+                allowfullscreen 
+                sandbox="allow-scripts allow-same-origin allow-forms allow-pointer-lock"
+                loading="lazy"></iframe>
+    </div>
+    
+    <script>
+        // Game configuration
+        const gameConfig = {
+            // Default game (can be overridden by URL parameters)
+            defaultGame: {
+                title: 'Chiikawa Puzzle',
+                url: 'https://html-classic.itch.zone/html/14669242/index.html'
+            }
+        };
+        
+        class GameLoader {
+            constructor() {
+                this.gameFrame = document.getElementById('game-frame');
+                this.loadingOverlay = document.getElementById('loading-overlay');
+                this.gameTitle = document.getElementById('game-title');
+                
+                this.init();
+            }
+            
+            init() {
+                // Get game configuration from URL or use default
+                const gameInfo = this.getGameInfo();
+                
+                // Set page title
+                this.gameTitle.textContent = gameInfo.title;
+                document.title = gameInfo.title;
+                
+                // Update loading text
+                const loadingText = document.querySelector('.loading-text');
+                loadingText.textContent = `Loading ${gameInfo.title}...`;
+                
+                // Set up iframe
+                this.setupIframe(gameInfo.url);
+                
+                // Set up load event
+                this.gameFrame.addEventListener('load', () => {
+                    this.hideLoading();
+                });
+                
+                // Make iframe focusable for keyboard controls
+                this.gameFrame.setAttribute('tabindex', '0');
+            }
+            
+            getGameInfo() {
+                const urlParams = new URLSearchParams(window.location.search);
+                
+                // Check for game parameter in URL
+                const gameParam = urlParams.get('game');
+                if (gameParam && gameConfig.games[gameParam]) {
+                    return gameConfig.games[gameParam];
+                }
+                
+                // Check for direct URL parameter
+                const urlParam = urlParams.get('url');
+                const titleParam = urlParams.get('title');
+                if (urlParam) {
+                    return {
+                        title: titleParam || 'Game',
+                        url: urlParam
+                    };
+                }
+                
+                // Use default game
+                return gameConfig.defaultGame;
+            }
+            
+            setupIframe(url) {
+                this.gameFrame.src = url;
+            }
+            
+            hideLoading() {
+                this.loadingOverlay.classList.add('hidden');
+                setTimeout(() => {
+                    this.loadingOverlay.style.display = 'none';
+                    this.gameFrame.focus();
+                }, 300);
+            }
+        }
+        
+        // Initialize when page loads
+        document.addEventListener('DOMContentLoaded', () => {
+            new GameLoader();
+        });
+    </script>
+</body>
+</html>

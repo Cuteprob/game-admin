@@ -25,52 +25,80 @@ export function ProjectList() {
   const [search, setSearch] = useState("")
   const [editingCategoriesProjectId, setEditingCategoriesProjectId] = useState<string | null>(null)
 
-  useEffect(() => {
-    async function fetchProjects() {
-      try {
-        const response = await fetch('/api/projects')
-        const data = await response.json()
-        const projectsData = data.data || []
-        
-        // 为每个项目获取统计信息
-        const projectsWithStats = await Promise.all(
-          projectsData.map(async (project: Project) => {
-            try {
-              // 获取游戏数量
-              const gamesResponse = await fetch(`/api/projects/${project.id}/games?pageSize=1`)
-              const gamesData = await gamesResponse.json()
-              const gamesCount = gamesData.data?.total || 0
+  // 刷新特定项目的统计信息
+  const refreshProjectStats = async (projectId: string) => {
+    try {
+      // 获取游戏数量
+      const gamesResponse = await fetch(`/api/projects/${projectId}/games?pageSize=1`)
+      const gamesData = await gamesResponse.json()
+      const gamesCount = gamesData.data?.total || 0
 
-              // 获取分类数量
-              const categoriesResponse = await fetch(`/api/projects/${project.id}/categories`)
-              const categoriesData = await categoriesResponse.json()
-              const categoriesCount = categoriesData.data?.length || 0
+      // 获取分类数量
+      const categoriesResponse = await fetch(`/api/projects/${projectId}/categories`)
+      const categoriesData = await categoriesResponse.json()
+      const categoriesCount = categoriesData.data?.length || 0
 
-              return {
-                ...project,
-                gamesCount,
-                categoriesCount
-              }
-            } catch (error) {
-              console.error(`Failed to fetch stats for project ${project.id}:`, error)
-              return {
-                ...project,
-                gamesCount: 0,
-                categoriesCount: 0
-              }
-            }
-          })
+      // 更新特定项目的统计信息
+      setProjects(prevProjects => 
+        prevProjects.map(project => 
+          project.id === projectId 
+            ? { ...project, gamesCount, categoriesCount }
+            : project
         )
-        
-        setProjects(projectsWithStats)
-      } catch (error) {
-        console.error('Failed to fetch projects:', error)
-        setProjects([])
-      } finally {
-        setLoading(false)
-      }
+      )
+    } catch (error) {
+      console.error(`Failed to refresh stats for project ${projectId}:`, error)
     }
+  }
 
+  // 提取获取项目数据的函数，以便在需要时重新调用
+  const fetchProjects = async () => {
+    try {
+      setLoading(true)
+      const response = await fetch('/api/projects')
+      const data = await response.json()
+      const projectsData = data.data || []
+      
+      // 为每个项目获取统计信息
+      const projectsWithStats = await Promise.all(
+        projectsData.map(async (project: Project) => {
+          try {
+            // 获取游戏数量
+            const gamesResponse = await fetch(`/api/projects/${project.id}/games?pageSize=1`)
+            const gamesData = await gamesResponse.json()
+            const gamesCount = gamesData.data?.total || 0
+
+            // 获取分类数量
+            const categoriesResponse = await fetch(`/api/projects/${project.id}/categories`)
+            const categoriesData = await categoriesResponse.json()
+            const categoriesCount = categoriesData.data?.length || 0
+
+            return {
+              ...project,
+              gamesCount,
+              categoriesCount
+            }
+          } catch (error) {
+            console.error(`Failed to fetch stats for project ${project.id}:`, error)
+            return {
+              ...project,
+              gamesCount: 0,
+              categoriesCount: 0
+            }
+          }
+        })
+      )
+      
+      setProjects(projectsWithStats)
+    } catch (error) {
+      console.error('Failed to fetch projects:', error)
+      setProjects([])
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  useEffect(() => {
     fetchProjects()
   }, [])
 
@@ -283,17 +311,18 @@ export function ProjectList() {
         open={editingCategoriesProjectId !== null} 
         onOpenChange={(open) => !open && setEditingCategoriesProjectId(null)}
       >
-        <DialogContent className="max-w-4xl max-h-[80vh] overflow-hidden">
+        <DialogContent className="max-w-4xl max-h-[80vh] flex flex-col">
           <DialogHeader>
             <DialogTitle>Edit Project Categories</DialogTitle>
           </DialogHeader>
-          <div className="overflow-y-auto">
+          <div className="flex-1 overflow-y-auto px-1">
             {editingCategoriesProjectId && (
               <ProjectCategorySelect 
                 projectId={editingCategoriesProjectId}
                 onSave={() => {
                   setEditingCategoriesProjectId(null)
-                  // 可以选择刷新项目列表以显示更新后的信息
+                  // 只刷新当前项目的统计信息，提高性能
+                  refreshProjectStats(editingCategoriesProjectId)
                 }}
               />
             )}

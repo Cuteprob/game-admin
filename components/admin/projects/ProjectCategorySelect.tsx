@@ -113,20 +113,22 @@ export function ProjectCategorySelect({ projectId, onSave }: ProjectCategorySele
         ))}
       </div>
 
-      <Button 
-        onClick={handleSave} 
-        disabled={saving}
-        className="w-full"
-      >
-        {saving ? (
-          <>
-            <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-            Saving...
-          </>
-        ) : (
-          'Save Categories'
-        )}
-      </Button>
+      <div className="border-t pt-4">
+        <Button 
+          onClick={handleSave} 
+          disabled={saving}
+          className="w-full"
+        >
+          {saving ? (
+            <>
+              <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+              Saving...
+            </>
+          ) : (
+            'Save Categories'
+          )}
+        </Button>
+      </div>
     </div>
   )
 } 
