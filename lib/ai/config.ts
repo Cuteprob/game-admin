@@ -5,7 +5,7 @@ export const openaiConfig = {
 }
 
 // AI generation task type
-export type AITaskType = 'GAME_IMPORT' | 'GAME_CONTENT'
+export type AITaskType = 'GAME_IMPORT' | 'PROJECT_GAME_LOCALIZATION'
 
 // AI generation configuration interface
 export interface AIGenerationConfig {
@@ -83,7 +83,7 @@ export const VERIFIED_MODEL_LIST = [
 ] as const
 
 // 任务类型定义
-export type TaskType = 'GAME_IMPORT' | 'GAME_CONTENT'
+export type TaskType = 'GAME_IMPORT' | 'PROJECT_GAME_LOCALIZATION'
 
 export interface OptimizationOptions {
   model: string
@@ -132,6 +132,7 @@ export class PromptOptimizer {
         ? ALTERNATIVE_PROMPTS.GAME_IMPORT_SIMPLIFIED
         : ALTERNATIVE_PROMPTS.GAME_IMPORT_MINIMAL
     }
+    // 对于 PROJECT_GAME_LOCALIZATION，返回基础提示词
     return DEFAULT_PROMPTS[taskType]
   }
 
@@ -263,74 +264,45 @@ Please follow these guidelines:
    - Description should be around 130 characters and include SEO keywords
    - No keywords generated
 3. Ensure all URLs are properly formatted
-4. Generate content in markdown format following this exact structure:
+4. Generate content in markdown format that preserves original information while using basic structure:
 
-## [Create a catchy, engaging short description of the game in exactly 10 words or less. Example: "Welcome to Scrandle – The Ultimate Food Comparison Game"]
+**CONTENT GENERATION RULES:**
+- Default language: English (preserve original content in English or translate to English if needed)
+- Include ALL media URLs (imageUrl, videoUrl, thumbnails, etc.) from raw data
+- Preserve original descriptions and information as much as possible
+- Use simple markdown formatting for readability
+- Avoid over-marketing language and excessive SEO templating
+- Focus on factual, informative content based on raw data
 
-[Generate a longer game description in 15-20 words that expands on the short description]
+**Content Structure:**
+Generate content following this basic structure, but adapt based on available raw data:
 
-![Game Name Screenshot](image url)
+# [Game Title from raw data]
 
-## [Game Name] Overview 
+![Game Screenshot]([imageUrl from raw data - EXACT URL])
 
-### What is [Game Name]?
-[Introduce the game name, make important keywords **bold**, 20-30 words]
+[If videoUrl exists in raw data, include: Video: [videoUrl]]
+[If additional media URLs exist, include them with appropriate labels]
 
-### Gameplay
-[Describe the gameplay based on provided information, 30-50 words, naturally incorporate keywords]
+## Game Description
+[Use original description from raw data, translated to English if needed. If multiple descriptions exist, combine them naturally. Keep all factual information.]
 
----
+## Gameplay & Features
+[List ALL features, gameplay elements, and mechanics mentioned in raw data. Preserve original wording as much as possible.]
 
-## How To Play [Game Name] Online?
+## How to Play
+[Include ALL control instructions, gameplay steps, and mechanics from raw data. Keep original technical details.]
 
-[Game Name] is playable at **[Game Name](/gameId)**  - no download, no sign-up, just pure browser-based fun. It's mobile-friendly and 100% free. [Add more information about the game, 20-30 words, naturally incorporate keywords]
+## Game Information
+[Include ANY additional details from raw data: categories, technical specs, developer info, etc.]
 
-### Steps-By-Step To Play [Game Name] Online:
-
-1. **Visit [Game Name] page** - Navigate to **[Game Name](/gameId)** , no app needed.
-2. **Start playing** - [Describe specific game operation based on provided information, 3-5 steps, especially how to move or how to take action, clearly describe gameplay, naturally incorporate keywords]
-
-### Tips & Tricks for [Game Name]
-
-- **Master the basics** - [Describe game tips based on provided information, 3-5 tips, clearly describe specific techniques, naturally incorporate keywords]
-
-### Why Play [Game Name]?
-[List several game advantages, 20-30 words, naturally incorporate keywords]
-
----
-
-## Related Games
-
-If you enjoy **[Game Name]**, you might also like:
-
-- **[Game Name](/gameId)**  - Brief introduction
-- **[Game Name](/gameId)**  - Brief introduction
-
----
-
-## FAQ
-### **Q: What is [Game Name]?**
-A: [Answer with keywords naturally incorporated]
-
-### **Q: How do I start playing [Game Name]?**
-A: [Answer with keywords naturally incorporated]
-
-### **Q: What are the best strategies for [Game Name]?**
-A: [Answer with keywords naturally incorporated]
-
-### **Q: Is [Game Name] free to play?**
-A: [Answer with keywords naturally incorporated]
-
-### **Q: Can I play [Game Name] on mobile devices and desktop?**
-A: [Answer with keywords naturally incorporated]
-
-
-
----
-
-## Ready To Play [Game Name]?
-
-Play [Game Name] Online now at **[Game Name](/gameId)** - [A call to action sentence containing keywords]
+**Important Guidelines:**
+- Preserve ALL URLs exactly as provided in raw data
+- Include ALL available information, don't omit details
+- Use original descriptions with minimal editing
+- Translate to English if raw data is in other languages
+- Keep factual tone, avoid marketing fluff
+- Maintain information completeness for future localization
 
 **Important Notes:**
 - Use consistent game name formatting: [Game Name] for titles, [game name] for lowercase references
@@ -365,15 +337,119 @@ The output should match this EXACT format:
 
 Please return the data in valid JSON format.`,
 
-  GAME_CONTENT: `You are a game content creation expert. Your task is to generate engaging game descriptions and related content based on the game type.
+  PROJECT_GAME_LOCALIZATION: `You are an expert game localization specialist with deep knowledge of international gaming markets, cultural adaptation, and SEO optimization. Your task is to create high-quality localized content for an existing game within a specific project context.
 
-Please follow these guidelines:
-1. Create compelling game descriptions
-2. Highlight unique features
-3. Generate relevant FAQs
-4. Optimize content for SEO
-5. Maintain professional tone
-6. Focus on gameplay aspects
+**Input Data:**
+- Original game data (title, metadata, content)
+- Project context (locale, tone, target audience)
+- Custom localization requirements (if provided)
 
-Please return the data in JSON format.`
+**Your Expertise:**
+- Multi-language game marketing
+- Cultural sensitivity and adaptation
+- Local gaming market trends
+- SEO best practices for each locale
+- Engaging content creation that converts
+
+**Task Requirements:**
+
+**1. LOCALIZED TITLE GENERATION**
+Create a compelling, culturally appropriate title that:
+- ✅ Adapts the original game name for the target locale and market
+- ✅ Maintains brand recognition while optimizing for local search
+- ✅ Considers cultural nuances and gaming terminology preferences
+- ✅ Optimizes for local SEO keywords and search behavior
+- ✅ Matches the project's tone (professional, casual, enthusiastic, etc.)
+- ✅ Appeals to the specified target audience demographic
+
+**2. METADATA OPTIMIZATION**
+Generate SEO-optimized metadata:
+- **Title**: 50-60 characters max, includes primary keywords for target locale
+- **Description**: 150-160 characters max, compelling and action-oriented
+- Must be culturally appropriate and market-specific
+- Include relevant gaming keywords in the target language
+- Drive click-through rates with engaging language
+
+**3. COMPREHENSIVE CONTENT LOCALIZATION**
+Create rich, engaging markdown content that includes:
+
+**Game Overview Section:**
+- Compelling introduction adapted to local gaming culture
+- Key features highlighted with local appeal
+- Gameplay mechanics explained in familiar terms
+- Visual and audio highlights that resonate locally
+
+**Detailed Description:**
+- **Story/Theme**: Adapted for cultural relevance and local storytelling preferences
+- **Gameplay Features**: Explained using local gaming terminology and references
+- **Controls & Mechanics**: Clear, culturally appropriate instructions
+- **Visual Style**: Described with local aesthetic preferences in mind
+- **Audio/Music**: Highlighted features that appeal to local tastes
+
+**Why Players Will Love This Game:**
+- Benefits written for local gaming preferences
+- Social and competitive aspects emphasized appropriately
+- Achievement and progression systems explained
+- Community and multiplayer features highlighted
+
+**Perfect For:**
+- Target audience segments specific to the locale
+- Local gaming occasions and contexts
+- Device and platform preferences in the region
+
+**SEO Content Strategy:**
+- Natural integration of local gaming keywords
+- Semantic keyword clusters for the target market
+- Local search intent optimization
+- Regional gaming trend references
+
+**Content Quality Standards:**
+- **Engaging**: Hook readers immediately with compelling openings
+- **Informative**: Provide comprehensive game information
+- **Culturally Adapted**: Use local idioms, references, and gaming culture
+- **SEO Optimized**: Natural keyword integration without stuffing
+- **Conversion Focused**: Drive engagement and play intent
+- **Mobile Optimized**: Scannable format with clear headings
+
+**Language and Tone Guidelines:**
+- Match the specified project tone consistently
+- Use active voice and engaging language
+- Include call-to-action elements naturally
+- Maintain excitement and enthusiasm about the game
+- Use culturally appropriate gaming terminology
+- Balance informative and promotional content
+
+**Technical Requirements:**
+- Use proper markdown formatting with clear hierarchy
+- Include relevant headings (##, ###) for structure
+- Use bullet points and lists for easy scanning
+- Bold important keywords and features naturally
+- Ensure mobile-friendly content structure
+
+**Critical Success Factors:**
+- Content must feel native to the target locale, not translated
+- Gaming terminology must be locally accurate and preferred
+- Cultural references should enhance, not alienate
+- SEO integration must feel natural and helpful
+- Content should drive genuine interest and engagement
+
+**Output Format:**
+Return ONLY these three fields in valid JSON format:
+{
+  "title": "Localized game title optimized for [locale] market",
+  "metadata": {
+    "title": "SEO-optimized title (50-60 chars) with local keywords",
+    "description": "Compelling meta description (150-160 chars) that drives clicks"
+  },
+  "content": "Comprehensive markdown content with proper formatting, local adaptation, and SEO optimization..."
+}
+
+**Quality Assurance:**
+- Verify all content is culturally appropriate for the target locale
+- Ensure SEO keywords are naturally integrated
+- Confirm the tone matches project requirements
+- Check that gaming terminology is locally accurate
+- Validate that content drives engagement and interest
+
+Generate content that local players will find irresistible and search engines will rank highly!`
 } 

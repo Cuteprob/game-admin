@@ -216,7 +216,7 @@ const parseAIResponse = (content: string): any => {
 // 生成内容
 export const generateContent = async (
   input: string,
-  taskType: 'GAME_IMPORT' | 'GAME_CONTENT',
+  taskType: 'GAME_IMPORT' | 'PROJECT_GAME_LOCALIZATION',
   customPrompt?: string,
   temperature: number = 0.7
 ) => {
@@ -339,10 +339,10 @@ If input has "bunny-farm", output must have "bunny-farm", not "bunny_farm".`
   return generateContent(rawData, 'GAME_IMPORT', finalPrompt)
 }
 
-// 游戏内容生成
+// 项目游戏本地化内容生成
 export const createGameContent = async (
   gameInfo: string,
   customPrompt?: string
 ) => {
-  return generateContent(gameInfo, 'GAME_CONTENT', customPrompt)
+  return generateContent(gameInfo, 'PROJECT_GAME_LOCALIZATION', customPrompt)
 } 

@@ -45,12 +45,41 @@ export async function fetchJsonWithRetry<T>(
   url: string,
   options: FetchOptions = {}
 ): Promise<T> {
-  const response = await fetchWithRetry(url, options)
-  try {
-    return await response.json()
-  } catch (error) {
-    console.error('Failed to parse JSON:', error)
-    throw error
-  }
+  const { timeout = 30000, ...fetchOptions } = options
+
+  return retry(
+    async () => {
+      const controller = new AbortController()
+      const timeoutId = setTimeout(() => controller.abort(), timeout)
+
+      try {
+        const response = await fetch(url, {
+          ...fetchOptions,
+          signal: controller.signal
+        })
+
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`)
+        }
+
+        // 直接读取JSON，不使用clone()避免response body被重复读取
+        return await response.json()
+      } finally {
+        clearTimeout(timeoutId)
+      }
+    },
+    {
+      maxRetries: 3,
+      initialDelay: 1000,
+      maxDelay: 5000,
+      onRetry: (error, attempt) => {
+        console.error(`Attempt ${attempt} failed:`, error)
+        // 对于JSON请求，减少toast干扰，只在最后一次失败时显示
+        if (attempt >= 3) {
+          toast.error(`Request failed after ${attempt} attempts`)
+        }
+      }
+    }
+  )
 }
 

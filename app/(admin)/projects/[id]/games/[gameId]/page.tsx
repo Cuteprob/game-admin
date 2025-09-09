@@ -268,29 +268,35 @@ export default function EditGamePage({
 
     setGenerating(true)
     try {
-      const response = await fetch(`/api/projects/${params.id}/games/generate`, {
+      // 构建原始数据，包含完整的游戏信息
+      const rawGameData = {
+        title: originalGame.title,
+        metadata: originalGame.metadata,
+        content: originalGame.content,
+        // 添加项目相关的上下文信息
+        projectContext: {
+          locale: projectGame.locale,
+          tone: project.aiConfig?.tone || 'professional',
+          targetAudience: project.aiConfig?.targetAudience || 'general'
+        }
+      }
+
+      // 使用项目配置的自定义提示词，如果没有则使用默认的
+      const customPrompt = project.aiConfig?.defaultPrompts?.description || undefined
+
+      const response = await fetch(`/api/ai/generate`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          gameId: params.gameId,
-          mode: 'ai',
-          locale: projectGame.locale,
-          originalContent: {
-            metadata: originalGame.metadata
-          },
-          aiConfig: {
-            tone: project.aiConfig?.tone || 'professional',
-            targetAudience: project.aiConfig?.targetAudience || 'general',
-            prompts: {
-              title: project.aiConfig?.defaultPrompts?.title || '',
-              description: project.aiConfig?.defaultPrompts?.description || ''
-            }
-          }
+          rawData: JSON.stringify(rawGameData),
+          customPrompt: customPrompt,
+          taskType: 'PROJECT_GAME_LOCALIZATION'
         })
       })
 
       if (!response.ok) {
-        throw new Error('Failed to generate content')
+        const errorData = await response.json().catch(() => ({}))
+        throw new Error(errorData.error || 'Failed to generate content')
       }
 
       const { data } = await response.json()
@@ -301,7 +307,7 @@ export default function EditGamePage({
       toast.success('Content generated successfully')
     } catch (error) {
       console.error('Failed to generate content:', error)
-      toast.error('Failed to generate content')
+      toast.error(error instanceof Error ? error.message : 'Failed to generate content')
     } finally {
       setGenerating(false)
     }

@@ -104,6 +104,53 @@ imageUrl:https://html-classic.itch.zone/html/14669242/index.html
 content:
 BLOODMONEY!: DARK CLICKER DESCENT!
 
+--------------------------------------2025-09-05-----------------------------------------
+# ~~NO.14~~
+id:100-meter-sprint
+title:100 Meter Sprint
+iframeUrl:https://games.speedstars.app/100-meter-sprint/100-meter-sprint.html
+imageUrl:https://games.speedstars.app/100-meter-sprint/100-meter-sprint.jpg
+content:
+
+
+# ~~NO.15~~
+id:speed-stars
+title:Speed Stars
+iframeUrl:https://games.speedstars.app/speed-stars/index.html
+imageUrl:https://games.speedstars.app/speed-stars/speed-stars.jpg
+content:
+
+
+
+
+# ~~NO.16~~
+id:speed-legends
+title:Speed Legends
+iframeUrl:https://games.speedstars.app/speed-legends/speed-legends.html
+imageUrl:https://games.speedstars.app/speed-legends/speed-legends.jpg
+content:
+
+
+# ~~NO.17~~
+id:sprinter
+title:Sprinter
+iframeUrl:https://games.speedstars.app/sprinter/sprinter.html
+imageUrl:https://games.speedstars.app/sprinter/sprinter.jpg
+content:
+
+# ~~NO.18~~
+id:speed-stars-unblocked
+title:Speed Stars Unblocked
+iframeUrl:https://games.speedstars.app/speed-stars-unblocked/index.html
+imageUrl:https://games.speedstars.app/speed-stars-unblocked/speed-stars-unblocked.jpg
+content:
+
+# ~~NO.19~~
+id:shady-bears
+title:Shady Bears
+iframeUrl:https://images.shadybears.org/shady-bears/index.html
+imageUrl:https://images.shadybears.org/shady-bears/shady-bears.jpg
+content:
 
 
 
