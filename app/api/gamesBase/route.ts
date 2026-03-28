@@ -2,6 +2,7 @@ import { NextResponse } from 'next/server';
 import { db } from '@/lib/db/tursoDb';
 import { gamesBase, gameCategories, categories } from '@/lib/db/schema';
 import { desc, eq, sql } from 'drizzle-orm';
+import { gamesBaseRepository } from '@/repositories/gamesBaseRepository';
 
 export const runtime = 'edge'
 
@@ -47,4 +48,32 @@ export async function GET(request: Request) {
       { status: 500 }
     )
   }
-} 
+}
+
+export async function POST(request: Request) {
+  try {
+    const body = await request.json();
+
+    const exists = await gamesBaseRepository.gameExists(body.id);
+    if (exists) {
+      return NextResponse.json(
+        { error: 'Game already exists' },
+        { status: 409 }
+      );
+    }
+
+    await gamesBaseRepository.createGame(body);
+    const game = await gamesBaseRepository.getGameById(body.id);
+
+    return NextResponse.json(
+      { data: game, message: 'Successfully created game' },
+      { status: 201 }
+    );
+  } catch (error) {
+    console.error('Failed to create game:', error);
+    return NextResponse.json(
+      { error: 'Failed to create game' },
+      { status: 500 }
+    );
+  }
+}
