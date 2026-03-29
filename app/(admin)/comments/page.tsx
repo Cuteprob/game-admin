@@ -1,5 +1,7 @@
 "use client"
 
+export const dynamic = "force-dynamic"
+
 import { useState } from "react"
 import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { CommentList } from "@/components/admin/comments/CommentList"
@@ -71,7 +73,6 @@ export default function CommentsPage() {
     </div>
   )
 }
-
 
 
 

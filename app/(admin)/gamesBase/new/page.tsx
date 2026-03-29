@@ -1,6 +1,9 @@
 import { PageHeader } from "@/components/admin/shared/PageHeader"
 import { GameForm } from "@/components/admin/games/GameForm"
 
+export const dynamic = "force-dynamic"
+export const runtime = "edge"
+
 export default function NewGamePage() {
   const breadcrumbs = [
     { label: "Dashboard", href: "/" },
